@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Theme CSS Variables ===== */
+:root,
+.theme-dark {
+    --color-bg: #000000;
+    --color-card: #1A1A1A;
+    --color-card-hover: #252525;
+    --color-surface: #121212;
+    --color-text: #ffffff;
+    --color-text-secondary: #a1a1aa;
+    --color-text-muted: #71717a;
+    --color-text-dim: #52525b;
+    --color-text-faint: #3f3f46;
+    --color-border: rgba(255, 255, 255, 0.05);
+    --color-border-light: rgba(255, 255, 255, 0.1);
+    --color-border-medium: rgba(255, 255, 255, 0.2);
+    --color-overlay: rgba(0, 0, 0, 0.6);
+    --color-overlay-heavy: rgba(0, 0, 0, 0.8);
+    --color-btn-secondary: #27272a;
+    --color-btn-secondary-text: #d4d4d8;
+    --color-gradient-solid: #000000;
+    --color-input-bg: #1A1A1A;
+    --color-shadow: rgba(0, 0, 0, 0.5);
+    --color-glow: rgba(255, 255, 255, 0.05);
+    --color-text-inverse: #000000;
+    --color-bg-inverse: #ffffff;
+    --color-ball-base: #E0E0E0;
+    --color-ball-mid: #C0C0C0;
+    --color-ball-deep: #A0A0A0;
+    --color-ball-highlight: 0.7;
+    --color-ball-specular: 0.9;
+}
+
+.theme-light {
+    --color-bg: #F2F2F7;
+    --color-card: #FFFFFF;
+    --color-card-hover: #F5F5F5;
+    --color-surface: #E8E8ED;
+    --color-text: #1C1C1E;
+    --color-text-secondary: #6B7280;
+    --color-text-muted: #9CA3AF;
+    --color-text-dim: #D1D5DB;
+    --color-text-faint: #E5E7EB;
+    --color-border: rgba(0, 0, 0, 0.06);
+    --color-border-light: rgba(0, 0, 0, 0.1);
+    --color-border-medium: rgba(0, 0, 0, 0.15);
+    --color-overlay: rgba(0, 0, 0, 0.4);
+    --color-overlay-heavy: rgba(0, 0, 0, 0.6);
+    --color-btn-secondary: #E5E7EB;
+    --color-btn-secondary-text: #374151;
+    --color-gradient-solid: #F2F2F7;
+    --color-input-bg: #FFFFFF;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    --color-glow: rgba(0, 0, 0, 0.03);
+    --color-text-inverse: #ffffff;
+    --color-bg-inverse: #1C1C1E;
+    --color-ball-base: #F0F0F0;
+    --color-ball-mid: #DCDCDC;
+    --color-ball-deep: #B8B8B8;
+    --color-ball-highlight: 0.85;
+    --color-ball-specular: 1;
+}
+
+.theme-dark-navy {
+    --color-bg: #0B1426;
+    --color-card: #152040;
+    --color-card-hover: #1C2A50;
+    --color-surface: #101B33;
+    --color-text: #ffffff;
+    --color-text-secondary: #a1a1aa;
+    --color-text-muted: #71717a;
+    --color-text-dim: #52525b;
+    --color-text-faint: #3f3f46;
+    --color-border: rgba(255, 255, 255, 0.07);
+    --color-border-light: rgba(255, 255, 255, 0.12);
+    --color-border-medium: rgba(255, 255, 255, 0.2);
+    --color-overlay: rgba(11, 20, 38, 0.7);
+    --color-overlay-heavy: rgba(11, 20, 38, 0.9);
+    --color-btn-secondary: #1C2A50;
+    --color-btn-secondary-text: #d4d4d8;
+    --color-gradient-solid: #0B1426;
+    --color-input-bg: #152040;
+    --color-shadow: rgba(0, 0, 0, 0.5);
+    --color-glow: rgba(255, 255, 255, 0.05);
+    --color-text-inverse: #000000;
+    --color-bg-inverse: #ffffff;
+    --color-ball-base: #E8ECF4;
+    --color-ball-mid: #D0D8E8;
+    --color-ball-deep: #A8B4C8;
+    --color-ball-highlight: 0.8;
+    --color-ball-specular: 1;
+}
+
+.theme-navy {
+    --color-bg: #1B2A4A;
+    --color-card: #243560;
+    --color-card-hover: #2D4070;
+    --color-surface: #1F2F52;
+    --color-text: #F0F4FA;
+    --color-text-secondary: #B0BDD4;
+    --color-text-muted: #8494B2;
+    --color-text-dim: #5E6F8E;
+    --color-text-faint: #3D4E6B;
+    --color-border: rgba(176, 200, 240, 0.12);
+    --color-border-light: rgba(176, 200, 240, 0.18);
+    --color-border-medium: rgba(176, 200, 240, 0.25);
+    --color-overlay: rgba(20, 35, 65, 0.75);
+    --color-overlay-heavy: rgba(20, 35, 65, 0.92);
+    --color-btn-secondary: #2D4070;
+    --color-btn-secondary-text: #D0D8E8;
+    --color-gradient-solid: #1B2A4A;
+    --color-input-bg: #243560;
+    --color-shadow: rgba(10, 18, 40, 0.5);
+    --color-glow: rgba(176, 200, 240, 0.06);
+    --color-text-inverse: #1B2A4A;
+    --color-bg-inverse: #F0F4FA;
+    --color-ball-base: #D0D8E8;
+    --color-ball-mid: #B0BDD4;
+    --color-ball-deep: #8494B2;
+    --color-ball-highlight: 0.85;
+    --color-ball-specular: 0.95;
+}
+
+@layer utilities {
+    .lotto-ball {
+        width: 88px;
+        height: 88px;
+        border-radius: 50%;
+        background:
+            radial-gradient(circle at 35% 30%, #fff 0%, transparent 40%),
+            radial-gradient(circle at 45% 40%, #f5f5f5 0%, #d4d4d4 40%, #a3a3a3 70%, #858585 100%);
+        box-shadow:
+            inset -4px -6px 12px rgba(0, 0, 0, 0.15),
+            inset 2px 3px 8px rgba(255, 255, 255, 0.6),
+            0 8px 20px -4px rgba(0, 0, 0, 0.2),
+            0 2px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+    .lotto-ball::after {
+        content: '';
+        position: absolute;
+        top: 14%;
+        left: 22%;
+        width: 28%;
+        height: 22%;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%);
+    }
+    .metallic-grain {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.03;
+        pointer-events: none;
+    }
+    .line-border {
+        border-bottom: 0.5px solid var(--color-border-light);
+    }
+}
+
+body {
+    min-height: max(884px, 100dvh);
+}

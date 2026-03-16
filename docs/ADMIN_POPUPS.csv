@@ -1,0 +1,26 @@
+팝업ID,팝업명,트리거조건,트리거위치,입력필드,필수필드,선택옵션,버튼,검증규칙,API엔드포인트,성공시동작,비고
+AUTH-POPUP-01,비밀번호 변경,설정 > 관리자 계정 > [비밀번호 변경] 클릭,설정 페이지,"currentPassword (현재 비밀번호), newPassword (새 비밀번호)","currentPassword, newPassword",없음,"[취소] [변경]","새 비밀번호 최소 8자, 영문/숫자/특수문자 포함, 현재 비밀번호 일치 확인",PUT /api/admin/auth/password,팝업 닫기 + 성공 토스트 메시지,에러 시 팝업 내 에러 메시지 표시
+
+USER-POPUP-01,포인트 지급/차감,사용자 상세 > [포인트 지급/차감] 클릭,사용자 상세 페이지,"type (지급/차감 라디오), amount (금액), reason (사유)","type, amount, reason",type: CREDIT(지급) / DEBIT(차감),"[취소] [확인]","amount > 0, reason 최소 5자, 차감 시 잔액 확인",POST /api/admin/users/{userId}/points,"팝업 닫기 + 사용자 상세 페이지 새로고침, 잔액 업데이트",차감 시 잔액 부족하면 에러
+
+USER-POPUP-02,계정 잠금,사용자 상세 > [계정 잠금] 클릭,사용자 상세 페이지,reason (사유),reason,없음,"[취소] [잠금]",reason 최소 10자,PUT /api/admin/users/{userId}/lock,"팝업 닫기 + 사용자 상세 페이지 새로고침, 상태 LOCKED로 변경","잠금 효과: 로그인 차단, API 요청 거부, 구독은 유지"
+
+USER-POPUP-03,계정 잠금 해제,사용자 상세 > [잠금 해제] 클릭,사용자 상세 페이지 (잠긴 계정만),reason (사유),reason,없음,"[취소] [해제]",reason 최소 10자,PUT /api/admin/users/{userId}/unlock,"팝업 닫기 + 사용자 상세 페이지 새로고침, 상태 ACTIVE로 변경",잠긴 계정에만 버튼 표시
+
+PROMO-POPUP-01,프로모션 추가,프로모션 관리 > [+ 새 프로모션 추가] 클릭,프로모션 페이지,"title (제목), content (내용), imageUrl (이미지 URL), startDate (시작일), endDate (종료일), targetAudience (대상), buttonText (버튼 텍스트), buttonAction (버튼 액션), couponCode (쿠폰 코드, COUPON 선택 시), buttonLink (링크, LINK 선택 시)","title, content, imageUrl, startDate, endDate, targetAudience, buttonText, buttonAction","targetAudience: ALL(전체) / NEW_USER(신규 7일) / FREE(FREE 티어), buttonAction: COUPON(쿠폰 지급) / LINK(외부 링크)","[취소] [저장 및 활성화]","title 최대 50자, content 최대 200자, imageUrl HTTPS, startDate < endDate, COUPON 선택 시 couponCode 존재 확인, LINK 선택 시 buttonLink 필수",POST /api/admin/promotions,"팝업 닫기 + 목록 새로고침, 새 프로모션 ACTIVE 상태로 추가",buttonAction에 따라 필수 필드 동적 변경
+
+PROMO-POPUP-02,프로모션 중지 확인,프로모션 목록 > [중지] 클릭,프로모션 페이지,없음,없음,없음,"[취소] [중지]",없음,PUT /api/admin/promotions/{id}/deactivate,"팝업 닫기 + 목록 새로고침, 상태 INACTIVE로 변경",즉시 앱에서 팝업 사라짐
+
+PROMO-POPUP-03,프로모션 삭제 확인,프로모션 목록 > [삭제] 클릭,프로모션 페이지 (ENDED/INACTIVE만),없음,없음,없음,"[취소] [삭제]",status가 ENDED 또는 INACTIVE만 삭제 가능,DELETE /api/admin/promotions/{id},팝업 닫기 + 목록 새로고침,ACTIVE 상태는 삭제 불가 (에러)
+
+COUPON-POPUP-01,쿠폰 생성,쿠폰 관리 > [+ 새 쿠폰 생성] 클릭,쿠폰 페이지,"code (쿠폰 코드), pointAmount (지급 포인트), maxUsage (발급 제한), validFrom (유효 시작일), validUntil (유효 종료일)","code, pointAmount","maxUsage: 무제한(null) / 제한(숫자), 유효기간: 상시(null) / 기간 지정","[취소] [생성]","code 영문 대문자/숫자만 5~20자, code 중복 확인, pointAmount > 0, maxUsage >= 1 또는 null, validFrom < validUntil (둘 다 있을 경우)",POST /api/admin/coupons,"팝업 닫기 + 목록 새로고침, 새 쿠폰 추가",코드 중복 시 에러 표시
+
+COUPON-POPUP-02,쿠폰 중지 확인,쿠폰 목록 > [중지] 클릭,쿠폰 페이지,없음,없음,없음,"[취소] [중지]",없음,PUT /api/admin/coupons/{id}/deactivate,"팝업 닫기 + 목록 새로고침, 상태 INACTIVE로 변경","신규 사용 차단, 기존 발급분은 사용 가능"
+
+COUPON-POPUP-03,쿠폰 삭제 확인,쿠폰 목록 > [삭제] 클릭,쿠폰 페이지,없음,없음,없음,"[취소] [삭제]",사용 내역 있으면 삭제 불가,DELETE /api/admin/coupons/{id},팝업 닫기 + 목록 새로고침,사용 내역 있으면 에러
+
+AD-POPUP-01,광고 비활성화 확인,광고 제어 > [광고 비활성화] 클릭,광고 페이지,reason (사유),reason,없음,"[취소] [비활성화]",reason 필수,PUT /api/admin/ad-control/disable,"팝업 닫기 + 상태 업데이트, 광고 비활성화","경고 메시지: FREE 사용자 불만 가능, 광고 수익 중단"
+
+AD-POPUP-02,광고 활성화 확인,광고 제어 > [광고 활성화] 클릭,광고 페이지 (비활성 상태일 때),reason (사유),reason,없음,"[취소] [활성화]",reason 필수,PUT /api/admin/ad-control/enable,"팝업 닫기 + 상태 업데이트, 광고 활성화",비활성 상태일 때만 버튼 표시
+
+REPORT-POPUP-01,신고 처리,신고 목록 > [처리] 클릭,신고 페이지,"action (조치), adminNote (관리자 메모)","action, adminNote","action: DISMISS(무혐의) / WARNING(경고) / LOCK(계정잠금)","[취소] [처리 완료]","adminNote 최소 10자, action = LOCK 시 대상자 계정 잠금",PUT /api/admin/reports/{id}/resolve,"팝업 닫기 + 목록 새로고침, 신고 상태 RESOLVED, action=LOCK이면 사용자 계정 잠금도 실행",신고 내용 + 대상자 활동 요약 함께 표시

@@ -1,0 +1,266 @@
+page,key,context,ko,en,ja,zh-CN,zh-TW,es
+common,app_name,애플리케이션 이름,CWG,CWG,CWG,CWG,CWG,CWG
+common,back,뒤로가기 버튼,뒤로,Back,戻る,返回,返回,Atrás
+common,close,닫기 버튼,닫기,Close,閉じる,关闭,關閉,Cerrar
+common,save,저장 버튼,저장,Save,保存,保存,保存,Guardar
+common,cancel,취소 버튼,취소,Cancel,キャンセル,取消,取消,Cancelar
+common,confirm,확인 버튼,확인,Confirm,確認,确认,確認,Confirmar
+common,delete,삭제 버튼,삭제,Delete,削除,删除,刪除,Eliminar
+common,edit,수정 버튼,수정,Edit,編集,编辑,編輯,Editar
+common,search,검색,검색,Search,検索,搜索,搜索,Buscar
+common,loading,로딩중,로딩중...,Loading...,読み込み中...,加载中...,載入中...,Cargando...
+common,error,에러,오류가 발생했습니다,An error occurred,エラーが発生しました,发生错误,發生錯誤,Se produjo un error
+common,success,성공,성공!,Success!,成功！,成功！,成功！,¡Éxito!
+common,point,포인트,P,P,P,P,P,P
+common,points,포인트 (복수),포인트,Points,ポイント,积分,積分,Puntos
+
+lottery_selection,title,페이지 제목,복권 선택,Select Lottery,宝くじを選択,选择彩票,選擇彩票,Seleccionar Lotería
+lottery_selection,subtitle,설명,참여하실 복권을 선택하세요,Select a lottery to participate,参加する宝くじを選択してください,选择您要参与的彩票,選擇您要參與的彩票,Seleccione una lotería para participar
+lottery_selection,kr_lotto,한국 로또,한국 로또 6/45,Korea Lotto 6/45,韓国ロト6/45,韩国乐透6/45,韓國樂透6/45,Lotto Coreano 6/45
+lottery_selection,jp_loto,일본 로또,일본 로토6,Japan Loto6,日本ロト6,日本乐透6,日本樂透6,Loto6 Japonés
+lottery_selection,eu_euromillions,유로밀리언스,EuroMillions,EuroMillions,ユーロミリオンズ,欧洲百万,歐洲百萬,EuroMillones
+lottery_selection,eu_eurojackpot,유로잭팟,Eurojackpot,Eurojackpot,ユーロジャックポット,欧洲大奖,歐洲大獎,Eurojackpot
+
+bottom_nav,home,홈 탭,홈,Home,ホーム,主页,主頁,Inicio
+bottom_nav,picks,픽 탭,픽생성,Picks,ピック,生成号码,生成號碼,Números
+bottom_nav,championship,챔피언십 탭,챔피언십,Championship,チャンピオンシップ,锦标赛,錦標賽,Campeonato
+bottom_nav,scan,스캔 탭,스캔,Scan,スキャン,扫描,掃描,Escanear
+bottom_nav,my,마이 탭,MY,MY,マイ,我的,我的,Mi Cuenta
+
+home,greeting_guest,게스트 인사,낙첨 티켓을 스캔하고<br/>포인트를 적립하세요,Scan losing tickets and<br/>earn points,落選チケットをスキャンして<br/>ポイントを貯めましょう,扫描未中奖彩票<br/>积累积分,掃描未中獎彩票<br/>累積積分,Escanee tickets perdedores<br/>y acumule puntos
+home,greeting_subtitle,게스트 설명,CWG 픽과 챔피언십으로 나만의 번호를 만들어보세요,Create your own numbers with CWG Picks and Championship,CWGピックとチャンピオンシップで自分の番号を作りましょう,使用CWG推荐和锦标赛创建您的号码,使用CWG推薦和錦標賽創建您的號碼,Cree sus propios números con Picks y Campeonato de CWG
+home,start_free,무료 시작,무료로 시작하기 (+100P 보너스),Start Free (+100P Bonus),無料で始める（+100Pボーナス）,免费开始（+100P奖励）,免費開始（+100P獎勵）,Comenzar Gratis (+100P Bonus)
+home,my_points,내 포인트,내 포인트,My Points,マイポイント,我的积分,我的積分,Mis Puntos
+home,this_month_scans,이번달 스캔,이번 달 스캔,Scans This Month,今月のスキャン,本月扫描,本月掃描,Escaneos Este Mes
+home,remaining,남은 횟수,남음,remaining,残り,剩余,剩餘,restantes
+home,cwg_ranking,CWG 랭킹 섹션,CWG 랭킹,CWG Ranking,CWGランキング,CWG排行榜,CWG排行榜,Ranking CWG
+home,winning_picks_ranking,당첨 픽 랭킹,내 당첨 픽 랭킹,My Winning Picks Ranking,私の当選ピックランキング,我的中奖号码排名,我的中獎號碼排名,Ranking de Mis Números Ganadores
+home,view_all,전체보기,전체 보기,View All,すべて表示,查看全部,查看全部,Ver Todo
+home,no_winning_picks,당첨 픽 없음,아직 당첨 픽이 없어요<br/>픽을 받고 당첨을 기다려보세요!,No winning picks yet<br/>Get picks and wait for results!,まだ当選ピックがありません<br/>ピックを取得して結果を待ちましょう！,还没有中奖号码<br/>获取号码并等待开奖！,還沒有中獎號碼<br/>獲取號碼並等待開獎！,Aún no hay números ganadores<br/>¡Obtenga números y espere los resultados!
+home,go_to_picks,픽 보러가기,픽생성 보러가기,Go to Picks,ピックを見る,查看号码生成,查看號碼生成,Ir a Números
+home,this_week_picks,이번주 픽,이번 주 CWG 픽,This Week's CWG Picks,今週のCWGピック,本周CWG推荐,本週CWG推薦,Picks CWG de Esta Semana
+home,view_all_picks,전체 픽 보기,전체 픽 보기 (10세트),View All Picks (10 Sets),すべてのピックを見る（10セット）,查看所有号码（10组）,查看所有號碼（10組）,Ver Todos los Números (10 Sets)
+home,unlock_picks,픽 열람,픽 열람하기,Unlock Picks,ピックを開く,解锁号码,解鎖號碼,Desbloquear Números
+home,create_custom,나만의 번호,나만의 번호<br/>생성하기,Create Your<br/>Own Numbers,自分の番号を<br/>作成,创建您的<br/>号码,創建您的<br/>號碼,Crear Sus<br/>Propios Números
+home,per_generation,생성당 비용,100P / 생성,100P / generation,100P / 生成,100P / 生成,100P / 生成,100P / generación
+home,free_today,오늘 무료,오늘 1회 무료,1 Free Today,今日1回無料,今日1次免费,今日1次免費,1 Gratis Hoy
+home,championship_cta,챔피언십 버튼,챔피언십 →,Championship →,チャンピオンシップ →,锦标赛 →,錦標賽 →,Campeonato →
+home,this_draw_stats,이번 회차 통계,이번 회차 통계,This Draw Statistics,今回の抽選統計,本期开奖统计,本期開獎統計,Estadísticas de Este Sorteo
+home,total_scans,총 스캔,총 스캔 수,Total Scans,総スキャン数,总扫描数,總掃描數,Escaneos Totales
+home,hot_numbers,핫 번호,Hot,Hot,ホット,热门号码,熱門號碼,Calientes
+home,cold_numbers,콜드 번호,Cold,Cold,コールド,冷门号码,冷門號碼,Fríos
+home,recent_scans,최근 스캔,최근 스캔 내역,Recent Scans,最近のスキャン履歴,最近扫描记录,最近掃描記錄,Escaneos Recientes
+home,more,더보기,더보기,More,もっと見る,更多,更多,Más
+home,upgrade_banner_title,업그레이드,구독하고 더 많이 버세요,Subscribe and Earn More,サブスクライブしてもっと稼ぐ,订阅并赚取更多,訂閱並賺取更多,Suscríbase y Gane Más
+home,upgrade_banner_desc,설명,픽 무제한 + 포인트 1.5배 ~ 2배 적립,Unlimited Picks + 1.5x ~ 2x Points,ピック無制限 + ポイント1.5倍〜2倍,无限号码 + 1.5倍~2倍积分,無限號碼 + 1.5倍~2倍積分,Números Ilimitados + 1.5x ~ 2x Puntos
+home,upgrade,업그레이드 버튼,업그레이드,Upgrade,アップグレード,升级,升級,Actualizar
+
+picks,title,픽생성 제목,CWG 픽생성,CWG Picks,CWGピック生成,CWG号码生成,CWG號碼生成,Generación de Números CWG
+picks,lottery_info,복권 정보,KR 한국 로또 6/45,KR Korea Lotto 6/45,KR 韓国ロト6/45,KR 韩国乐透6/45,KR 韓國樂透6/45,KR Lotto Coreano 6/45
+picks,expected_prize,예상 당첨금,예상 1등 당첨금,Expected 1st Prize,1等予想賞金,预计头奖,預計頭獎,Premio Esperado 1°
+picks,amount,금액,25억원,2.5 Billion Won,25億ウォン,25亿韩元,25億韓元,2.5 Mil Millones de Won
+picks,draw_date,추첨일,추첨일,Draw Date,抽選日,开奖日期,開獎日期,Fecha del Sorteo
+picks,after_tax,세후,세후 수령액,After Tax,税引後受取額,税后金额,稅後金額,Después de Impuestos
+picks,tax_rate,세율,33% 과세,33% Tax,33%課税,33%税费,33%稅費,33% de Impuestos
+picks,generated_picks,생성된 픽,생성된 픽 (10세트),Generated Picks (10 Sets),生成されたピック（10セット）,已生成号码（10组）,已生成號碼（10組）,Números Generados (10 Sets)
+picks,unlimited_access,무제한 열람,무제한 열람,Unlimited Access,無制限閲覧,无限查看,無限查看,Acceso Ilimitado
+picks,locked,잠김,번호 잠김,Locked,ロック済み,号码锁定,號碼鎖定,Bloqueado
+picks,unlock_info,열람 정보,로그인 후 픽을 열람할 수 있습니다,You can view picks after login,ログイン後にピックを閲覧できます,登录后可查看号码,登入後可查看號碼,Puede ver los números después de iniciar sesión
+picks,one_time_unlock,1회 열람,{cost}P로 1회 열람,Unlock for {cost}P,{cost}Pで1回閲覧,{cost}P解锁1次,{cost}P解鎖1次,Desbloquear por {cost}P
+picks,subscribe_unlimited,구독 무제한,구독하면 무제한,Unlimited with subscription,サブスクリプションで無制限,订阅享无限次数,訂閱享無限次數,Ilimitado con suscripción
+picks,current_points,현재 포인트,보유 포인트,Your Points,保有ポイント,当前积分,當前積分,Sus Puntos
+picks,unlock_button,열람 버튼,{cost}P로 열람하기,Unlock for {cost}P,{cost}Pで閲覧,{cost}P解锁,{cost}P解鎖,Desbloquear por {cost}P
+picks,insufficient_points,포인트 부족,포인트 부족 ({needed}P 더 필요),Insufficient Points ({needed}P more needed),ポイント不足（あと{needed}P必要）,积分不足（还需{needed}P）,積分不足（還需{needed}P）,Puntos Insuficientes ({needed}P más necesarios)
+picks,learn_subscription,구독 알아보기,구독 알아보기 &gt;,Learn About Subscription &gt;,サブスクリプションについて &gt;,了解订阅 &gt;,了解訂閱 &gt;,Más Sobre Suscripción &gt;
+picks,auto_check,자동 확인,추첨 후 번호 일치 결과가 자동으로 확인됩니다,Results will be automatically checked after the draw,抽選後に番号の一致結果が自動的に確認されます,开奖后将自动检查号码,開獎後將自動檢查號碼,Los resultados se verificarán automáticamente después del sorteo
+picks,disclaimer,면책 사항,CWG 픽의 번호는 AI 분석 알고리즘에 기반하여 랜덤으로 생성되며 당첨을 보장하지 않습니다. 당첨 결과에 대한 책임은 사용자 본인에게 있습니다.,CWG Pick numbers are randomly generated based on AI analysis algorithms and do not guarantee winning. Users are responsible for the results.,CWGピックの番号はAI分析アルゴリズムに基づいてランダムに生成され当選を保証するものではありません。当選結果についての責任はユーザー本人にあります。,CWG推荐号码基于AI分析算法随机生成，不保证中奖。中奖结果的责任由用户本人承担。,CWG推薦號碼基於AI分析算法隨機生成，不保證中獎。中獎結果的責任由用戶本人承擔。,Los números de CWG Picks se generan aleatoriamente basándose en algoritmos de análisis de IA y no garantizan ganar. Los usuarios son responsables de los resultados.
+picks,unlock_confirm_title,열람 확인 제목,픽 열람 확인,Confirm Unlock,ピック閲覧確認,确认解锁号码,確認解鎖號碼,Confirmar Desbloqueo
+picks,unlock_confirm_desc,열람 확인 설명,{cost}P를 사용해서 이번 주 CWG 픽<br/>10세트를 열람합니다,Use {cost}P to view this week's CWG picks<br/>(10 sets),{cost}Pを使用して今週のCWGピック<br/>10セットを閲覧します,使用{cost}P查看本周CWG推荐<br/>10组号码,使用{cost}P查看本週CWG推薦<br/>10組號碼,Use {cost}P para ver los números CWG de esta semana<br/>(10 sets)
+picks,use_points,포인트 사용,{cost}P 사용하기,Use {cost}P,{cost}Pを使用,使用{cost}P,使用{cost}P,Usar {cost}P
+
+championship,title,챔피언십 제목,챔피언십,Championship,チャンピオンシップ,锦标赛,錦標賽,Campeonato
+championship,subtitle,설명,나만의 전략으로 번호를 만들자!,Create numbers with your own strategy!,自分の戦略で番号を作ろう！,用您的策略创建号码！,用您的策略創建號碼！,¡Cree números con su propia estrategia!
+championship,history,히스토리,히스토리,History,履歴,历史记录,歷史記錄,Historial
+championship,pro_benefit,PRO 혜택,PRO 혜택: 오늘 1회 무료 생성 남아있음 (추가 생성 시 50P),PRO Benefit: 1 Free Generation Today (50P for additional),PRO特典: 今日1回無料生成残り（追加生成時50P）,PRO福利：今日剩余1次免费生成（额外生成50P）,PRO福利：今日剩餘1次免費生成（額外生成50P）,Beneficio PRO: 1 Generación Gratis Hoy (50P adicionales)
+championship,preset_trend,트렌드,트렌드,Trend,トレンド,趋势,趨勢,Tendencia
+championship,preset_reverse,역발상,역발상,Reverse,逆転の発想,逆向思维,逆向思維,Reverso
+championship,preset_balance,균형,균형,Balance,バランス,平衡,平衡,Balance
+championship,preset_math,수학,수학,Math,数学,数学,數學,Matemático
+championship,preset_custom,커스텀,커스텀,Custom,カスタム,自定义,自定義,Personalizado
+championship,preset_mynumber,내번호,내번호,My Numbers,マイナンバー,我的号码,我的號碼,Mis Números
+championship,active_filters,활성 필터,활성 필터,Active Filters,アクティブフィルター,活跃筛选器,活躍篩選器,Filtros Activos
+championship,reset,초기화,초기화,Reset,リセット,重置,重置,Restablecer
+championship,filter_group_frequency,빈도,빈도,Frequency,頻度,频率,頻率,Frecuencia
+championship,filter_group_pattern,패턴,패턴,Pattern,パターン,模式,模式,Patrón
+championship,filter_group_math,수학,수학,Math,数学,数学,數學,Matemático
+championship,filter_group_history,히스토리,히스토리,History,履歴,历史,歷史,Historial
+championship,filter_group_personal,개인 설정,개인 설정,Personal,個人設定,个人设置,個人設置,Personal
+championship,filter_hot,핫 넘버,핫 넘버,Hot Numbers,ホットナンバー,热门号码,熱門號碼,Números Calientes
+championship,filter_hot_desc,설명,최근 자주 출현한 번호 선호,Prefer recently frequent numbers,最近よく出現した番号を優先,偏好最近频繁出现的号码,偏好最近頻繁出現的號碼,Preferir números frecuentes recientes
+championship,filter_cold,콜드 넘버,콜드 넘버,Cold Numbers,コールドナンバー,冷门号码,冷門號碼,Números Fríos
+championship,filter_cold_desc,설명,최근 출현이 적은 번호 선호,Prefer rarely appearing numbers,最近出現が少ない番号を優先,偏好最近很少出现的号码,偏好最近很少出現的號碼,Preferir números poco frecuentes
+championship,lucky_number_setting,럭키번호 설정,럭키/제외 번호 설정,Lucky/Exclude Number Settings,ラッキー/除外番号設定,幸运/排除号码设置,幸運/排除號碼設置,Configuración de Números de Suerte/Excluidos
+championship,lucky_number_desc,설명,개인 설정 필터에 적용됩니다,Applied to personal filter,個人設定フィルターに適用されます,应用于个人设置筛选器,應用於個人設置篩選器,Se aplica al filtro personal
+championship,cost,비용,비용,Cost,コスト,费用,費用,Costo
+championship,balance,잔액,잔액,Balance,残高,余额,餘額,Saldo
+championship,insufficient_points_msg,포인트 부족,포인트가 부족합니다 ({needed}P 더 필요),Insufficient points ({needed}P more needed),ポイントが不足しています（あと{needed}P必要）,积分不足（还需{needed}P）,積分不足（還需{needed}P）,Puntos insuficientes ({needed}P más necesarios)
+championship,generate,생성하기,번호 생성하기,Generate Numbers,番号を生成,生成号码,生成號碼,Generar Números
+championship,use_after_login,로그인 후 사용,로그인 후 사용하기,Use After Login,ログイン後に使用,登录后使用,登入後使用,Usar Después de Iniciar Sesión
+championship,confirm_title,생성 확인,챔피언십 번호 생성 확인,Confirm Championship Generation,チャンピオンシップ番号生成確認,确认锦标赛号码生成,確認錦標賽號碼生成,Confirmar Generación de Campeonato
+championship,confirm_desc,설명,{cost}P를 사용해서 나만의 전략으로<br/>번호 6개를 생성합니다,Use {cost}P to generate<br/>6 numbers with your strategy,{cost}Pを使用して自分の戦略で<br/>6つの番号を生成します,使用{cost}P根据您的策略<br/>生成6个号码,使用{cost}P根據您的策略<br/>生成6個號碼,Use {cost}P para generar<br/>6 números con su estrategia
+championship,confirm_free,무료 생성,무료로,Free,無料で,免费,免費,Gratis
+championship,disclaimer_champ,챔피언십 면책,번호는 사용자마다 랜덤으로 생성되며 당첨 결과에 대한 책임을 지지 않습니다.,Numbers are randomly generated per user and we are not responsible for winning results.,番号はユーザーごとにランダムに生成され当選結果についての責任を負いません。,号码为每个用户随机生成，我们不对中奖结果负责。,號碼為每個用戶隨機生成，我們不對中獎結果負責。,Los números se generan aleatoriamente por usuario y no somos responsables de los resultados.
+
+scan,title,스캔 제목,낙첨 티켓 스캔,Scan Losing Ticket,落選チケットスキャン,扫描未中奖彩票,掃描未中獎彩票,Escanear Ticket Perdedor
+scan,subtitle,설명,카메라로 스캔하거나 직접 입력하세요,Scan with camera or enter manually,カメラでスキャンするか手動で入力,使用相机扫描或手动输入,使用相機掃描或手動輸入,Escanee con la cámara o ingrese manualmente
+scan,scan_ticket,티켓 스캔,티켓 스캔하기,Scan Ticket,チケットをスキャン,扫描彩票,掃描彩票,Escanear Ticket
+scan,manual_entry,직접 입력,직접 입력하기,Manual Entry,手動入力,手动输入,手動輸入,Entrada Manual
+scan,camera_permission,카메라 권한,카메라 권한이 필요합니다,Camera permission required,カメラの権限が必要です,需要相机权限,需要相機權限,Se requiere permiso de cámara
+scan,scan_guide,스캔 가이드,티켓의 QR코드 또는 번호 영역에 카메라를 맞춰주세요,Align camera with QR code or number area,チケットのQRコードまたは番号領域にカメラを合わせてください,将相机对准二维码或号码区域,將相機對準二維碼或號碼區域,Alinee la cámara con el código QR o el área de números
+scan,scanning,스캔중,스캔 중...,Scanning...,スキャン中...,扫描中...,掃描中...,Escaneando...
+scan,retake,재촬영,다시 찍기,Retake,再撮影,重新拍摄,重新拍攝,Volver a Tomar
+
+manual_entry,title,직접입력 제목,직접 입력,Manual Entry,手動入力,手动输入,手動輸入,Entrada Manual
+manual_entry,select_lottery,복권 선택,복권 선택,Select Lottery,宝くじを選択,选择彩票,選擇彩票,Seleccionar Lotería
+manual_entry,round,회차,회차,Round,回,期数,期數,Ronda
+manual_entry,purchase_date,구매일,구매일,Purchase Date,購入日,购买日期,購買日期,Fecha de Compra
+manual_entry,number_input,번호 입력,번호 입력,Number Input,番号入力,号码输入,號碼輸入,Entrada de Número
+manual_entry,add,추가,추가,Add,追加,添加,添加,Agregar
+manual_entry,duplicate_check,중복 체크,동일한 번호를 다른 사용자는 등록할 수 있지만 한 사용자가 같은 번호를 중복으로 등록할 수 없습니다.,Other users can register the same numbers but one user cannot register duplicate numbers.,同じ番号を他のユーザーは登録できますが1人のユーザーが同じ番号を重複して登録することはできません。,其他用户可以注册相同的号码，但一个用户不能重复注册相同的号码。,其他用戶可以註冊相同的號碼，但一個用戶不能重複註冊相同的號碼。,Otros usuarios pueden registrar los mismos números pero un usuario no puede registrar números duplicados.
+manual_entry,quick_select,빠른 선택,빠른 선택,Quick Select,クイック選択,快速选择,快速選擇,Selección Rápida
+manual_entry,check_losing,낙첨 확인,낙첨 확인하기 ({points}P 적립),Check Losing ({points}P reward),落選確認（{points}Pポイント付与）,检查未中奖（{points}P奖励）,檢查未中獎（{points}P獎勵）,Verificar Perdedor ({points}P recompensa)
+manual_entry,enter_all_numbers,모든 번호 입력,번호 {total}개 모두 입력하세요,Enter all {total} numbers,番号{total}個すべて入力してください,输入所有{total}个号码,輸入所有{total}個號碼,Ingrese todos los {total} números
+manual_entry,disclaimer_manual,직접입력 면책,직접 입력한 번호는 사용자가 선택한 것으로 당첨을 보장하지 않습니다. 당첨 결과에 대한 책임은 사용자 본인에게 있습니다.,Manually entered numbers are user-selected and do not guarantee winning. Users are responsible for the results.,手動入力された番号はユーザーが選択したもので当選を保証するものではありません。当選結果についての責任はユーザー本人にあります。,手动输入的号码由用户选择，不保证中奖。用户对结果负责。,手動輸入的號碼由用戶選擇，不保證中獎。用戶對結果負責。,Los números ingresados manualmente son seleccionados por el usuario y no garantizan ganar. Los usuarios son responsables de los resultados.
+
+my,title,마이 제목,MY,MY,マイ,我的,我的,Mi Cuenta
+my,profile,프로필,프로필,Profile,プロフィール,个人资料,個人資料,Perfil
+my,nickname,닉네임,닉네임,Nickname,ニックネーム,昵称,暱稱,Apodo
+my,email,이메일,이메일,Email,メール,邮箱,郵箱,Email
+my,tier,티어,티어,Tier,ティア,等级,等級,Nivel
+my,joined_date,가입일,가입일,Joined,加入日,加入日期,加入日期,Fecha de Registro
+my,menu,메뉴,메뉴,Menu,メニュー,菜单,菜單,Menú
+my,point_history,포인트 내역,포인트 내역,Point History,ポイント履歴,积分记录,積分記錄,Historial de Puntos
+my,point_shop,포인트샵,포인트샵,Point Shop,ポイントショップ,积分商城,積分商城,Tienda de Puntos
+my,subscription,구독 관리,구독 관리,Subscription,サブスクリプション管理,订阅管理,訂閱管理,Suscripción
+my,lucky_numbers,럭키번호,럭키 번호 설정,Lucky Numbers,ラッキーナンバー設定,幸运号码设置,幸運號碼設置,Números de Suerte
+my,coupon_wallet,쿠폰 지갑,쿠폰 지갑,Coupon Wallet,クーポンウォレット,优惠券钱包,優惠券錢包,Cartera de Cupones
+my,notifications,알림,알림,Notifications,通知,通知,通知,Notificaciones
+my,tutorial,사용 가이드,사용 가이드,Tutorial,使用ガイド,使用指南,使用指南,Tutorial
+my,help,고객센터,고객센터,Help Center,お問い合わせ,客服中心,客服中心,Centro de Ayuda
+my,settings,설정,설정,Settings,設定,设置,設置,Configuración
+my,logout,로그아웃,로그아웃,Logout,ログアウト,退出登录,登出,Cerrar Sesión
+
+tier,guest,게스트,GUEST,GUEST,ゲスト,访客,訪客,INVITADO
+tier,free,프리,FREE,FREE,フリー,免费,免費,GRATIS
+tier,standard,스탠다드,STANDARD,STANDARD,スタンダード,标准,標準,ESTÁNDAR
+tier,pro,프로,PRO,PRO,プロ,专业,專業,PRO
+
+subscription,title,구독 제목,구독 플랜,Subscription Plans,サブスクリプションプラン,订阅计划,訂閱計劃,Planes de Suscripción
+subscription,current_plan,현재 플랜,현재 플랜,Current Plan,現在のプラン,当前计划,當前計劃,Plan Actual
+subscription,choose_plan,플랜 선택,플랜을 선택하세요,Choose a plan,プランを選択してください,选择一个计划,選擇一個計劃,Elija un plan
+subscription,standard_plan,스탠다드 플랜,Standard 구독 1개월,Standard 1 Month,スタンダード1ヶ月,标准版1个月,標準版1個月,Estándar 1 Mes
+subscription,pro_plan,프로 플랜,Pro 구독 1개월,Pro 1 Month,プロ1ヶ月,专业版1个月,專業版1個月,Pro 1 Mes
+subscription,feature_unlimited_picks,무제한 픽,CWG 픽 무제한 열람,Unlimited CWG Picks,CWGピック無制限閲覧,CWG推荐无限查看,CWG推薦無限查看,Picks CWG Ilimitados
+subscription,feature_points_multiplier,포인트 배율,스캔 포인트 {multiplier}배,Scan Points {multiplier}x,スキャンポイント{multiplier}倍,扫描积分{multiplier}倍,掃描積分{multiplier}倍,Puntos de Escaneo {multiplier}x
+subscription,feature_ad_removal,광고 제거,광고 제거,Ad-free,広告なし,去除广告,去除廣告,Sin Anuncios
+subscription,feature_daily_championship,일일 챔피언십,챔피언십 1일 1회 무료,1 Free Championship Daily,1日1回チャンピオンシップ無料,每日1次免费锦标赛,每日1次免費錦標賽,1 Campeonato Gratis Diario
+subscription,subscribe,구독하기,구독하기,Subscribe,サブスクライブ,订阅,訂閱,Suscribirse
+subscription,expires_on,만료일,만료일,Expires,有効期限,到期日期,到期日期,Expira
+subscription,renews_on,갱신일,자동 갱신일,Auto-renews,自動更新日,自动续订日期,自動續訂日期,Renovación Automática
+
+winner,this_week,이번주 당첨,이번 주 당첨자 발생!,Winners This Week!,今週の当選者が出ました！,本周产生中奖者！,本週產生中獎者！,¡Ganadores de Esta Semana!
+winner,last_week,지난주 당첨,지난주 당첨 현황,Last Week Winners,先週の当選状況,上周中奖情况,上週中獎情況,Ganadores de la Semana Pasada
+winner,total_winners,총 당첨자,총 {count}명,Total {count},合計{count}名,共{count}人,共{count}人,Total {count}
+winner,total_prize,총 당첨금,총 당첨금,Total Prize,総賞金,总奖金,總獎金,Premio Total
+winner,draw_date_short,추첨일 (짧음),추첨일,Draw Date,抽選日,开奖日期,開獎日期,Fecha de Sorteo
+winner,high_prize_ranking,고액 당첨,역대 고액 당첨 TOP 3,High Prize TOP 3,歴代高額当選TOP3,历史高额中奖TOP3,歷史高額中獎TOP3,Premios Altos TOP 3
+winner,all_time_stats,역대 통계,CWG 역대 당첨 현황,CWG All-Time Winners,CWG歴代当選状況,CWG历史中奖情况,CWG歷史中獎情況,Ganadores Históricos de CWG
+winner,participation_stats,참여 현황,이번 주 참여 현황,This Week's Participation,今週の参加状況,本周参与情况,本週參與情況,Participación de Esta Semana
+winner,participating_users,참여 유저,참여 유저,Users,参加ユーザー,参与用户,參與用戶,Usuarios
+winner,scan_tickets,스캔 티켓,스캔 티켓,Tickets,スキャンチケット,扫描彩票,掃描彩票,Tickets
+winner,cwg_picks,CWG 픽,CWG 픽,CWG Picks,CWGピック,CWG推荐,CWG推薦,Picks CWG
+winner,championship,챔피언십,챔피언십,Championship,チャンピオンシップ,锦标赛,錦標賽,Campeonato
+winner,scan,스캔,스캔,Scan,スキャン,扫描,掃描,Escaneo
+winner,recent_win,최근 당첨,최근 당첨,Recent Win,最近の当選,最近中奖,最近中獎,Ganancia Reciente
+winner,days_ago,며칠 전,{days}일 전,{days} days ago,{days}日前,{days}天前,{days}天前,Hace {days} días
+winner,round,회차,제{round}회,Round {round},第{round}回,第{round}期,第{round}期,Ronda {round}
+
+tutorial,title,튜토리얼 제목,사용 가이드,Tutorial,使用ガイド,使用指南,使用指南,Tutorial
+tutorial,skip,건너뛰기,건너뛰기,Skip,スキップ,跳过,跳過,Saltar
+tutorial,next,다음,다음,Next,次へ,下一步,下一步,Siguiente
+tutorial,start,시작,시작하기,Start,始める,开始,開始,Comenzar
+tutorial,step1_title,1단계 제목,낙첨 티켓 스캔,Scan Losing Tickets,落選チケットスキャン,扫描未中奖彩票,掃描未中獎彩票,Escanear Tickets Perdedores
+tutorial,step1_desc,1단계 설명,카메라로 낙첨 티켓을 스캔하거나 직접 번호를 입력하여 포인트를 적립하세요.,Scan losing tickets with camera or enter numbers manually to earn points.,カメラで落選チケットをスキャンするか手動で番号を入力してポイントを貯めましょう。,使用相机扫描未中奖彩票或手动输入号码来积累积分。,使用相機掃描未中獎彩票或手動輸入號碼來累積積分。,Escanee tickets perdedores con la cámara o ingrese números manualmente para ganar puntos.
+tutorial,step1_detail1,1단계 상세1,카메라로 티켓 스캔 시 자동 인식,Auto-recognition when scanning with camera,カメラでチケットをスキャンすると自動認識,使用相机扫描时自动识别,使用相機掃描時自動識別,Reconocimiento automático al escanear con cámara
+tutorial,step1_detail2,1단계 상세2,직접 입력도 가능,Manual entry also available,手動入力も可能,也可手动输入,也可手動輸入,También disponible entrada manual
+tutorial,step1_detail3,1단계 상세3,FREE: 50P STANDARD: 75P PRO: 100P,FREE: 50P STANDARD: 75P PRO: 100P,フリー: 50P スタンダード: 75P プロ: 100P,免费: 50P 标准: 75P 专业: 100P,免費: 50P 標準: 75P 專業: 100P,GRATIS: 50P ESTÁNDAR: 75P PRO: 100P
+tutorial,step1_detail4,1단계 상세4,광고 시청으로 추가 포인트 획득,Watch ads to earn extra points,広告視聴で追加ポイント獲得,观看广告获得额外积分,觀看廣告獲得額外積分,Vea anuncios para ganar puntos extra
+tutorial,step2_title,2단계 제목,AI 픽 생성,AI Picks,AIピック生成,AI号码生成,AI號碼生成,Números AI
+tutorial,step2_desc,2단계 설명,인공지능이 분석한 추천 번호 10세트를 확인하고 활용하세요.,Check and use 10 sets of AI-analyzed recommended numbers.,AIが分析した推奨番号10セットを確認して活用しましょう。,查看并使用AI分析的10组推荐号码。,查看並使用AI分析的10組推薦號碼。,Consulte y use 10 sets de números recomendados analizados por IA.
+tutorial,step2_detail1,2단계 상세1,AI가 분석한 최적의 번호 조합,Optimal number combinations analyzed by AI,AIが分析した最適な番号の組み合わせ,AI分析的最佳号码组合,AI分析的最佳號碼組合,Combinaciones óptimas de números analizadas por IA
+tutorial,step2_detail2,2단계 상세2,각 픽마다 신뢰도 표시,Confidence level displayed for each pick,各ピックごとに信頼度表示,每组号码显示置信度,每組號碼顯示置信度,Nivel de confianza mostrado para cada selección
+tutorial,step2_detail3,2단계 상세3,포인트로 1회 열람 또는 구독으로 무제한,Unlock once with points or unlimited with subscription,ポイントで1回閲覧またはサブスクリプションで無制限,使用积分解锁一次或订阅享无限次数,使用積分解鎖一次或訂閱享無限次數,Desbloquear una vez con puntos o ilimitado con suscripción
+tutorial,step2_detail4,2단계 상세4,추첨 후 자동으로 당첨 여부 확인,Automatically check winning status after draw,抽選後に自動で当選状況を確認,开奖后自动检查中奖情况,開獎後自動檢查中獎情況,Verificar automáticamente el estado ganador después del sorteo
+tutorial,step3_title,3단계 제목,챔피언십 전략,Championship Strategy,チャンピオンシップ戦略,锦标赛策略,錦標賽策略,Estrategia de Campeonato
+tutorial,step3_desc,3단계 설명,20가지 필터를 조합하여 나만의 전략으로 번호를 생성할 수 있습니다.,Combine 20 filters to generate numbers with your own strategy.,20種類のフィルターを組み合わせて自分の戦略で番号を生成できます。,组合20种筛选器以您的策略生成号码。,組合20種篩選器以您的策略生成號碼。,Combine 20 filtros para generar números con su propia estrategia.
+tutorial,step3_detail1,3단계 상세1,20가지 다양한 필터 조합,20 different filter combinations,20種類の多様なフィルター組み合わせ,20种不同的筛选器组合,20種不同的篩選器組合,20 combinaciones de filtros diferentes
+tutorial,step3_detail2,3단계 상세2,핫/콜드 넘버 듀 넘버 분석,Hot/Cold/Due number analysis,ホット/コールドナンバー デューナンバー分析,热门/冷门/到期号码分析,熱門/冷門/到期號碼分析,Análisis de números Calientes/Fríos/Vencidos
+tutorial,step3_detail3,3단계 상세3,홀짝 고저 구간 분산 조정,Adjust odd/even high/low distribution,奇数/偶数 高/低 区間分散調整,调整奇数/偶数 高/低分布,調整奇數/偶數 高/低分佈,Ajustar distribución par/impar alto/bajo
+tutorial,step3_detail4,3단계 상세4,나만의 전략을 프리셋으로 저장,Save your strategy as a preset,自分の戦略をプリセットとして保存,将您的策略保存为预设,將您的策略保存為預設,Guardar su estrategia como preestablecido
+tutorial,step4_title,4단계 제목,포인트 적립 및 활용,Earn and Use Points,ポイント貯めて活用,积累和使用积分,累積和使用積分,Ganar y Usar Puntos
+tutorial,step4_desc,4단계 설명,스캔 광고 시청 등으로 포인트를 모아 픽 열람이나 쿠폰 구매에 사용하세요.,Earn points by scanning and watching ads to unlock picks or buy coupons.,スキャンや広告視聴などでポイントを貯めてピックの閲覧やクーポン購入に使いましょう。,通过扫描和观看广告赚取积分以解锁号码或购买优惠券。,通過掃描和觀看廣告賺取積分以解鎖號碼或購買優惠券。,Gane puntos escaneando y viendo anuncios para desbloquear números o comprar cupones.
+tutorial,step4_detail1,4단계 상세1,티켓 스캔으로 포인트 획득,Earn points by scanning tickets,チケットスキャンでポイント獲得,扫描彩票获得积分,掃描彩票獲得積分,Gane puntos escaneando tickets
+tutorial,step4_detail2,4단계 상세2,광고 시청으로 추가 적립,Earn extra by watching ads,広告視聴で追加獲得,观看广告获得额外积分,觀看廣告獲得額外積分,Gane extra viendo anuncios
+tutorial,step4_detail3,4단계 상세3,포인트샵에서 쿠폰 구매,Buy coupons in point shop,ポイントショップでクーポン購入,在积分商城购买优惠券,在積分商城購買優惠券,Comprar cupones en tienda de puntos
+tutorial,step4_detail4,4단계 상세4,픽 열람이나 챔피언십 생성에 사용,Use for unlocking picks or championship,ピック閲覧やチャンピオンシップ生成に使用,用于解锁号码或锦标赛生成,用於解鎖號碼或錦標賽生成,Usar para desbloquear números o campeonato
+
+point_shop,title,포인트샵 제목,포인트샵,Point Shop,ポイントショップ,积分商城,積分商城,Tienda de Puntos
+point_shop,my_points,내 포인트,내 포인트,My Points,マイポイント,我的积分,我的積分,Mis Puntos
+point_shop,subscription_section,구독권 섹션,구독권 구매,Buy Subscription,サブスクリプション購入,购买订阅,購買訂閱,Comprar Suscripción
+point_shop,ticket_section,티켓 섹션,챔피언십 티켓 구매,Buy Championship Tickets,チャンピオンシップチケット購入,购买锦标赛门票,購買錦標賽門票,Comprar Tickets de Campeonato
+point_shop,most_economical,가장 경제적,가장 경제적,Most Economical,最もお得,最经济,最經濟,Más Económico
+point_shop,discount,할인,{percent}% 할인,{percent}% OFF,{percent}%割引,{percent}%折扣,{percent}%折扣,{percent}% de Descuento
+point_shop,buy,구매,구매하기,Buy,購入,购买,購買,Comprar
+point_shop,view_history,내역 보기,전체 내역 보기,View All History,すべての履歴を見る,查看全部记录,查看全部記錄,Ver Todo el Historial
+point_shop,purchase_complete,구매 완료,구매 완료!,Purchase Complete!,購入完了！,购买完成！,購買完成！,¡Compra Completada!
+point_shop,purchased,구매함,{item}을 구매했어요!,You purchased {item}!,{item}を購入しました！,您购买了{item}！,您購買了{item}！,¡Compraste {item}!
+point_shop,points_used,사용 포인트,사용한 포인트,Points Used,使用したポイント,使用的积分,使用的積分,Puntos Usados
+point_shop,remaining_points,남은 포인트,남은 포인트,Remaining Points,残りポイント,剩余积分,剩餘積分,Puntos Restantes
+point_shop,subscription_period,구독 기간,구독 기간,Subscription Period,サブスクリプション期間,订阅期间,訂閱期間,Período de Suscripción
+point_shop,tickets_granted,지급 티켓,지급된 티켓,Tickets Granted,付与されたチケット,赠送的门票,贈送的門票,Tickets Otorgados
+point_shop,go_home,홈으로,홈으로,Go Home,ホームへ,返回主页,返回主頁,Ir al Inicio
+point_shop,continue_shopping,계속 쇼핑,계속 쇼핑하기,Continue Shopping,ショッピングを続ける,继续购物,繼續購物,Continuar Comprando
+point_shop,insufficient_dialog,포인트 부족 다이얼로그,포인트가 부족해요,Insufficient Points,ポイントが不足しています,积分不足,積分不足,Puntos Insuficientes
+point_shop,needed_points,필요 포인트,필요 포인트,Needed Points,必要ポイント,需要积分,需要積分,Puntos Necesarios
+point_shop,shortage,부족,부족 포인트,Shortage,不足ポイント,不足积分,不足積分,Faltante
+point_shop,go_scan,스캔하러 가기,스캔하러 가기,Go Scan,スキャンしに行く,去扫描,去掃描,Ir a Escanear
+
+auth,login,로그인,로그인,Login,ログイン,登录,登入,Iniciar Sesión
+auth,signup,회원가입,회원가입,Sign Up,会員登録,注册,註冊,Registrarse
+auth,email,이메일,이메일,Email,メール,邮箱,郵箱,Email
+auth,password,비밀번호,비밀번호,Password,パスワード,密码,密碼,Contraseña
+auth,password_confirm,비밀번호 확인,비밀번호 확인,Confirm Password,パスワード確認,确认密码,確認密碼,Confirmar Contraseña
+auth,nickname,닉네임,닉네임,Nickname,ニックネーム,昵称,暱稱,Apodo
+auth,agree_terms,약관 동의,이용약관에 동의합니다,I agree to Terms of Service,利用規約に同意します,我同意服务条款,我同意服務條款,Acepto los Términos de Servicio
+auth,agree_privacy,개인정보 동의,개인정보 처리방침에 동의합니다,I agree to Privacy Policy,プライバシーポリシーに同意します,我同意隐私政策,我同意隱私政策,Acepto la Política de Privacidad
+auth,forgot_password,비밀번호 찾기,비밀번호를 잊으셨나요?,Forgot Password?,パスワードをお忘れですか？,忘记密码？,忘記密碼？,¿Olvidó su Contraseña?
+auth,no_account,계정 없음,계정이 없으신가요?,Don't have an account?,アカウントをお持ちではありませんか？,还没有账户？,還沒有帳戶？,¿No tiene una cuenta?
+auth,have_account,계정 있음,이미 계정이 있으신가요?,Already have an account?,すでにアカウントをお持ちですか？,已有账户？,已有帳戶？,¿Ya tiene una cuenta?
+
+notification,title,알림 제목,알림,Notifications,通知,通知,通知,Notificaciones
+notification,no_notifications,알림 없음,알림이 없습니다,No notifications,通知がありません,没有通知,沒有通知,No hay notificaciones
+notification,mark_read,읽음 표시,읽음 처리,Mark as Read,既読にする,标记为已读,標記為已讀,Marcar como Leído
+notification,delete,삭제,삭제,Delete,削除,删除,刪除,Eliminar
+
+help,title,고객센터 제목,고객센터,Help Center,お問い合わせ,客服中心,客服中心,Centro de Ayuda
+help,faq,FAQ,자주 묻는 질문,FAQ,よくある質問,常见问题,常見問題,Preguntas Frecuentes
+help,contact,문의하기,문의하기,Contact Us,お問い合わせ,联系我们,聯絡我們,Contáctenos
+help,terms,이용약관,이용약관,Terms of Service,利用規約,服务条款,服務條款,Términos de Servicio
+help,privacy,개인정보,개인정보 처리방침,Privacy Policy,プライバシーポリシー,隐私政策,隱私政策,Política de Privacidad
+help,version,버전,버전,Version,バージョン,版本,版本,Versión
+
+error,network,네트워크 에러,네트워크 오류가 발생했습니다,Network error occurred,ネットワークエラーが発生しました,发生网络错误,發生網路錯誤,Se produjo un error de red
+error,server,서버 에러,서버 오류가 발생했습니다,Server error occurred,サーバーエラーが発生しました,发生服务器错误,發生伺服器錯誤,Se produjo un error del servidor
+error,not_found,찾을 수 없음,페이지를 찾을 수 없습니다,Page not found,ページが見つかりません,找不到页面,找不到頁面,Página no encontrada
+error,unauthorized,권한 없음,권한이 없습니다,Unauthorized,権限がありません,无权限,無權限,No autorizado
+error,try_again,다시 시도,다시 시도해주세요,Please try again,もう一度お試しください,请重试,請重試,Por favor intente de nuevo
