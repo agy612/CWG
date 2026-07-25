@@ -37,7 +37,7 @@ export default function BannerCarousel({ size = 'medium', count = 3, startIndex 
     };
 
     return (
-        <div className="mx-6">
+        <div className="mx-6 relative">
             <div
                 ref={scrollRef}
                 className="flex overflow-x-auto snap-x snap-mandatory gap-3 -mx-1.5 px-1.5"
@@ -55,20 +55,15 @@ export default function BannerCarousel({ size = 'medium', count = 3, startIndex 
                 ))}
             </div>
 
-            {/* Dot indicators */}
+            {/* 쏘카식 페이지 카운터 (좌하단) */}
             {count > 1 && (
-                <div className="flex justify-center gap-1.5 mt-2.5">
-                    {ads.map((_, i) => (
-                        <button
-                            key={i}
-                            onClick={() => goto(i)}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${
-                                i === activeIdx ? 'w-5 bg-white/70' : 'w-1.5 bg-white/20'
-                            }`}
-                            aria-label={`Banner ${i + 1}`}
-                        />
-                    ))}
-                </div>
+                <button
+                    onClick={() => goto((activeIdx + 1) % count)}
+                    aria-label="다음 배너"
+                    className="absolute left-4 bottom-3 z-20 px-2.5 py-1 rounded-full bg-black/45 backdrop-blur-sm text-white/90 text-[11px] font-semibold tabular-nums"
+                >
+                    {activeIdx + 1} / {count}
+                </button>
             )}
         </div>
     );
@@ -109,7 +104,7 @@ function BannerLarge({ ad, height, size }) {
                         {ad.sub}
                     </div>
                 </div>
-                <button className="self-start px-5 py-2.5 rounded-full text-[12px] font-extrabold active:scale-95 transition-all"
+                <button className="self-end px-5 py-2.5 rounded-full text-[13px] font-extrabold active:scale-95 transition-all"
                         style={{ background: ad.accent, color: '#000' }}>
                     {ad.cta} →
                 </button>

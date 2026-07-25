@@ -7,8 +7,8 @@ const INITIAL_NOTIFICATIONS = [
         id: 'n1',
         type: 'hit',
         icon: 'celebration',
-        iconColor: 'text-[#14b8a6]',
-        iconBg: 'bg-[#14b8a6]/15',
+        iconColor: 'text-accent',
+        iconBg: 'bg-accent-soft',
         title: '번호 일치 알림',
         message: '이번 주 생성한 번호에서 4개 일치가 나왔어요! 결과를 확인해보세요.',
         time: '방금 전',
@@ -81,7 +81,7 @@ function MiniAdBanner() {
     return (
         <button
             onClick={() => alert('광고 상세 페이지로 이동')}
-            className="w-full flex items-center gap-3 p-4 rounded-2xl border border-themed bg-gradient-to-r from-[#14b8a6]/10 via-card-gray to-[#D4AF37]/10 active:scale-[0.98] transition-all text-left relative overflow-hidden"
+            className="w-full flex items-center gap-3 p-4 rounded-2xl border border-themed bg-gradient-to-r from-[#3182F6]/10 via-card-gray to-[#D4AF37]/10 active:scale-[0.98] transition-all text-left relative overflow-hidden"
         >
             <div className="absolute top-1.5 right-2 text-[9px] font-bold text-t-dim tracking-widest uppercase">AD</div>
             <div className="w-10 h-10 rounded-xl bg-bg-inverse flex items-center justify-center flex-shrink-0">
@@ -136,7 +136,7 @@ export default function Notifications() {
                 <div className="mx-6 mb-4 flex items-center justify-between">
                     <div className="text-xs text-t-muted font-semibold">
                         {unreadCount > 0 ? (
-                            <>읽지 않은 알림 <span className="text-[#14b8a6] font-bold">{unreadCount}</span>개</>
+                            <>읽지 않은 알림 <span className="text-accent font-bold">{unreadCount}</span>개</>
                         ) : (
                             '모든 알림을 확인했어요'
                         )}
@@ -175,7 +175,7 @@ export default function Notifications() {
                                     <div className={`text-sm truncate ${n.unread ? 'font-extrabold text-t-primary' : 'font-semibold text-t-secondary'}`}>
                                         {n.title}
                                     </div>
-                                    {n.unread && <span className="w-1.5 h-1.5 rounded-full bg-[#14b8a6] flex-shrink-0" />}
+                                    {n.unread && <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />}
                                 </div>
                                 <div className="text-xs text-t-muted font-medium leading-snug line-clamp-2 mb-1.5">
                                     {n.message}

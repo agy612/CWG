@@ -48,22 +48,22 @@ export default function Help() {
     const [expandedFaq, setExpandedFaq] = useState(null);
 
     return (
-        <div className="bg-[#0a0a0a] font-sans text-t-primary antialiased min-h-screen">
-            <Head><title>CWG - 고객센터</title></Head>
-            <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto shadow-2xl pb-24">
+        <div className="bg-background font-sans text-t-primary antialiased min-h-screen">
+            <Head><title>FULIF - 고객센터</title></Head>
+            <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto pb-24">
 
                 {/* Header */}
-                <div className="pt-12 pb-4 px-6 flex items-center gap-3">
-                    <button onClick={() => router.back()} className="active:scale-90 transition-transform">
-                        <span className="material-symbols-outlined text-[28px] font-light text-t-secondary">arrow_back</span>
+                <div className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl pt-12 pb-3 px-4 flex items-center gap-2">
+                    <button onClick={() => router.back()} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
+                        <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                     </button>
-                    <h1 className="text-lg font-extrabold tracking-tight">고객센터</h1>
+                    <h1 className="text-[17px] font-bold tracking-tight">고객센터</h1>
                 </div>
 
                 {/* Intro */}
                 <div className="mx-6 mb-6 bg-card-gray rounded-3xl p-6 border border-themed">
                     <div className="flex items-center gap-3 mb-2">
-                        <span className="material-symbols-outlined text-[28px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>support_agent</span>
+                        <span className="material-symbols-outlined text-[28px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>support_agent</span>
                         <div className="text-lg font-extrabold">무엇을 도와드릴까요?</div>
                     </div>
                     <p className="text-t-muted text-sm font-medium leading-relaxed">

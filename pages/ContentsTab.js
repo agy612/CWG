@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
 import BannerCarousel from './components/ads/BannerCarousel';
 import TabHeader from './components/TabHeader';
+import SubscribeGate from './components/SubscribeGate';
 
 /* ─── 공통 ───────────────────────────────────────────────── */
 const LOTTO_COLOR = (n) => {
@@ -158,20 +159,20 @@ function WeightPopup({ onClose }) {
     return (
         <div className="fixed inset-0 z-50 flex flex-col justify-end max-w-[430px] mx-auto"
             onClick={onClose}>
-            <div className="absolute inset-0 bg-black/60" />
-            <div className="relative rounded-t-3xl p-6 pb-10 bg-[var(--color-surface,#111)]"
+            <div className="absolute inset-0 bg-overlay backdrop-blur-sm" />
+            <div className="relative rounded-t-3xl p-6 pb-10 bg-card-gray"
                 onClick={e => e.stopPropagation()}>
-                <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-6" />
-                <p className="text-[17px] font-extrabold text-t-primary mb-1">응모권 가중치 안내</p>
+                <div className="w-10 h-1 rounded-full bg-t-faint mx-auto mb-6" />
+                <p className="text-[17px] font-extrabold text-t-primary mb-1">럭키 스코어 포인트 안내</p>
                 <p className="text-[12px] text-t-muted mb-6 leading-relaxed">
-                    아쉬움 점수가 높을수록 경품 추첨 시<br/>응모권 가중치를 더 받아요.
+                    아쉬움 점수가 높을수록<br/>럭키 스코어 포인트를 더 받아요.
                 </p>
                 <div className="flex flex-col gap-3">
                     {[
                         { range: '90점 이상', short: '×2.0', desc: '아슬아슬 · 당첨 직전', color: '#FFD700' },
                         { range: '70~90점',  short: '×1.5', desc: '매우 아쉬운 번호',     color: '#fb923c' },
                         { range: '50~70점',  short: '×1.2', desc: '꽤 아쉬운 번호',       color: '#a78bfa' },
-                        { range: '50점 미만', short: '×1.0', desc: '기본 응모권',          color: '#888'    },
+                        { range: '50점 미만', short: '×1.0', desc: '기본 포인트',          color: '#888'    },
                     ].map(g => (
                         <div key={g.range} className="flex items-center gap-3 p-3 rounded-2xl"
                             style={{ background: `${g.color}10`, border: `1px solid ${g.color}20` }}>
@@ -187,7 +188,7 @@ function WeightPopup({ onClose }) {
                     ))}
                 </div>
                 <button onClick={onClose}
-                    className="mt-6 w-full py-4 rounded-2xl bg-bg-inverse text-t-inverse font-bold text-[14px] active:scale-95 transition-all">
+                    className="mt-6 w-full py-4 rounded-2xl bg-accent text-accent-fg font-bold text-[14px] active:scale-95 transition-all">
                     확인
                 </button>
             </div>
@@ -195,117 +196,69 @@ function WeightPopup({ onClose }) {
     );
 }
 
-/* ─── 카드 1 · 넘버 센스 ──────────────────────────────────── */
-function NumberSenseCard({ onStart }) {
-    const showNums = [7, 19, 33];
-    const gridNums = Array.from({ length: 18 }, (_, i) => i + 1);
-    const correct  = new Set([7, 19, 33]);
+/* ─── 콘텐츠 카드 공통 (쏘카식: 좌상단 텍스트 + 우하단 캐릭터) ─── */
+function ContentCard({ id, badge, badgeBg, badgeFg, title, desc, cta, onClick, char, soft, locked }) {
     return (
-        <div id="tut-number-sense" className="mx-6 rounded-3xl overflow-hidden border border-indigo-500/25 bg-card-gray">
-            {/* 썸네일 */}
-            <div className="relative w-full overflow-hidden"
-                style={{ height: 186, background: 'linear-gradient(135deg, #0f0f2e 0%, #1e1b4b 55%, #150e30 100%)' }}>
-
-                {/* 콘텐츠 (캐릭터 공간 확보) */}
-                <div className="absolute inset-0 flex flex-col justify-center px-5" style={{ right: 110 }}>
-                    <p className="text-[9px] font-bold text-indigo-300/50 uppercase tracking-widest mb-2">기억할 번호</p>
-                    <div className="flex gap-2 mb-3">
-                        {showNums.map(n => (
-                            <div key={n} className={`w-9 h-9 rounded-xl flex items-center justify-center text-[12px] font-extrabold ${LOTTO_COLOR(n)}`}>
-                                {String(n).padStart(2, '0')}
-                            </div>
-                        ))}
-                    </div>
-                    <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(6, 1fr)' }}>
-                        {gridNums.map(n => {
-                            const ok = correct.has(n);
-                            return (
-                                <div key={n}
-                                    className={`h-5 rounded text-[8px] font-bold flex items-center justify-center ${ok ? LOTTO_COLOR(n) : ''}`}
-                                    style={{ opacity: ok ? 1 : 0.13, background: ok ? undefined : 'rgba(255,255,255,0.05)', color: ok ? undefined : 'rgba(255,255,255,0.3)' }}>
-                                    {n}
-                                </div>
-                            );
-                        })}
-                    </div>
+        <div id={id} className="pressable mx-6 rounded-[24px] overflow-hidden bg-card-gray cursor-pointer" onClick={onClick}>
+            <div className="relative p-5 pr-32" style={{ minHeight: 148 }}>
+                <div className="flex items-center gap-1.5">
+                    <span
+                        className="inline-block px-2.5 py-1 rounded-lg text-[12px] font-bold"
+                        style={{ backgroundColor: badgeBg, color: badgeFg }}
+                    >
+                        {badge}
+                    </span>
+                    {locked && (
+                        <span className="inline-flex items-center gap-0.5 px-2 py-1 rounded-lg text-[11px] font-extrabold text-[#D4AF37] bg-[#D4AF37]/12">
+                            <span className="material-symbols-outlined text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                            구독 전용
+                        </span>
+                    )}
                 </div>
-
-                {/* 캐릭터 */}
-                <div className="absolute bottom-0 right-0 pointer-events-none"
-                    style={{ filter: 'drop-shadow(0 4px 24px rgba(99,102,241,0.6))' }}>
-                    <Image src="/char_number_sense.png" alt="" width={110} height={110} unoptimized />
+                <h3 className="text-[19px] font-bold text-t-primary mt-3">{title}</h3>
+                <p className="text-[13px] text-t-muted font-medium leading-relaxed mt-1">{desc}</p>
+                <span className="inline-flex items-center gap-1 mt-4 px-4 py-2 rounded-full bg-accent text-accent-fg text-[13px] font-bold">
+                    {locked ? '알아보기' : cta}
+                    <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </span>
+                {/* 우측 소프트 배경 + 캐릭터 */}
+                <div className="absolute right-0 top-0 bottom-0 w-32 flex items-center justify-center" style={{ background: soft }}>
+                    <img src={char} alt="" className="w-28 h-28 object-contain pointer-events-none" style={{ filter: 'drop-shadow(0 6px 16px rgba(25,31,40,0.12))' }} />
                 </div>
-
-                <div className="absolute top-3 right-3 bg-indigo-500 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">넘버 센스</div>
-            </div>
-
-            {/* 하단 */}
-            <div className="p-5 flex items-center justify-between gap-4">
-                <div>
-                    <h3 className="text-[16px] font-extrabold text-t-primary">넘버 센스</h3>
-                    <p className="text-[12px] text-t-muted leading-relaxed mt-1">번호를 기억하고 번호판에서<br/>직접 찾아 감각을 키워요</p>
-                </div>
-                <button onClick={onStart} className="flex-shrink-0 px-5 py-2.5 bg-bg-inverse text-t-inverse text-[13px] font-bold rounded-full active:scale-95 transition-all">
-                    시작하기
-                </button>
             </div>
         </div>
     );
 }
 
-/* ─── 카드 2 · 럭키 스코어 ───────────────────────────────── */
-function LuckyScoreCard({ onDetail }) {
+/* ─── 카드 1 · 넘버 센스 (구독 전용) ──────────────────────── */
+function NumberSenseCard({ onStart }) {
+    const { tier } = useUser();
+    const locked = !(tier === 'STANDARD' || tier === 'PRO');
     return (
-        <div id="tut-lucky-score" className="mx-6 rounded-3xl overflow-hidden border border-purple-500/25 bg-card-gray">
-            {/* 썸네일 */}
-            <div className="relative w-full overflow-hidden"
-                style={{ height: 186, background: 'linear-gradient(135deg, #100820 0%, #1e0f3a 55%, #160a2e 100%)' }}>
+        <ContentCard
+            id="tut-number-sense"
+            badge="넘버 센스" badgeBg="#E8F3FF" badgeFg="#3182F6"
+            title="넘버 센스" desc={<>번호를 기억하고 번호판에서<br/>직접 찾아 감각을 키워요</>}
+            cta="시작하기" onClick={onStart} locked={locked}
+            char="/char_memo.png"
+            soft="linear-gradient(135deg, #EAF3FF 0%, #DCEBFF 100%)"
+        />
+    );
+}
 
-                {/* 콘텐츠 (캐릭터 공간 확보) */}
-                <div className="absolute inset-0 flex flex-col justify-center px-5" style={{ right: 110 }}>
-                    <p className="text-[9px] font-bold uppercase tracking-widest mb-2" style={{ color: 'rgba(192,132,252,0.5)' }}>아쉬움 점수</p>
-                    <div className="flex items-end gap-2 mb-4">
-                        <span className="font-extrabold leading-none" style={{ fontSize: 52, color: '#c084fc' }}>92</span>
-                        <span className="text-[11px] font-extrabold mb-1.5 px-2 py-0.5 rounded-lg"
-                            style={{ background: 'rgba(236,72,153,0.2)', color: '#f472b6' }}>×2.0</span>
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                        {[
-                            { score: 92, color: 'linear-gradient(90deg, #7c3aed, #ec4899)' },
-                            { score: 74, color: 'rgba(255,255,255,0.18)' },
-                            { score: 61, color: 'rgba(255,255,255,0.11)' },
-                        ].map(({ score, color }) => (
-                            <div key={score} className="h-1.5 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.07)' }}>
-                                <div className="h-full rounded-full" style={{ width: `${score}%`, background: color }} />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                {/* 캐릭터 */}
-                <div className="absolute bottom-0 right-0 pointer-events-none"
-                    style={{ filter: 'drop-shadow(0 4px 24px rgba(168,85,247,0.6))' }}>
-                    <Image src="/char_lucky_score.png" alt="" width={110} height={110} unoptimized />
-                </div>
-
-                <div className="absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full"
-                    style={{ background: 'rgba(168,85,247,0.2)', color: '#c084fc', border: '1px solid rgba(168,85,247,0.3)' }}>
-                    럭키 스코어
-                </div>
-            </div>
-
-            {/* 하단 */}
-            <div className="p-5 flex items-center justify-between gap-4">
-                <div>
-                    <h3 className="text-[16px] font-extrabold text-t-primary">럭키 스코어</h3>
-                    <p className="text-[12px] text-t-muted leading-relaxed mt-1">낙첨 티켓의 아쉬움을 분석하고<br/>응모권 가중치를 받아요</p>
-                </div>
-                <button onClick={onDetail}
-                    className="flex-shrink-0 px-5 py-2.5 bg-bg-inverse text-t-inverse text-[13px] font-bold rounded-full active:scale-95 transition-all">
-                    자세히
-                </button>
-            </div>
-        </div>
+/* ─── 카드 2 · 럭키 스코어 (구독 전용) ────────────────────── */
+function LuckyScoreCard({ onDetail }) {
+    const { tier } = useUser();
+    const locked = !(tier === 'STANDARD' || tier === 'PRO');
+    return (
+        <ContentCard
+            id="tut-lucky-score"
+            badge="럭키 스코어" badgeBg="#F1ECFF" badgeFg="#7C5CFC"
+            title="럭키 스코어" desc={<>낙첨 티켓의 아쉬움을 분석해<br/>포인트를 받아요</>}
+            cta="자세히" onClick={onDetail} locked={locked}
+            char="/char_detective.png"
+            soft="linear-gradient(135deg, #F1ECFF 0%, #E8E0FF 100%)"
+        />
     );
 }
 
@@ -317,6 +270,26 @@ function LuckyScoreDetail({ onBack }) {
     const [showChart,  setShowChart]  = useState(false);
     const [showDrawPicker, setShowDrawPicker] = useState(false);
     const scrollRef = useRef(null);
+    const { tier } = useUser();
+
+    /* 럭키 스코어 = 구독 전용 콘텐츠 — 무료·게스트는 구독 유도 화면 */
+    const isSubscriber = tier === 'STANDARD' || tier === 'PRO';
+    if (!isSubscriber) {
+        return (
+            <SubscribeGate
+                character="/char_detective.png"
+                glow="rgba(49,130,246,0.35)"
+                title={<>낙첨의 아쉬움을 점수로<br /><span className="text-accent">럭키 스코어</span></>}
+                desc={<>놓친 번호의 아쉬움을 분석해 점수로 바꾸고<br />포인트까지 받는 PRO 전용 콘텐츠예요.</>}
+                benefits={[
+                    { icon: 'insights', desc: '낙첨 티켓 아쉬움 지수 분석' },
+                    { icon: 'toll', desc: '럭키 스코어에 따라 포인트 적립' },
+                    { icon: 'trending_up', desc: '주차별 럭키 스코어 추세 확인' },
+                ]}
+                onBack={onBack}
+            />
+        );
+    }
 
     const draw       = ALL_DRAWS[drawIdx];
     const ticket     = draw.tickets[ticketIdx];
@@ -335,21 +308,23 @@ function LuckyScoreDetail({ onBack }) {
         <div className="flex flex-col w-full min-h-screen bg-background text-t-primary">
 
             {/* 헤더 */}
-            <header className="flex items-center gap-3 px-4 pt-6 pb-4 border-b border-themed sticky top-0 bg-background z-20">
-                <button onClick={onBack} className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray">
+            <header className="flex items-center gap-2 px-4 pt-12 pb-3 sticky top-0 bg-background/90 backdrop-blur-xl z-20">
+                <button onClick={onBack} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
                     <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                 </button>
-                <p className="text-[16px] font-extrabold absolute left-1/2 -translate-x-1/2">럭키 스코어</p>
-                <div className="ml-auto flex items-center gap-2">
-                    <button onClick={() => setShowChart(true)}
-                        className="w-8 h-8 flex items-center justify-center rounded-full active:opacity-60 transition-opacity"
-                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                        <span className="material-symbols-outlined text-[16px] text-t-muted">bar_chart</span>
+                <h1 className="text-[17px] font-bold tracking-tight">럭키 스코어</h1>
+                <div className="ml-auto flex items-center gap-1.5">
+                    <button onClick={() => setShowChart(true)} aria-label="추세"
+                        className="pressable inline-flex items-center gap-1 pl-2.5 pr-3 py-2 rounded-full bg-card-gray text-t-secondary"
+                        style={{ boxShadow: '0 2px 8px var(--color-shadow)' }}>
+                        <span className="material-symbols-outlined text-[16px]">show_chart</span>
+                        <span className="text-[13px] font-bold">추세</span>
                     </button>
-                    <button onClick={() => setShowWeight(true)}
-                        className="w-8 h-8 flex items-center justify-center rounded-full active:opacity-60 transition-opacity"
-                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                        <span className="material-symbols-outlined text-[16px] text-t-muted">info</span>
+                    <button onClick={() => setShowWeight(true)} aria-label="안내"
+                        className="pressable inline-flex items-center gap-1 pl-2.5 pr-3 py-2 rounded-full bg-card-gray text-t-secondary"
+                        style={{ boxShadow: '0 2px 8px var(--color-shadow)' }}>
+                        <span className="material-symbols-outlined text-[16px]">help</span>
+                        <span className="text-[13px] font-bold">안내</span>
                     </button>
                 </div>
             </header>
@@ -359,111 +334,69 @@ function LuckyScoreDetail({ onBack }) {
                 {/* ── 회차 선택 버튼 ── */}
                 <div className="px-5 pt-5 pb-4">
                     <button onClick={() => setShowDrawPicker(true)}
-                        className="relative flex items-center justify-center w-full px-4 py-2.5 rounded-full active:opacity-70 transition-opacity"
-                        style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                        <span className="text-[15px] font-extrabold text-white">
+                        className="pressable relative flex items-center justify-center w-full px-4 py-3 rounded-full bg-card-gray">
+                        <span className="text-[15px] font-bold text-t-primary">
                             제{draw.drawNo}회{draw.label ? ` · ${draw.label}` : ''}
                         </span>
-                        <span className="material-symbols-outlined text-[16px] text-white/50 absolute right-4">
-                            expand_more
-                        </span>
+                        <span className="material-symbols-outlined text-[18px] text-t-muted absolute right-4">expand_more</span>
                     </button>
                 </div>
 
                 <div className="flex flex-col px-5 gap-5">
 
-                    {/* ① 넛지 카드 */}
-                    {(() => {
-                        const t = getNudgeTheme(weight);
-                        return (
-                            <div className="relative rounded-3xl overflow-hidden p-6"
-                                style={{ background: t.bg, border: `1px solid ${t.border}` }}>
-                                <div className="absolute -right-6 -top-6 w-32 h-32 rounded-full opacity-20 pointer-events-none"
-                                    style={{ background: `radial-gradient(circle, ${t.glow}, transparent)` }} />
-                                <div className="absolute bottom-0 right-0 pointer-events-none"
-                                    style={{ filter: `drop-shadow(0 4px 16px ${t.glow}66)` }}>
-                                    <Image src="/character.png" alt="" width={90} height={90} unoptimized />
-                                </div>
-                                <div className="relative z-10" style={{ paddingRight: 72 }}>
-                                    <p className="text-[26px] font-extrabold text-white leading-tight mb-2">
-                                        {drawIdx === 0 ? '이번 주는' : `제${draw.drawNo}회는`} 운이<br />
-                                        <span style={{ color: t.title }}>{topRegret.total}%</span> 충전됐습니다
-                                    </p>
-                                    <p className="text-[13px] leading-relaxed" style={{ color: t.muted }}>
-                                        아쉽게 빗나갔지만, 그 에너지가 다음 주를<br />위해 완전히 충전되고 있어요.
-                                    </p>
-                                    <div className="mt-4">
-                                        <div className="h-2 rounded-full overflow-hidden" style={{ background: t.barBg }}>
-                                            <div className="h-full rounded-full" style={{ width: `${topRegret.total}%`, background: t.bar }} />
+                    {/* ① 럭키스코어 (히어로 + 아쉬움 지수 상세 통합) */}
+                    <div className="rounded-[24px] overflow-hidden bg-card-gray">
+                        {/* 히어로 */}
+                        {(() => {
+                            const luckyPoints = topRegret.total >= 90 ? 100 : topRegret.total >= 70 ? 50 : topRegret.total >= 50 ? 30 : 10;
+                            return (
+                                <div className="relative overflow-hidden p-6">
+                                    <div className="absolute -right-6 -top-8 w-36 h-36 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(49,130,246,0.16), transparent 70%)' }} />
+                                    <img src="/char_detective.png" alt="" className="absolute right-1 bottom-0 w-28 h-28 object-contain pointer-events-none" style={{ filter: 'drop-shadow(0 6px 16px rgba(49,130,246,0.25))' }} />
+                                    <div className="relative z-10 pr-24">
+                                        <div className="flex items-center gap-1.5">
+                                            <span className="inline-flex items-center px-2.5 py-1 rounded-lg text-[12px] font-bold bg-accent-soft text-accent">이번주 럭키스코어</span>
+                                            <span className="text-[12px] font-bold text-t-muted">{regretLabel(regret.total)}</span>
                                         </div>
-                                        <div className="mt-1.5 mb-3">
-                                            <span className="text-[10px] font-medium" style={{ color: t.muted }}>다음 추첨 충전율</span>
+                                        <div className="flex items-baseline gap-1 mt-3">
+                                            <span className="text-[48px] font-bold tracking-tight leading-none text-accent">{topRegret.total}</span>
+                                            <span className="text-[20px] font-bold text-t-muted">/ 100점</span>
                                         </div>
-                                        <div className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl"
-                                            style={{ background: weight.bg, border: `1px solid ${weight.color}35` }}>
-                                            <span className="text-[18px] font-extrabold leading-none" style={{ color: weight.color }}>
-                                                {weight.mult}×
-                                            </span>
-                                            <div className="flex flex-col gap-0.5">
-                                                <span className="text-[12px] font-extrabold leading-none" style={{ color: weight.color }}>
-                                                    이번 경품 추첨 당첨 확률 {weight.mult}배 증가
-                                                </span>
-                                                <span className="text-[10px] font-medium" style={{ color: `${weight.color}90` }}>
-                                                    아쉬움이 쌓일수록 응모권 가중치가 높아져요
-                                                </span>
-                                            </div>
+                                        <p className="text-[15px] font-bold text-t-primary mt-2.5">포인트 <span className="text-accent">{luckyPoints}P</span>를 받았어요</p>
+                                        <div className="h-2 rounded-full overflow-hidden mt-4 bg-btn-secondary" style={{ maxWidth: 220 }}>
+                                            <div className="h-full rounded-full" style={{ width: `${topRegret.total}%`, background: 'linear-gradient(90deg, #5EA0FF, #3182F6)' }} />
                                         </div>
+                                        <p className="text-[12px] font-medium text-t-muted mt-2">아쉬움이 클수록 럭키스코어가 높아져요</p>
                                     </div>
                                 </div>
-                            </div>
-                        );
-                    })()}
+                            );
+                        })()}
 
-                    {/* ② 아쉬움 지수 (ai_scanner 스타일 유지) */}
-                    <div className="rounded-3xl overflow-hidden border border-themed">
-                        <div className="p-5 flex flex-col gap-5"
-                            style={{ background: 'linear-gradient(160deg, rgba(168,85,247,0.13) 0%, rgba(236,72,153,0.07) 100%)' }}>
-
-                            <div className="flex items-center justify-between">
-                                <p className="text-[11px] font-bold text-t-muted uppercase tracking-widest">아쉬움 지수</p>
-                                <span className="text-[11px] font-bold text-purple-300 bg-purple-500/15 px-2.5 py-1 rounded-full">
-                                    {regretLabel(regret.total)}
-                                </span>
-                            </div>
-
-                            <div className="flex flex-col gap-2">
-                                <div className="flex items-end gap-2">
-                                    <span className="text-[64px] font-extrabold text-white leading-none">{regret.total}</span>
-                                    <span className="text-t-muted text-[16px] font-medium mb-2">/ 100</span>
-                                </div>
-                                <div className="h-[6px] bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full rounded-full bg-gradient-to-r from-purple-500 to-pink-400"
-                                        style={{ width: `${regret.total}%` }} />
-                                </div>
-                            </div>
-
-                            <div className="grid grid-cols-4 gap-0 divide-x divide-white/8">
+                        {/* 점수 상세 */}
+                        <div className="p-5 flex flex-col gap-5 border-t border-themed">
+                            <p className="text-[13px] font-bold text-t-muted">점수 상세</p>
+                            <div className="grid grid-cols-4">
                                 {[
-                                    { label: '±1 아쉬움', score: regret.nearScore, max: 40, color: '#f472b6' },
-                                    { label: '합계 근접', score: regret.sumScore,  max: 25, color: '#60a5fa' },
-                                    { label: '연속번호',  score: regret.conScore,  max: 20, color: '#fbbf24' },
-                                    { label: '직접 적중', score: regret.hitScore,  max: 15, color: '#34d399' },
+                                    { label: '±1 아쉬움', score: regret.nearScore, max: 40, color: '#3182F6' },
+                                    { label: '합계 근접', score: regret.sumScore,  max: 25, color: '#4593FC' },
+                                    { label: '연속번호',  score: regret.conScore,  max: 20, color: '#5EA0FF' },
+                                    { label: '직접 적중', score: regret.hitScore,  max: 15, color: '#1B64DA' },
                                 ].map(({ label, score, max, color }, i) => (
-                                    <div key={label} className={`flex flex-col gap-1.5 ${i === 0 ? 'pr-3' : i === 3 ? 'pl-3' : 'px-3'}`}>
-                                        <span className="text-[20px] font-extrabold text-white leading-none">{score}</span>
-                                        <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                                    <div key={label} className={`flex flex-col gap-1.5 ${i < 3 ? 'border-r border-themed pr-3' : 'pl-3'} ${i > 0 && i < 3 ? 'pl-3' : ''}`}>
+                                        <span className="text-[20px] font-bold text-t-primary leading-none">{score}</span>
+                                        <div className="h-1 bg-btn-secondary rounded-full overflow-hidden">
                                             <div className="h-full rounded-full" style={{ width: `${(score / max) * 100}%`, backgroundColor: color }} />
                                         </div>
-                                        <span className="text-[9px] text-t-muted font-medium leading-tight mt-0.5">{label}</span>
+                                        <span className="text-[10px] text-t-muted font-medium leading-tight mt-0.5">{label}</span>
                                     </div>
                                 ))}
                             </div>
                         </div>
 
                         {/* 번호 비교 */}
-                        <div className="bg-card-gray p-5 flex flex-col gap-4 border-t border-themed">
+                        <div className="p-5 flex flex-col gap-4 border-t border-themed">
                             <div className="flex flex-col gap-2">
-                                <p className="text-[11px] text-t-muted font-semibold uppercase tracking-wider">내 번호</p>
+                                <p className="text-[13px] text-t-muted font-bold">내 번호</p>
                                 <div className="flex gap-2 flex-wrap">
                                     {ticket.myNums.map(n => {
                                         const isHit  = draw.winNums.includes(n);
@@ -472,19 +405,19 @@ function LuckyScoreDetail({ onBack }) {
                                             <div key={n} className="flex flex-col items-center gap-1">
                                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center text-[12px] font-extrabold
                                                     ${isHit  ? LOTTO_COLOR(n)
-                                                    : isNear ? 'bg-pink-500/20 text-pink-300 ring-1 ring-pink-400/50'
-                                                             : 'bg-white/8 text-t-muted'}`}>
+                                                    : isNear ? 'bg-accent-soft text-accent ring-1 ring-accent/40'
+                                                             : 'bg-btn-secondary text-t-muted'}`}>
                                                     {String(n).padStart(2, '0')}
                                                 </div>
-                                                {isHit  && <span className="text-[9px] text-[#34d399] font-bold">적중</span>}
-                                                {isNear && !isHit && <span className="text-[9px] text-pink-400 font-bold">±1</span>}
+                                                {isHit  && <span className="text-[9px] text-[#0BA678] font-bold">적중</span>}
+                                                {isNear && !isHit && <span className="text-[9px] text-accent font-bold">±1</span>}
                                                 {!isHit && !isNear && <span className="text-[9px] text-transparent select-none">·</span>}
                                             </div>
                                         );
                                     })}
                                 </div>
                             </div>
-                            <div className="h-px bg-white/6" />
+                            <div className="h-px" style={{ backgroundColor: 'var(--color-border)' }} />
                             <div className="flex flex-col gap-2">
                                 <p className="text-[11px] text-t-muted font-semibold uppercase tracking-wider">제{draw.drawNo}회 당첨 번호</p>
                                 <div className="flex gap-2 flex-wrap">
@@ -496,11 +429,10 @@ function LuckyScoreDetail({ onBack }) {
                                 </div>
                             </div>
                             {regret.nearMisses.length > 0 && (
-                                <div className="rounded-2xl p-3 flex items-start gap-2"
-                                    style={{ background: 'rgba(244,114,182,0.08)', border: '1px solid rgba(244,114,182,0.2)' }}>
-                                    <span className="material-symbols-outlined text-[15px] text-pink-400 mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
-                                    <p className="text-[12px] text-pink-300 leading-relaxed">
-                                        <span className="font-extrabold">{regret.nearMisses.join(', ')}</span>번이 당첨 번호와 ±1 차이였어요!
+                                <div className="rounded-2xl p-3.5 flex items-start gap-2 bg-accent-soft">
+                                    <span className="material-symbols-outlined text-[16px] mt-0.5 text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
+                                    <p className="text-[12px] leading-relaxed text-accent">
+                                        <span className="font-bold">{regret.nearMisses.join(', ')}</span>번이 당첨 번호와 ±1 차이였어요!
                                     </p>
                                 </div>
                             )}
@@ -510,43 +442,24 @@ function LuckyScoreDetail({ onBack }) {
                     {/* ③ 같은 회차 다른 티켓 */}
                     {draw.tickets.length > 1 && (
                         <div>
-                            <p className="text-[11px] font-bold text-t-muted tracking-widest uppercase mb-3">
-                                제{draw.drawNo}회 등록 티켓 · {draw.tickets.length}장
-                            </p>
+                            <p className="text-[15px] font-bold text-t-primary mb-2.5">제{draw.drawNo}회 등록 티켓 · {draw.tickets.length}장</p>
                             <div className="flex flex-col gap-2">
                                 {draw.tickets.map((t, i) => {
-                                    const w   = getWeight(t.regret.total);
                                     const sel = i === ticketIdx;
                                     return (
                                         <button key={t.id} onClick={() => setTicketIdx(i)}
-                                            className="flex items-center gap-3 p-4 rounded-2xl text-left transition-all active:scale-[0.98] w-full"
-                                            style={{
-                                                background: sel ? w.bg : 'rgba(255,255,255,0.04)',
-                                                border: sel ? `1.5px solid ${w.color}45` : '1.5px solid rgba(255,255,255,0.08)',
-                                            }}>
+                                            className={`pressable flex items-center gap-3 p-4 rounded-2xl text-left w-full bg-card-gray ${sel ? 'ring-2 ring-accent' : ''}`}>
                                             {/* 점수 배지 */}
-                                            <div className="w-12 h-12 rounded-xl flex flex-col items-center justify-center flex-shrink-0"
-                                                style={{ background: sel ? `${w.color}20` : 'rgba(255,255,255,0.06)' }}>
-                                                <span className="text-[15px] font-extrabold leading-none"
-                                                    style={{ color: sel ? w.color : 'rgba(255,255,255,0.5)' }}>
-                                                    {t.regret.total}
-                                                </span>
-                                                <span className="text-[8px] font-semibold mt-0.5"
-                                                    style={{ color: sel ? w.color : 'rgba(255,255,255,0.3)' }}>점</span>
+                                            <div className="w-12 h-12 rounded-xl flex flex-col items-center justify-center flex-shrink-0" style={{ backgroundColor: sel ? 'var(--color-accent-soft)' : 'var(--color-btn-secondary)' }}>
+                                                <span className="text-[16px] font-bold leading-none" style={{ color: sel ? 'var(--color-accent)' : 'var(--color-text-muted)' }}>{t.regret.total}</span>
+                                                <span className="text-[9px] font-semibold mt-0.5" style={{ color: sel ? 'var(--color-accent)' : 'var(--color-text-dim)' }}>점</span>
                                             </div>
                                             {/* 번호 */}
                                             <div className="flex gap-1.5 flex-1 flex-wrap">
                                                 {t.myNums.map(n => (
-                                                    <div key={n}
-                                                        className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-extrabold ${LOTTO_COLOR(n)}`}
-                                                        style={{ opacity: sel ? 1 : 0.55 }}>
-                                                        {n}
-                                                    </div>
+                                                    <div key={n} className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-extrabold ${LOTTO_COLOR(n)}`} style={{ opacity: sel ? 1 : 0.55 }}>{n}</div>
                                                 ))}
                                             </div>
-                                            {/* 가중치 */}
-                                            <span className="text-[11px] font-extrabold flex-shrink-0"
-                                                style={{ color: w.color }}>{w.short}</span>
                                         </button>
                                     );
                                 })}
@@ -562,33 +475,25 @@ function LuckyScoreDetail({ onBack }) {
             {showDrawPicker && (
                 <div className="fixed inset-0 z-50 flex flex-col justify-end max-w-[430px] mx-auto"
                     onClick={() => setShowDrawPicker(false)}>
-                    <div className="absolute inset-0 bg-black/60" />
-                    <div className="relative rounded-t-3xl bg-[var(--color-surface,#111)]"
-                        onClick={e => e.stopPropagation()}>
-                        <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mt-4 mb-2" />
-                        <p className="text-[17px] font-extrabold text-t-primary px-6 pb-3">회차 선택</p>
+                    <div className="absolute inset-0 bg-overlay backdrop-blur-sm" />
+                    <div className="relative rounded-t-3xl bg-card-gray" onClick={e => e.stopPropagation()}>
+                        <div className="w-10 h-1 rounded-full bg-t-faint mx-auto mt-4 mb-2" />
+                        <p className="text-[17px] font-bold text-t-primary px-6 pb-3">회차 선택</p>
                         <div className="overflow-y-auto pb-10" style={{ maxHeight: '55vh' }}>
                             {ALL_DRAWS.map((d, i) => {
                                 const isActive = i === drawIdx;
-                                const w = getWeight(d.topScore);
                                 return (
                                     <button key={d.drawNo}
                                         onClick={() => { selectDraw(i); setShowDrawPicker(false); }}
-                                        className="w-full flex items-center justify-between px-6 py-3.5 active:bg-white/5 transition-colors">
+                                        className="w-full flex items-center justify-between px-6 py-3.5 active:bg-card-hover transition-colors">
                                         <div className="flex items-center gap-3">
-                                            {isActive
-                                                ? <span className="material-symbols-outlined text-[18px]" style={{ color: w.color }}>radio_button_checked</span>
-                                                : <span className="material-symbols-outlined text-[18px] text-white/20">radio_button_unchecked</span>
-                                            }
-                                            <span className={`text-[15px] font-bold ${isActive ? 'text-white' : 'text-white/50'}`}>
+                                            <span className="material-symbols-outlined text-[20px]" style={{ color: isActive ? 'var(--color-accent)' : 'var(--color-text-faint)' }}>{isActive ? 'radio_button_checked' : 'radio_button_unchecked'}</span>
+                                            <span className={`text-[15px] font-bold ${isActive ? 'text-t-primary' : 'text-t-muted'}`}>
                                                 제{d.drawNo}회{d.label ? ` · ${d.label}` : ''}
                                             </span>
                                         </div>
                                         {isActive && (
-                                            <span className="text-[12px] font-bold px-2.5 py-0.5 rounded-full"
-                                                style={{ background: w.color + '22', color: w.color }}>
-                                                {w.label}
-                                            </span>
+                                            <span className="text-[12px] font-bold px-2.5 py-1 rounded-full" style={{ backgroundColor: 'var(--color-accent-soft)', color: 'var(--color-accent)' }}>{d.topScore}점</span>
                                         )}
                                     </button>
                                 );
@@ -628,10 +533,10 @@ function LuckyScoreDetail({ onBack }) {
                 return (
                     <div className="fixed inset-0 z-50 flex flex-col justify-end max-w-[430px] mx-auto"
                         onClick={() => setShowChart(false)}>
-                        <div className="absolute inset-0 bg-black/60" />
-                        <div className="relative rounded-t-3xl pb-10 bg-[var(--color-surface,#111)]"
+                        <div className="absolute inset-0 bg-overlay backdrop-blur-sm" />
+                        <div className="relative rounded-t-3xl pb-10 bg-card-gray"
                             onClick={e => e.stopPropagation()}>
-                            <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mt-4 mb-5" />
+                            <div className="w-10 h-1 rounded-full bg-t-faint mx-auto mt-4 mb-5" />
                             <div className="flex items-baseline justify-between px-6 mb-1">
                                 <p className="text-[17px] font-extrabold text-t-primary">아쉬움 추세</p>
                                 <p className="text-[11px] text-t-faint">최근 {draws.length}회차</p>
@@ -642,12 +547,12 @@ function LuckyScoreDetail({ onBack }) {
                                     <svg width={svgW} height={svgH} style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible' }}>
                                         <defs>
                                             <linearGradient id="trendFill" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="0%" stopColor="#a78bfa" stopOpacity="0.28" />
-                                                <stop offset="100%" stopColor="#a78bfa" stopOpacity="0.02" />
+                                                <stop offset="0%" stopColor="#4593FC" stopOpacity="0.28" />
+                                                <stop offset="100%" stopColor="#4593FC" stopOpacity="0.02" />
                                             </linearGradient>
                                             <linearGradient id="trendLine" x1="0" y1="0" x2="1" y2="0">
-                                                <stop offset="0%" stopColor="#7c3aed" />
-                                                <stop offset="100%" stopColor="#c084fc" />
+                                                <stop offset="0%" stopColor="#1B64DA" />
+                                                <stop offset="100%" stopColor="#5EA0FF" />
                                             </linearGradient>
                                         </defs>
                                         {fillPath && <path d={fillPath} fill="url(#trendFill)" />}
@@ -671,7 +576,7 @@ function LuckyScoreDetail({ onBack }) {
                                                     )}
                                                     <circle cx={p.x} cy={p.y}
                                                         r={isActive ? 5.5 : 3.5}
-                                                        fill={isActive ? w.color : '#7c3aed'}
+                                                        fill={isActive ? w.color : "#3182F6"}
                                                         stroke={isActive ? 'none' : '#111'}
                                                         strokeWidth="1.5" />
                                                 </g>
@@ -765,7 +670,7 @@ function HistoryView({ onBack }) {
                                 </div>
                                 <div className="flex-1 min-w-0">
                                     <p className="text-[12px] font-bold text-white">제{item.drawNo}회차 럭키 스코어</p>
-                                    <p className="text-[10px] text-white/40 font-medium">최고 {item.topScore}점 · 응모권 {w.short} · {item.ticketCount}장</p>
+                                    <p className="text-[10px] text-white/40 font-medium">최고 {item.topScore}점 · 포인트 {w.short} · 스캔 {item.ticketCount}장</p>
                                 </div>
                                 <span className="text-[10px] text-white/30 flex-shrink-0">{item.date}</span>
                             </div>
@@ -789,63 +694,39 @@ function FuliChatCard() {
     const router = useRouter();
     const { tier } = useUser();
     const isSubscriber = tier === 'STANDARD' || tier === 'PRO';
-    const [preview, setPreview] = useState('추첨까지 이번 주 번호, 저랑 같이 만들어요!');
     const [unread, setUnread] = useState(false);
 
     useEffect(() => {
         const now = new Date();
         const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
         const opened = localStorage.getItem('cwg_chat_lastopen') === todayStr;
-        const diff = (6 - now.getDay() + 7) % 7;
-        const dday = diff === 0 ? (now.getHours() < 21 ? 0 : 7) : diff;
-        let lucky = null;
-        try { lucky = JSON.parse(localStorage.getItem('cwg_attendance') || '{}').rewards?.[todayStr]?.lucky ?? null; } catch {}
-        setPreview(dday === 0
-            ? '오늘 저녁 8시 45분 추첨이에요! 준비되셨나요?'
-            : lucky
-                ? `추첨까지 D-${dday} · 행운 숫자 ${lucky}, 번호에 넣어볼까요?`
-                : `추첨까지 D-${dday} · 이번 주 번호, 저랑 같이 만들어요!`);
         setUnread(!opened);
     }, []);
 
     return (
-        <div className="mx-6 rounded-3xl overflow-hidden border border-[#14b8a6]/25 bg-card-gray">
-            {/* 썸네일 — 선톡 말풍선 + 캐릭터 */}
-            <div className="relative w-full overflow-hidden"
-                style={{ height: 186, background: 'linear-gradient(135deg, #061e1e 0%, #0a2828 55%, #061424 100%)' }}>
-
-                <div className="absolute inset-0 flex flex-col justify-center px-5" style={{ right: 118 }}>
-                    <p className="text-[9px] font-bold uppercase tracking-widest mb-2.5" style={{ color: 'rgba(74,222,128,0.55)' }}>AI 로또 코치</p>
-                    <div className="self-start bg-white/8 border border-white/10 rounded-2xl rounded-bl-md px-3.5 py-2.5">
-                        <p className="text-[11.5px] text-white/85 leading-relaxed font-medium">{preview}</p>
-                    </div>
+        <div className="pressable mx-6 rounded-[24px] overflow-hidden bg-card-gray cursor-pointer" onClick={() => router.push('/chat')}>
+            <div className="relative p-5 pr-32" style={{ minHeight: 168 }}>
+                <div className="flex items-center gap-1.5">
+                    <span className="inline-block px-2.5 py-1 rounded-lg text-[12px] font-bold" style={{ backgroundColor: '#E7F8F1', color: '#0BA678' }}>AI 로또 코치</span>
+                    {!isSubscriber && (
+                        <span className="inline-flex items-center gap-0.5 px-2 py-1 rounded-lg text-[11px] font-extrabold text-[#D4AF37] bg-[#D4AF37]/12">
+                            <span className="material-symbols-outlined text-[13px]" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
+                            구독 전용
+                        </span>
+                    )}
+                    {isSubscriber && unread && <span className="w-2 h-2 rounded-full bg-[#F04452]" />}
                 </div>
-
-                {/* 캐릭터 */}
-                <div className="absolute bottom-0 right-0 pointer-events-none"
-                    style={{ filter: 'drop-shadow(0 4px 24px rgba(74,222,128,0.55))' }}>
-                    <Image src="/character.png" alt="" width={122} height={122} unoptimized />
-                </div>
-
-                {/* 배지 */}
-                <div className="absolute top-3 right-3">
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#14b8a6] text-white">풀리</span>
-                </div>
-            </div>
-
-            {/* 하단 */}
-            <div className="p-5 flex items-center justify-between gap-4">
-                <div>
-                    <div className="flex items-center gap-2">
-                        <h3 className="text-[16px] font-extrabold text-t-primary">AI 챗봇 풀리</h3>
-                        {unread && <span className="w-2 h-2 rounded-full bg-[#FF453A]" />}
-                    </div>
-                    <p className="text-[12px] text-t-muted leading-relaxed mt-1">내 로또 데이터를 아는 AI 코치와<br/>대화하며 이번 주 번호를 만들어요</p>
-                </div>
-                <button onClick={() => router.push('/chat')}
-                    className="flex-shrink-0 px-5 py-2.5 bg-bg-inverse text-t-inverse text-[13px] font-bold rounded-full active:scale-95 transition-all">
+                <h3 className="text-[19px] font-bold text-t-primary mt-3">AI 챗봇 풀리</h3>
+                <p className="text-[13px] text-t-muted font-medium leading-relaxed mt-1">별자리·운세로 이번 주<br/>챔피언십 전략을 추천받아요</p>
+                <span className="inline-flex items-center gap-1 mt-4 px-4 py-2 rounded-full bg-accent text-accent-fg text-[13px] font-bold">
                     {isSubscriber ? '대화하기' : '알아보기'}
-                </button>
+                    <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+                </span>
+                {/* 우측 코치 캐릭터 */}
+                <div className="absolute right-0 top-0 bottom-0 w-32 flex items-center justify-center"
+                    style={{ background: 'linear-gradient(135deg, #E7F8F1 0%, #D8F3E6 100%)' }}>
+                    <img src="/char_coach.png" alt="" className="w-28 h-28 object-contain pointer-events-none" style={{ filter: 'drop-shadow(0 6px 16px rgba(25,31,40,0.12))' }} />
+                </div>
             </div>
         </div>
     );
@@ -866,18 +747,22 @@ export default function ContentsTab({ onViewChange }) {
 
     return (
         <div className="flex flex-col w-full min-h-screen bg-background text-t-primary pb-8">
-            <TabHeader title="AI 콘텐츠" subtitle="AI가 분석하는 럭키 스코어와 넘버센스로" />
+            <TabHeader title="AI 콘텐츠" subtitle="AI가 분석하는 럭키 스코어와 넘버 센스" />
 
-            {/* 히어로 배너 */}
-            <div className="relative mx-4 mb-4 rounded-3xl overflow-hidden border border-[#4ade80]/15 bg-gradient-to-br from-[#061e1e] via-[#0a2828] to-[#061424]" style={{ height: 210 }}>
-                <div className="absolute -right-8 -top-8 w-52 h-52 rounded-full bg-[#14b8a6]/10 pointer-events-none" />
-                <div className="absolute -left-6 -bottom-6 w-36 h-36 rounded-full bg-[#4ade80]/6 pointer-events-none" />
-                <div className="absolute left-6 top-0 bottom-0 flex flex-col justify-center" style={{ right: 170 }}>
-                    <h2 className="text-[26px] font-extrabold text-white leading-snug tracking-tight">당신의 운이<br/>쌓이고 있습니다</h2>
+            {/* 히어로 배너 — 영상 배경색(#FAFBFD)에 맞춘 카드 + 영상 캐릭터 */}
+            <div className="relative mx-6 mb-5 rounded-[24px] overflow-hidden" style={{ height: 128, backgroundColor: '#FAFBFD' }}>
+                <div className="absolute left-6 top-0 bottom-0 flex flex-col justify-center" style={{ right: 120 }}>
+                    <h2 className="text-[21px] font-bold text-t-primary leading-snug tracking-tight">당신의 운이 쌓이고 있어요</h2>
+                    <p className="text-[13px] font-medium text-t-muted mt-1.5">낙첨의 아쉬움까지 분석해 드려요</p>
                 </div>
-                <div className="absolute bottom-0 right-3" style={{ filter: 'drop-shadow(0 8px 28px rgba(74,222,128,0.5))' }}>
-                    <Image src="/character.png" alt="클로버" width={155} height={155} unoptimized priority />
-                </div>
+                <video
+                    src="/coach.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute right-2 bottom-1 w-32 h-32 object-contain pointer-events-none"
+                />
             </div>
 
             {/* Ad: Banner carousel #1 above NumberSense (FoodieDelivery first) */}
@@ -887,8 +772,8 @@ export default function ContentsTab({ onViewChange }) {
 
             <div className="flex flex-col gap-4">
                 <FuliChatCard />
-                <NumberSenseCard onStart={() => router.push('/number_sense')} />
                 <LuckyScoreCard  onDetail={() => changeView('lucky_detail')} />
+                <NumberSenseCard onStart={() => router.push('/number_sense')} />
             </div>
         </div>
     );

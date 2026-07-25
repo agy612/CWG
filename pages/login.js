@@ -84,7 +84,7 @@ function LangSelector({ lang, onChange }) {
                             <button key={l.code}
                                 onClick={() => { onChange(l.code); setOpen(false); }}
                                 className={`w-full flex items-center justify-between px-4 py-3 text-left active:bg-card-hover transition-colors ${
-                                    l.code === lang ? 'text-[#14b8a6]' : 'text-t-primary'
+                                    l.code === lang ? 'text-accent' : 'text-t-primary'
                                 }`}>
                                 <span className="text-[14px] font-bold">{l.label}</span>
                                 {l.code === lang && <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>}
@@ -198,14 +198,14 @@ export default function Login() {
                 <div className="mt-auto px-6 pb-12 pt-8 flex flex-col gap-4">
                     <button onClick={handleEmailLogin} disabled={!canSubmit}
                         className={`w-full py-4 rounded-xl font-extrabold text-base transition-all active:scale-95 ${
-                            canSubmit ? 'bg-bg-inverse text-t-inverse' : 'bg-card-gray text-t-dim cursor-not-allowed'
+                            canSubmit ? 'bg-accent text-accent-fg' : 'bg-card-gray text-t-dim cursor-not-allowed'
                         }`}>
                         {t.loginBtn}
                     </button>
                     <div className="text-center">
                         <span className="text-t-muted text-sm font-medium">{t.noAccount}</span>
                         <button onClick={() => router.push('/signup')}
-                            className="text-[#14b8a6] text-sm font-bold active:opacity-60 transition-opacity">
+                            className="text-accent text-sm font-bold active:opacity-60 transition-opacity">
                             {t.signup}
                         </button>
                     </div>
@@ -274,7 +274,7 @@ export default function Login() {
                     <span className="text-t-muted text-sm font-medium">{t.signupPrompt}</span>
                     <button
                         onClick={() => router.push('/signup')}
-                        className="text-[#14b8a6] text-sm font-bold active:opacity-60 transition-opacity"
+                        className="text-accent text-sm font-bold active:opacity-60 transition-opacity"
                     >
                         {t.signupLink}
                     </button>

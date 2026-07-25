@@ -35,7 +35,7 @@ function Dots({ total, current }) {
     return (
         <div className="flex gap-2 justify-center">
             {Array.from({ length: total }).map((_, i) => (
-                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === current ? 'w-8 bg-[#14b8a6]' : 'w-2 bg-white/15'}`} />
+                <div key={i} className={`h-1.5 rounded-full transition-all duration-300 ${i === current ? 'w-8 bg-accent' : 'w-2 bg-white/15'}`} />
             ))}
         </div>
     );
@@ -52,12 +52,12 @@ function HomePreview() {
             <div className="px-5 pt-5 pb-4 flex items-center justify-between">
                 <div>
                     <p className="text-[11px] text-t-muted font-semibold">내 포인트</p>
-                    <p className="text-[28px] font-extrabold text-[#14b8a6]">100 P</p>
+                    <p className="text-[28px] font-extrabold text-accent">100 P</p>
                     <p className="text-[10px] text-t-faint mt-0.5">첫 가입 보너스 지급 완료</p>
                 </div>
-                <div className="flex items-center gap-1.5 bg-[#14b8a6]/15 rounded-xl px-3 py-2">
-                    <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_scanner</span>
-                    <span className="text-[11px] font-bold text-[#14b8a6]">낙첨 복권 스캔</span>
+                <div className="flex items-center gap-1.5 bg-accent-soft rounded-xl px-3 py-2">
+                    <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_scanner</span>
+                    <span className="text-[11px] font-bold text-accent">낙첨 복권 스캔</span>
                 </div>
             </div>
             <div className="border-t border-themed px-5 py-3 flex gap-2">
@@ -88,18 +88,18 @@ function ScanPreview() {
             {/* 뷰파인더 */}
             <div className="relative w-full h-[180px] bg-surface rounded-3xl border border-themed overflow-hidden flex items-center justify-center">
                 {state === 'scanning' && (
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#14b8a6]/20 to-transparent"
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/20 to-transparent"
                         style={{ animation: 'scanLine 1.5s ease-in-out infinite' }} />
                 )}
-                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#14b8a6]" />
-                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#14b8a6]" />
-                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#14b8a6]" />
-                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#14b8a6]" />
+                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-accent" />
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-accent" />
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-accent" />
+                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-accent" />
 
                 {state === 'done' ? (
                     <div className="flex flex-col items-center gap-2">
-                        <span className="material-symbols-outlined text-[32px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                        <p className="text-[12px] font-bold text-[#14b8a6]">스캔 완료! +50P 적립</p>
+                        <span className="material-symbols-outlined text-[32px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <p className="text-[12px] font-bold text-accent">스캔 완료! +50P 적립</p>
                         <div className="flex gap-1.5">
                             {nums.map(n => (
                                 <div key={n} className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-extrabold ${LOTTO_COLOR(n)}`}>{n}</div>
@@ -124,7 +124,7 @@ function ScanPreview() {
                 </div>
             )}
             {state === 'done' && (
-                <p className="text-center text-[12px] text-[#14b8a6] font-semibold">실제 앱에서는 포인트가 바로 적립돼요!</p>
+                <p className="text-center text-[12px] text-accent font-semibold">실제 앱에서는 포인트가 바로 적립돼요!</p>
             )}
 
             <style jsx>{`
@@ -154,18 +154,18 @@ function PickPreview() {
     return (
         <div className="mx-6 flex flex-col gap-3">
             {/* 무료 체험권 배지 */}
-            <div className="flex items-center gap-2 bg-[#14b8a6]/10 border border-[#14b8a6]/30 rounded-2xl px-4 py-3">
-                <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>redeem</span>
+            <div className="flex items-center gap-2 bg-accent-soft border border-accent rounded-2xl px-4 py-3">
+                <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>redeem</span>
                 <div>
-                    <p className="text-[13px] font-extrabold text-[#14b8a6]">튜토리얼 무료 픽 생성권 1회</p>
-                    <p className="text-[10px] text-[#14b8a6]/70 font-medium">평소엔 포인트가 필요해요</p>
+                    <p className="text-[13px] font-extrabold text-accent">튜토리얼 무료 픽 생성권 1회</p>
+                    <p className="text-[10px] text-accent/70 font-medium">평소엔 포인트가 필요해요</p>
                 </div>
             </div>
 
             <div className="rounded-3xl border border-themed bg-card-gray p-5 flex flex-col gap-4">
                 <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-xl bg-[#14b8a6]/20 flex items-center justify-center">
-                        <span className="material-symbols-outlined text-[16px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>biotech</span>
+                    <div className="w-8 h-8 rounded-xl bg-accent-soft flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[16px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>biotech</span>
                     </div>
                     <div>
                         <p className="text-[13px] font-bold text-t-primary">CWG 픽 · 1159회차</p>
@@ -187,13 +187,13 @@ function PickPreview() {
 
                 <button onClick={generate} disabled={nums.length > 0}
                     className={`w-full py-3 rounded-xl font-bold text-[14px] transition-all active:scale-95 ${
-                        nums.length > 0 ? 'bg-white/5 text-t-faint cursor-default' : 'bg-bg-inverse text-t-inverse'
+                        nums.length > 0 ? 'bg-white/5 text-t-faint cursor-default' : 'bg-accent text-accent-fg'
                     }`}>
                     {nums.length > 0 ? '생성 완료 ✓' : '무료로 픽 받기'}
                 </button>
 
                 {nums.length > 0 && (
-                    <p className="text-center text-[11px] text-[#14b8a6] font-semibold">튜토리얼 무료 체험 완료! 이후엔 포인트로 이용해요.</p>
+                    <p className="text-center text-[11px] text-accent font-semibold">튜토리얼 무료 체험 완료! 이후엔 포인트로 이용해요.</p>
                 )}
             </div>
 
@@ -265,7 +265,7 @@ function ChampionshipPreview() {
 
                 <button onClick={generate} disabled={nums.length > 0}
                     className={`w-full py-3 rounded-xl font-bold text-[14px] active:scale-95 transition-all ${
-                        nums.length > 0 ? 'bg-white/5 text-t-faint cursor-default' : 'bg-bg-inverse text-t-inverse'
+                        nums.length > 0 ? 'bg-white/5 text-t-faint cursor-default' : 'bg-accent text-accent-fg'
                     }`}>
                     {nums.length > 0 ? '생성 완료 ✓' : '내 전략으로 번호 생성'}
                 </button>
@@ -537,7 +537,7 @@ export default function Tutorial() {
                         <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                     </button>
                     {step.tag && (
-                        <span className="text-[11px] font-bold text-[#14b8a6] bg-[#14b8a6]/10 px-3 py-1 rounded-full border border-[#14b8a6]/20">{step.tag}</span>
+                        <span className="text-[11px] font-bold text-accent bg-accent-soft px-3 py-1 rounded-full border border-accent/20">{step.tag}</span>
                     )}
                     <button onClick={finish} className="text-[13px] font-semibold text-t-muted active:text-t-primary">
                         건너뛰기
@@ -585,8 +585,8 @@ export default function Tutorial() {
                     <button onClick={next}
                         className={`w-full py-4 rounded-xl font-extrabold text-base transition-all active:scale-95 ${
                             isLast
-                                ? 'bg-[#14b8a6] text-white shadow-[0_0_20px_rgba(20,184,166,0.3)]'
-                                : 'bg-bg-inverse text-t-inverse'
+                                ? 'bg-accent text-white shadow-[0_0_20px_rgba(20,184,166,0.3)]'
+                                : 'bg-accent text-accent-fg'
                         }`}>
                         {step.cta}
                     </button>

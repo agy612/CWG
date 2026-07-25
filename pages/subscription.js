@@ -2,42 +2,45 @@ import React from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
-import PlanPicker from '../components/PlanPicker';
-
-const GOLD         = 'var(--color-gold)';
-const GOLD_FG      = 'var(--color-gold-fg)';
-const GOLD_BORDER  = 'var(--color-gold-border)';
-const GOLD_CARD_BG = 'var(--color-gold-card-bg)';
+import PlanPicker, { PLAN_FEATURES } from '../components/PlanPicker';
 
 export default function Subscription() {
     const router = useRouter();
     const { tier, subscriptionExpiry } = useUser();
     const nextBillingDate = subscriptionExpiry || '2026-03-25';
 
-    /* PRO는 추가 살 게 없음 → 관리 페이지로 안내 */
+    /* 이미 PRO 구독 중 → 관리 안내 */
     if (tier === 'PRO') {
         return (
             <div className="bg-background font-sans text-t-primary antialiased min-h-screen">
-                <Head><title>CWG - 구독</title></Head>
-                <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto shadow-2xl pb-24">
-                    <div className="pt-12 pb-6 px-6 flex items-center gap-3">
-                        <button onClick={() => router.back()} className="active:scale-90 transition-transform">
-                            <span className="material-symbols-outlined text-[28px] font-light text-t-secondary">arrow_back</span>
+                <Head><title>FULIF - 구독</title></Head>
+                <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto pb-24">
+                    <div className="pt-12 pb-4 px-4 flex items-center gap-2">
+                        <button onClick={() => router.back()} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
+                            <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                         </button>
-                        <h1 className="text-lg font-extrabold tracking-tight">구독</h1>
+                        <h1 className="text-[17px] font-bold tracking-tight">구독</h1>
                     </div>
 
-                    <div
-                        className="mx-6 p-6 rounded-3xl border flex flex-col items-center text-center gap-4"
-                        style={{ background: GOLD_CARD_BG, borderColor: GOLD_BORDER }}
-                    >
-                        <span className="material-symbols-outlined text-[48px]" style={{ fontVariationSettings: "'FILL' 1", color: GOLD }}>workspace_premium</span>
-                        <div className="text-2xl font-extrabold" style={{ color: GOLD }}>이미 PRO 구독 중</div>
-                        <p className="text-sm text-t-muted font-medium">최고 등급입니다. 다음 결제일은 {nextBillingDate}.</p>
+                    <div className="px-6">
+                        <div className="bg-card-gray rounded-[24px] p-6 ring-2 ring-accent flex flex-col items-center text-center">
+                            <img src="/sub/badge.png" alt="" className="w-[52px] h-[52px] object-contain" />
+                            <div className="text-[22px] font-bold text-t-primary mt-3">이미 PRO 구독 중이에요</div>
+                            <p className="text-[14px] text-t-muted font-medium mt-1">다음 결제일 {nextBillingDate}</p>
+                        </div>
+
+                        <div className="bg-card-gray rounded-[20px] p-5 mt-3 flex flex-col gap-3">
+                            {PLAN_FEATURES.PRO.map((f, i) => (
+                                <div key={i} className="flex items-center gap-3">
+                                    <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                    <span className="text-[14px] font-medium text-t-secondary">{f}</span>
+                                </div>
+                            ))}
+                        </div>
+
                         <button
                             onClick={() => router.push('/my_subscription')}
-                            className="w-full mt-2 py-4 rounded-xl font-extrabold text-base active:scale-95 transition-all"
-                            style={{ background: GOLD, color: GOLD_FG }}
+                            className="pressable w-full mt-4 py-4 rounded-2xl bg-accent text-accent-fg font-bold text-[16px]"
                         >
                             구독 관리하기
                         </button>
@@ -47,14 +50,14 @@ export default function Subscription() {
         );
     }
 
-    /* FREE / STANDARD → 플랜 피커 */
+    /* FREE → 플랜 피커 */
     return (
         <div className="bg-background font-sans text-t-primary antialiased min-h-screen">
-            <Head><title>CWG - Subscription</title></Head>
-            <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto shadow-2xl pb-16">
-                <div className="pt-12 pb-2 px-6 flex items-center gap-3">
-                    <button onClick={() => router.back()} className="active:scale-90 transition-transform">
-                        <span className="material-symbols-outlined text-[28px] font-light text-t-secondary">arrow_back</span>
+            <Head><title>FULIF - 구독</title></Head>
+            <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto pb-16">
+                <div className="pt-12 pb-2 px-4 flex items-center gap-2">
+                    <button onClick={() => router.back()} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
+                        <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                     </button>
                 </div>
                 <PlanPicker tier={tier} nextBillingDate={nextBillingDate} />

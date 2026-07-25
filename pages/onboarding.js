@@ -63,7 +63,7 @@ export default function Onboarding() {
                     {/* Abstract SVG Illustration box */}
                     <div className="w-full aspect-square max-h-[300px] mb-12 relative flex items-center justify-center">
                         {/* Ambient Glow */}
-                        <div className="absolute inset-0 bg-[#14b8a6]/10 blur-[60px] rounded-full" />
+                        <div className="absolute inset-0 bg-accent-soft blur-[60px] rounded-full" />
                         <div className="relative z-10 size-32 bg-gradient-to-tr from-zinc-800 to-zinc-700 rounded-full border border-themed-light flex items-center justify-center shadow-2xl">
                             <span className="material-symbols-outlined text-[64px] text-t-primary" style={{ fontVariationSettings: "'FILL' 1, 'wght' 200" }}>
                                 {slide.icon}
@@ -92,7 +92,7 @@ export default function Onboarding() {
                     <button
                         onClick={nextSlide}
                         className={`w-full py-4 rounded-xl font-bold text-base active:scale-95 transition-all ${isLast
-                                ? 'bg-bg-inverse text-t-inverse shadow-[0_0_20px_rgba(255,255,255,0.2)]'
+                                ? 'bg-accent text-accent-fg shadow-[0_0_20px_rgba(255,255,255,0.2)]'
                                 : 'bg-card-gray text-t-primary border border-themed-light hover:bg-btn-secondary'
                             }`}
                     >

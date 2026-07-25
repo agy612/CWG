@@ -8,7 +8,7 @@ const SLIDES = [
         title: 'Fulif에\n오신 걸 환영해요',
         body: '핵심 기능을 슬라이드로\n빠르게 소개해드릴게요',
         accentA: '#4ade80',
-        accentB: '#14b8a6',
+        accentB: '#3182F6',
         kind: 'welcome',
         screenLabel: '환영합니다',
     },
@@ -16,7 +16,7 @@ const SLIDES = [
         id: 'scan',
         title: '낙첨 복권 등록하고\n포인트 + 응모권 받기',
         body: '복권을 등록하면 포인트 적립,\n광고까지 보면 매주 경품 추첨에\n응모할 수 있어요',
-        accentA: '#14b8a6',
+        accentA: '#3182F6',
         accentB: '#06b6d4',
         kind: 'screen',
         screen: '/스캔.png',
@@ -417,8 +417,8 @@ function OverlayScan({ active }) {
                                 border: '1px solid rgba(20,184,166,0.45)',
                                 boxShadow: '0 8px 24px rgba(20,184,166,0.35)',
                             }}>
-                            <span className="material-symbols-outlined text-[22px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_scanner</span>
-                            <span className="text-[13px] font-extrabold text-[#14b8a6] whitespace-nowrap">낙첨 복권 스캔</span>
+                            <span className="material-symbols-outlined text-[22px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_scanner</span>
+                            <span className="text-[13px] font-extrabold text-accent whitespace-nowrap">낙첨 복권 스캔</span>
                         </div>
                     </div>
                 </div>
@@ -805,7 +805,7 @@ function MockWelcome({ active }) {
 
 function MockDone({ active }) {
     const features = [
-        { icon: 'qr_code_scanner',    label: '스캔 적립', color: '#14b8a6' },
+        { icon: 'qr_code_scanner',    label: '스캔 적립', color: '#3182F6' },
         { icon: 'confirmation_number', label: '경품 응모', color: '#fbbf24' },
         { icon: 'auto_awesome',        label: '번호 생성', color: '#a78bfa' },
         { icon: 'sports_esports',      label: '콘텐츠',    color: '#34d399' },

@@ -127,7 +127,7 @@ function ErrorPopup({ err, onClose }) {
                                 onClick={onClose}
                                 className={`flex-1 py-3 rounded-xl font-bold text-sm active:scale-95 transition-all ${
                                     action.primary
-                                        ? 'bg-bg-inverse text-t-inverse'
+                                        ? 'bg-accent text-accent-fg'
                                         : 'bg-btn-secondary text-btn-secondary-text border border-themed'
                                 }`}
                             >

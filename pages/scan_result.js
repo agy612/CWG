@@ -58,8 +58,8 @@ export default function ScanResult() {
     const totalAdPoints = Object.values(setRewards).reduce((sum, r) => sum + r.points, 0);
     const totalEarned = scanBasePoints + totalAdPoints;
 
-    const accentColor = tier === 'PRO' ? '#D4AF37' : '#14b8a6';
-    const accentBgClass = tier === 'PRO' ? 'bg-[#D4AF37]/15' : 'bg-[#14b8a6]/15';
+    const accentColor = tier === 'PRO' ? '#D4AF37' : '#3182F6';
+    const accentBgClass = tier === 'PRO' ? 'bg-[#D4AF37]/15' : 'bg-accent-soft';
 
     const startEdit = (setIdx, numIdx) => {
         setEditing({ setIdx, numIdx });
@@ -176,7 +176,7 @@ export default function ScanResult() {
                         <span className="text-[10px] font-bold text-t-muted bg-white/8 px-1.5 py-0.5 rounded-full">제1159회</span>
                         <span className="text-white/15">·</span>
                         <span className="text-[10px] text-t-muted font-medium">2026-02-27</span>
-                        <span className="ml-auto text-[10px] text-[#14b8a6] font-semibold">낙첨 확인됨</span>
+                        <span className="ml-auto text-[10px] text-accent font-semibold">낙첨 확인됨</span>
                     </div>
                 </div>
 
@@ -229,7 +229,7 @@ export default function ScanResult() {
                                                             onChange={e => setEditVal(e.target.value)}
                                                             onBlur={commitEdit}
                                                             onKeyDown={e => e.key === 'Enter' && commitEdit()}
-                                                            className="w-9 h-9 rounded-full bg-white text-black text-[12px] font-extrabold text-center outline-none border-2 border-[#14b8a6]"
+                                                            className="w-9 h-9 rounded-full bg-white text-black text-[12px] font-extrabold text-center outline-none border-2 border-accent"
                                                         />
                                                     ) : (
                                                         <button onClick={() => startEdit(setIdx, numIdx)}
@@ -262,15 +262,15 @@ export default function ScanResult() {
                                                 border: '1px solid rgba(20,184,166,0.4)',
                                             }}>
                                         <div className="flex items-center gap-2">
-                                            <div className="w-7 h-7 rounded-lg bg-[#14b8a6]/20 flex items-center justify-center flex-shrink-0">
-                                                <span className="material-symbols-outlined text-[16px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
+                                            <div className="w-7 h-7 rounded-lg bg-accent-soft flex items-center justify-center flex-shrink-0">
+                                                <span className="material-symbols-outlined text-[16px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
                                             </div>
                                             <div className="text-left">
                                                 <div className="text-[12px] font-extrabold text-t-primary leading-tight">광고 보고 경품 응모하기</div>
                                                 <div className="text-[9px] text-t-muted font-medium mt-0.5">15초 시청 · +{MAX_AD_POINTS}P 추가 적립</div>
                                             </div>
                                         </div>
-                                        <span className="material-symbols-outlined text-[18px] text-[#14b8a6]">chevron_right</span>
+                                        <span className="material-symbols-outlined text-[18px] text-accent">chevron_right</span>
                                     </button>
                                 ) : null}
                             </div>
@@ -285,7 +285,7 @@ export default function ScanResult() {
 
                 {/* Bottom CTA */}
                 <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto p-6 bg-gradient-to-t from-[var(--color-gradient-solid)] via-[var(--color-gradient-solid)]/90 to-transparent">
-                    <button onClick={() => router.push('/')} className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all mb-2">홈으로</button>
+                    <button onClick={() => router.push('/')} className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all mb-2">홈으로</button>
                     <button onClick={() => router.push('/scan_result')} className="w-full py-2.5 rounded-xl bg-transparent text-t-muted font-semibold text-[13px] active:scale-95 transition-all">계속 스캔하기</button>
                 </div>
 
@@ -315,7 +315,7 @@ export default function ScanResult() {
                                         onClick={() => setAdCategory(cat)}
                                         className={`flex-shrink-0 px-3 py-1.5 rounded-full text-[11px] font-bold border transition-all ${
                                             adCategory === cat
-                                                ? 'bg-bg-inverse text-t-inverse border-transparent'
+                                                ? 'bg-accent text-accent-fg border-transparent'
                                                 : 'bg-white/5 text-t-muted border-themed'
                                         }`}
                                     >

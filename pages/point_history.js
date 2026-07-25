@@ -19,7 +19,7 @@ const TRANSACTIONS = [
 
 const TAG_COLOR = (tag) => {
     const map = {
-        '스캔': 'bg-[#14b8a6]/15 text-[#14b8a6]',
+        '스캔': 'bg-accent-soft text-accent',
         '보너스': 'bg-amber-500/15 text-amber-400',
         '럭키이벤트': 'bg-purple-500/15 text-purple-400',
         '픽생성': 'bg-blue-500/15 text-blue-400',
@@ -62,7 +62,7 @@ export default function PointHistory() {
                     <div className="flex gap-0 border-t border-themed pt-4">
                         <div className="flex-1 flex flex-col gap-0.5">
                             <div className="text-[11px] font-bold text-t-dim uppercase tracking-widest">총 적립</div>
-                            <div className="text-lg font-bold text-[#14b8a6]">+{totalEarned.toLocaleString()} P</div>
+                            <div className="text-lg font-bold text-accent">+{totalEarned.toLocaleString()} P</div>
                         </div>
                         <div className="w-px bg-themed" />
                         <div className="flex-1 flex flex-col gap-0.5 pl-4">
@@ -79,7 +79,7 @@ export default function PointHistory() {
                             key={tab}
                             onClick={() => setActiveTab(tab)}
                             className={`flex-1 py-2.5 rounded-xl text-sm font-bold transition-all ${
-                                activeTab === tab ? 'bg-bg-inverse text-t-inverse' : 'text-t-muted'
+                                activeTab === tab ? 'bg-accent text-accent-fg' : 'text-t-muted'
                             }`}
                         >
                             {tab}
@@ -99,10 +99,10 @@ export default function PointHistory() {
                             <div key={t.id} className={`flex items-center gap-4 py-4 ${idx < filtered.length - 1 ? 'border-b border-themed' : ''}`}>
                                 {/* Icon */}
                                 <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                                    t.type === 'earn' ? 'bg-[#14b8a6]/15' : 'bg-btn-secondary'
+                                    t.type === 'earn' ? 'bg-accent-soft' : 'bg-btn-secondary'
                                 }`}>
                                     <span className={`material-symbols-outlined text-[20px] font-light ${
-                                        t.type === 'earn' ? 'text-[#14b8a6]' : 'text-t-secondary'
+                                        t.type === 'earn' ? 'text-accent' : 'text-t-secondary'
                                     }`} style={{ fontVariationSettings: "'FILL' 1" }}>
                                         {t.icon}
                                     </span>
@@ -119,7 +119,7 @@ export default function PointHistory() {
                                 </div>
 
                                 {/* Amount */}
-                                <div className={`text-base font-extrabold flex-shrink-0 ${t.amount > 0 ? 'text-[#14b8a6]' : 'text-t-secondary'}`}>
+                                <div className={`text-base font-extrabold flex-shrink-0 ${t.amount > 0 ? 'text-accent' : 'text-t-secondary'}`}>
                                     {t.amount > 0 ? '+' : ''}{t.amount.toLocaleString()}P
                                 </div>
                             </div>

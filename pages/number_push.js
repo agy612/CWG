@@ -70,7 +70,7 @@ export default function NumberPush() {
                 {/* Header */}
                 <div className="pt-12 pb-2 px-6 flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-[20px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
+                        <span className="material-symbols-outlined text-[20px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>auto_awesome</span>
                         <span className="text-[12px] font-bold text-t-muted">이번 주 번호 생성</span>
                     </div>
                     <button onClick={() => router.push('/')} aria-label="닫기" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray">
@@ -134,7 +134,7 @@ export default function NumberPush() {
                         <div className="mt-3 bg-card-gray rounded-2xl border border-themed p-5 flex flex-col items-center text-center">
                             {!unlocked ? (
                                 <>
-                                    <span className="material-symbols-outlined text-[26px] text-[#14b8a6] mb-2" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
+                                    <span className="material-symbols-outlined text-[26px] text-accent mb-2" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
                                     <p className="text-[14px] font-extrabold text-t-primary">
                                         무료 회원은 이번 주 {FREE_PREVIEW_COUNT}세트만 받아요
                                     </p>
@@ -145,7 +145,7 @@ export default function NumberPush() {
                                     <button
                                         disabled={points < unlockCost}
                                         onClick={() => { if (points >= unlockCost) setUnlocked(true); }}
-                                        className="w-full mt-4 py-3.5 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all disabled:opacity-30"
+                                        className="w-full mt-4 py-3.5 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all disabled:opacity-30"
                                     >
                                         {points >= unlockCost ? `${unlockCost}P로 ${FREE_PREVIEW_COUNT}세트 열람하기` : `포인트 부족 (${unlockCost - points}P 더 필요)`}
                                     </button>
@@ -158,11 +158,11 @@ export default function NumberPush() {
                             )}
                             <div className="w-full mt-4 pt-4 border-t border-themed flex flex-col items-center">
                                 <p className="text-[13px] font-bold text-t-primary">
-                                    구독하면 <span className="text-[#14b8a6]">매주 10세트 전부</span> 받아요
+                                    구독하면 <span className="text-accent">매주 10세트 전부</span> 받아요
                                 </p>
                                 <button
                                     onClick={() => router.push('/subscription')}
-                                    className="mt-3 text-[13px] font-extrabold text-[#14b8a6] active:scale-95 transition-all"
+                                    className="mt-3 text-[13px] font-extrabold text-accent active:scale-95 transition-all"
                                 >
                                     구독하고 매주 10세트 받기 &gt;
                                 </button>
@@ -172,8 +172,8 @@ export default function NumberPush() {
 
                     {/* 내가 만든 번호 (있을 때만 11번부터 이어서) */}
                     {myNumbers.map((item, i) => (
-                        <div key={`my${i}`} className="bg-card-gray rounded-2xl px-4 py-3 border border-[#14b8a6]/30 flex items-center gap-2">
-                            <span className="text-[#14b8a6] text-xs font-bold w-6 text-center flex-shrink-0">{11 + i}</span>
+                        <div key={`my${i}`} className="bg-card-gray rounded-2xl px-4 py-3 border border-accent flex items-center gap-2">
+                            <span className="text-accent text-xs font-bold w-6 text-center flex-shrink-0">{11 + i}</span>
                             <div className="flex items-center gap-1.5 flex-1 justify-center">
                                 {item.numbers.map((num, j) => (
                                     <div key={j} className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-extrabold ${LOTTO_BALL_COLOR(num)}`}>
@@ -181,7 +181,7 @@ export default function NumberPush() {
                                     </div>
                                 ))}
                             </div>
-                            <span className="text-[10px] font-bold text-[#14b8a6] bg-[#14b8a6]/15 px-2 py-0.5 rounded-full flex-shrink-0">{item.preset}</span>
+                            <span className="text-[10px] font-bold text-accent bg-accent-soft px-2 py-0.5 rounded-full flex-shrink-0">{item.preset}</span>
                         </div>
                     ))}
                 </div>

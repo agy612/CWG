@@ -27,7 +27,7 @@ export default function ScanComplete() {
     const setsCount = parseInt(router.query.sets || '5', 10);
     const round = router.query.round || '1159';
 
-    const accentColor = tier === 'PRO' ? '#D4AF37' : '#14b8a6';
+    const accentColor = tier === 'PRO' ? '#D4AF37' : '#3182F6';
 
     return (
         <div className="font-sans text-t-primary antialiased min-h-screen"

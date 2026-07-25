@@ -115,9 +115,9 @@ export default function DailyAds() {
                             </span>
                             <span className="text-[18px] font-extrabold text-t-secondary">{done ? '적립 완료' : '바로 적립'}</span>
                         </div>
-                        <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14b8a6]/12 border border-[#14b8a6]/25">
-                            <span className="material-symbols-outlined text-[13px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
-                            <span className="text-[11px] font-extrabold text-[#14b8a6]">
+                        <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft border border-accent">
+                            <span className="material-symbols-outlined text-[13px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
+                            <span className="text-[11px] font-extrabold text-accent">
                                 {done ? `내일 또 ${dailyLimit}편이 준비돼요` : `오늘 ${count}편 시청 · +${earned}P 받았어요`}
                             </span>
                         </div>
@@ -139,13 +139,13 @@ export default function DailyAds() {
                     </div>
 
                     <div className="w-full h-2.5 rounded-full bg-background overflow-hidden border border-themed mb-4">
-                        <div className="h-full rounded-full bg-[#14b8a6] transition-all duration-500"
+                        <div className="h-full rounded-full bg-accent transition-all duration-500"
                              style={{ width: `${(count / dailyLimit) * 100}%` }} />
                     </div>
 
                     <div className="grid grid-cols-3 gap-2">
                         <div className="flex flex-col items-center gap-0.5 rounded-2xl py-3 bg-background border border-themed">
-                            <span className="text-[15px] font-extrabold text-[#14b8a6] leading-none">+{earned}P</span>
+                            <span className="text-[15px] font-extrabold text-accent leading-none">+{earned}P</span>
                             <span className="text-[10px] font-bold text-t-dim mt-1">오늘 적립</span>
                         </div>
                         <div className="flex flex-col items-center gap-0.5 rounded-2xl py-3 bg-background border border-themed">
@@ -180,7 +180,7 @@ export default function DailyAds() {
                             { icon: 'info', text: '광고를 도중에 닫으면 포인트가 적립되지 않아요' },
                         ].map((r, i) => (
                             <div key={i} className="flex items-start gap-2.5">
-                                <span className="material-symbols-outlined text-[16px] text-[#14b8a6] mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>{r.icon}</span>
+                                <span className="material-symbols-outlined text-[16px] text-accent mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>{r.icon}</span>
                                 <span className="text-[12px] font-medium text-t-muted leading-relaxed flex-1">{r.text}</span>
                             </div>
                         ))}
@@ -195,7 +195,7 @@ export default function DailyAds() {
                         className={`w-full py-4 rounded-xl font-extrabold text-base transition-all ${
                             done
                                 ? 'bg-btn-secondary text-t-dim'
-                                : 'bg-bg-inverse text-t-inverse active:scale-95'
+                                : 'bg-accent text-accent-fg active:scale-95'
                         }`}
                     >
                         {done
@@ -215,7 +215,7 @@ export default function DailyAds() {
                                 </div>
                                 <Image src="/character.png" alt="풀리" width={90} height={90} unoptimized
                                     style={{ filter: 'drop-shadow(0 6px 20px rgba(74,222,128,0.4))' }} />
-                                <div className="text-[24px] font-extrabold text-[#14b8a6] mt-2 mb-1">+{lastEarned}P</div>
+                                <div className="text-[24px] font-extrabold text-accent mt-2 mb-1">+{lastEarned}P</div>
                                 <div className="text-[13px] text-t-muted font-medium mb-5">
                                     {done
                                         ? <span className="text-[#D4AF37] font-bold">오늘 {dailyLimit}편 모두 시청! 총 +{earned}P를 받았어요 🎉</span>
@@ -224,7 +224,7 @@ export default function DailyAds() {
                                 {!done && (
                                     <button
                                         onClick={() => { setShowReward(false); setShowAd(true); }}
-                                        className="w-full py-4 rounded-xl bg-[#14b8a6]/15 text-[#14b8a6] font-extrabold text-sm border border-[#14b8a6]/30 active:scale-95 transition-all mb-2"
+                                        className="w-full py-4 rounded-xl bg-accent-soft text-accent font-extrabold text-sm border border-accent active:scale-95 transition-all mb-2"
                                     >
                                         이어서 한 편 더 보기 (+{nextReward}P)
                                     </button>
@@ -233,7 +233,7 @@ export default function DailyAds() {
                                     onClick={() => setShowReward(false)}
                                     className={`w-full rounded-xl font-extrabold text-sm active:scale-95 transition-all ${
                                         done
-                                            ? 'py-4 bg-bg-inverse text-t-inverse'
+                                            ? 'py-4 bg-accent text-accent-fg'
                                             : 'py-3 bg-transparent text-t-dim font-semibold text-[13px]'
                                     }`}
                                 >

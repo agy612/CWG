@@ -106,7 +106,7 @@ export default function Invite() {
                 <div className="px-6 mb-5">
                     <h2 className="text-[24px] font-extrabold tracking-tight leading-snug">
                         내 초대 링크로 친구가 가입하면<br />
-                        <span className="text-[#14b8a6]">친구도 나도 +{REWARD_PER_FRIEND}P</span>
+                        <span className="text-accent">친구도 나도 +{REWARD_PER_FRIEND}P</span>
                     </h2>
                     <p className="text-t-muted text-[13px] font-medium mt-2">
                         친구가 초대 링크를 눌러 가입을 완료하는 순간 두 사람 모두에게 포인트를 드려요
@@ -121,8 +121,8 @@ export default function Invite() {
                         { icon: 'toll', label: `둘 다 +${REWARD_PER_FRIEND}P 지급` },
                     ].map((s, i) => (
                         <div key={i} className="flex flex-col items-center gap-2 bg-card-gray rounded-2xl border border-themed py-4 px-2">
-                            <div className="w-9 h-9 rounded-full bg-[#14b8a6]/12 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[18px] text-[#14b8a6]">{s.icon}</span>
+                            <div className="w-9 h-9 rounded-full bg-accent-soft flex items-center justify-center">
+                                <span className="material-symbols-outlined text-[18px] text-accent">{s.icon}</span>
                             </div>
                             <span className="text-[10px] font-bold text-t-dim">STEP {i + 1}</span>
                             <span className="text-[11px] font-bold text-t-primary text-center leading-tight">{s.label}</span>
@@ -152,7 +152,7 @@ export default function Invite() {
                             </button>
                             <button
                                 onClick={share}
-                                className="flex-1 py-3.5 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all flex items-center justify-center gap-1.5"
+                                className="flex-1 py-3.5 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all flex items-center justify-center gap-1.5"
                             >
                                 <span className="material-symbols-outlined text-[18px]">share</span>
                                 공유하기
@@ -171,7 +171,7 @@ export default function Invite() {
                         </div>
                         <div className="flex flex-col">
                             <span className="text-[11px] font-bold text-t-dim uppercase tracking-widest mb-1">받은 보너스</span>
-                            <span className="text-[26px] font-extrabold tracking-tight text-[#14b8a6]">{totalBonus.toLocaleString()}<span className="text-[14px] font-bold ml-0.5">P</span></span>
+                            <span className="text-[26px] font-extrabold tracking-tight text-accent">{totalBonus.toLocaleString()}<span className="text-[14px] font-bold ml-0.5">P</span></span>
                         </div>
                     </div>
 
@@ -190,7 +190,7 @@ export default function Invite() {
                         </div>
                         <div className="h-1.5 w-full bg-btn-secondary rounded-full overflow-hidden">
                             <div
-                                className="h-full rounded-full transition-all duration-500 bg-[#14b8a6]"
+                                className="h-full rounded-full transition-all duration-500 bg-accent"
                                 style={{ width: `${(milestoneProgress / MILESTONE_COUNT) * 100}%` }}
                             />
                         </div>
@@ -223,7 +223,7 @@ export default function Invite() {
                                             <div className="text-[11px] text-t-dim font-medium">{f.date} 가입</div>
                                         </div>
                                     </div>
-                                    <span className="text-[13px] font-extrabold text-[#14b8a6]">+{REWARD_PER_FRIEND}P</span>
+                                    <span className="text-[13px] font-extrabold text-accent">+{REWARD_PER_FRIEND}P</span>
                                 </div>
                             ))}
                         </div>
@@ -247,7 +247,7 @@ export default function Invite() {
 
                 {/* Toast */}
                 {toast && (
-                    <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[300] bg-bg-inverse text-t-inverse text-[13px] font-bold px-5 py-3 rounded-full shadow-2xl whitespace-nowrap">
+                    <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[300] bg-accent text-accent-fg text-[13px] font-bold px-5 py-3 rounded-full shadow-2xl whitespace-nowrap">
                         {toast}
                     </div>
                 )}

@@ -129,6 +129,15 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
             const stored = JSON.parse(localStorage.getItem('cwg_saved_presets') || '[]');
             setSavedPresets(stored);
         } catch {}
+        // 풀리(챗봇) 별자리 추천으로 넘어온 경우 해당 필터 프리셋을 자동 선택
+        try {
+            const rec = localStorage.getItem('cwg_recommend_preset');
+            if (rec && PRESET_VALUES[rec]) {
+                setActivePreset(rec);
+                setFilterValues({ ...DEFAULT_VALUES, ...PRESET_VALUES[rec] });
+            }
+            if (rec) localStorage.removeItem('cwg_recommend_preset');
+        } catch {}
     }, []);
 
     const isGuest = tier === 'GUEST';
@@ -277,13 +286,13 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                         {STAT_ROWS.map((row, i) => (
                             <div key={i} className="flex items-center justify-between py-2 border-b border-themed last:border-0">
                                 <div className="flex items-center gap-2">
-                                    <span className={`w-1.5 h-1.5 rounded-full ${row.good ? 'bg-[#14b8a6]' : 'bg-amber-500'}`} />
+                                    <span className={`w-1.5 h-1.5 rounded-full ${row.good ? 'bg-accent' : 'bg-amber-500'}`} />
                                     <span className="text-sm font-semibold text-btn-secondary-text">{row.label}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     <span className="text-sm font-bold text-t-primary">{row.value}</span>
                                     <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                                        row.good ? 'bg-[#14b8a6]/15 text-[#14b8a6]' : 'bg-amber-500/15 text-amber-500'
+                                        row.good ? 'bg-accent-soft text-accent' : 'bg-amber-500/15 text-amber-500'
                                     }`}>{row.desc}</span>
                                 </div>
                             </div>
@@ -317,10 +326,10 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                                     onChange={e => setSaveName(e.target.value)}
                                     onKeyDown={e => e.key === 'Enter' && handleSavePreset()}
                                     placeholder="프리셋 이름 (최대 10자)" maxLength={10} autoFocus
-                                    className="flex-1 bg-btn-secondary border border-themed-light rounded-xl px-4 py-3 text-t-primary text-sm font-semibold outline-none focus:border-[#14b8a6]/50 transition-colors"
+                                    className="flex-1 bg-btn-secondary border border-themed-light rounded-xl px-4 py-3 text-t-primary text-sm font-semibold outline-none focus:border-accent/50 transition-colors"
                                 />
                                 <button onClick={handleSavePreset} disabled={!saveName.trim()}
-                                    className="px-4 py-3 rounded-xl bg-[#14b8a6] text-black font-bold text-sm active:scale-95 transition-all disabled:opacity-40">
+                                    className="px-4 py-3 rounded-xl bg-accent text-accent-fg font-bold text-sm active:scale-95 transition-all disabled:opacity-40">
                                     저장
                                 </button>
                             </div>
@@ -328,7 +337,7 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                         </div>
                     )}
                     {saveStep === 'saved' && (
-                        <div className="mt-4 flex items-center justify-center gap-2 py-3 rounded-xl bg-[#14b8a6]/15 border border-[#14b8a6]/30 text-[#14b8a6]">
+                        <div className="mt-4 flex items-center justify-center gap-2 py-3 rounded-xl bg-accent-soft border border-accent text-accent">
                             <span className="material-symbols-outlined text-[18px]" style={{ fontVariationSettings: "'FILL' 1" }}>bookmark</span>
                             <span className="text-sm font-semibold">'{saveName}' 저장 완료</span>
                         </div>
@@ -342,16 +351,16 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                 </div>
 
                 {/* 자동 저장 안내 */}
-                <div className="mx-6 flex items-center gap-2 bg-[#14b8a6]/10 rounded-2xl p-4 border border-[#14b8a6]/20 mb-4">
-                    <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>history</span>
-                    <span className="text-xs font-semibold text-[#14b8a6]">히스토리에 자동 저장됨 · 추첨 후 당첨 여부가 자동 확인됩니다</span>
+                <div className="mx-6 flex items-center gap-2 bg-accent-soft rounded-2xl p-4 border border-accent/20 mb-4">
+                    <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>history</span>
+                    <span className="text-xs font-semibold text-accent">히스토리에 자동 저장됨 · 추첨 후 당첨 여부가 자동 확인됩니다</span>
                 </div>
 
 
                 {/* 하단 액션 */}
                 <div className={`fixed ${embedded ? 'bottom-0' : 'bottom-[80px]'} left-0 right-0 max-w-[430px] mx-auto p-4 bg-gradient-to-t from-[var(--color-gradient-solid)] via-[var(--color-gradient-solid)]/90 to-transparent z-40`}>
                     <button onClick={closeResult}
-                        className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all mb-3">
+                        className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all mb-3">
                         다시 생성하기 (-{resultData.cost}P)
                     </button>
                     <button onClick={() => router.push('/championship_history')}
@@ -418,7 +427,7 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                         onClick={() => handlePresetSelect(preset)}
                         className={`px-4 py-2.5 rounded-full whitespace-nowrap text-sm font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
                             activePreset === preset
-                                ? 'bg-bg-inverse text-t-inverse shadow-[0_0_15px_rgba(255,255,255,0.2)]'
+                                ? 'bg-accent text-accent-fg shadow-[0_0_15px_rgba(255,255,255,0.2)]'
                                 : 'bg-card-gray text-t-primary border border-themed'
                         }`}
                     >
@@ -435,8 +444,8 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                         onClick={() => handlePresetSelect(`saved_${sp.id}`, sp.filterValues)}
                         className={`px-4 py-2.5 rounded-full whitespace-nowrap text-sm font-bold transition-all active:scale-95 flex items-center gap-1.5 ${
                             activePreset === `saved_${sp.id}`
-                                ? 'bg-bg-inverse text-t-inverse shadow-[0_0_15px_rgba(255,255,255,0.2)]'
-                                : 'bg-card-gray text-t-primary border border-[#14b8a6]/30'
+                                ? 'bg-accent text-accent-fg shadow-[0_0_15px_rgba(255,255,255,0.2)]'
+                                : 'bg-card-gray text-t-primary border border-accent'
                         }`}
                     >
                         <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>bookmark</span>
@@ -478,7 +487,7 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                                 <span className="material-symbols-outlined text-[20px] text-t-secondary font-light" style={{ fontVariationSettings: "'FILL' 1" }}>{group.icon}</span>
                                 <span className="text-sm font-bold text-t-primary flex-1 text-left">[{group.id}] {group.label}</span>
                                 {groupActive > 0 && (
-                                    <span className="text-[11px] font-bold text-[#14b8a6] bg-[#14b8a6]/15 px-2 py-0.5 rounded-full">{groupActive}활성</span>
+                                    <span className="text-[11px] font-bold text-accent bg-accent-soft px-2 py-0.5 rounded-full">{groupActive}활성</span>
                                 )}
                                 <span className={`material-symbols-outlined text-[20px] text-t-dim transition-transform ${isOpen ? 'rotate-180' : ''}`}>expand_more</span>
                             </button>
@@ -494,7 +503,7 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                                                     <div className="flex flex-col">
                                                         <div className="flex items-center gap-2">
                                                             <span className={`text-sm font-bold ${isActive ? 'text-t-primary' : 'text-t-muted'}`}>{filter.label}</span>
-                                                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#14b8a6]" />}
+                                                            {isActive && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
                                                         </div>
                                                         <span className="text-[11px] text-t-dim font-medium mt-0.5">{filter.desc}</span>
                                                     </div>
@@ -546,7 +555,7 @@ export default function ChampionshipTab({ embedded = false, onResultChange }) {
                     <button
                         onClick={handleGenerate}
                         disabled={!isGuest && !canGenerate}
-                        className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all disabled:opacity-30"
+                        className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all disabled:opacity-30"
                     >
                         {isGuest ? '로그인 후 사용하기' : '번호 생성하기'}
                     </button>

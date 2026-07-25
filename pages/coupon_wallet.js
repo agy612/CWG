@@ -75,7 +75,7 @@ export default function CouponWallet() {
                     </div>
                     <button
                         onClick={() => setShowCodeInput(prev => !prev)}
-                        className="text-[13px] font-bold text-[#14b8a6] bg-[#14b8a6]/10 px-3 py-1.5 rounded-full hover:bg-[#14b8a6]/20 transition-colors"
+                        className="text-[13px] font-bold text-accent bg-accent-soft px-3 py-1.5 rounded-full hover:bg-accent-soft transition-colors"
                     >
                         코드 입력 +
                     </button>
@@ -90,18 +90,18 @@ export default function CouponWallet() {
                             value={codeValue}
                             onChange={e => setCodeValue(e.target.value.toUpperCase())}
                             placeholder="쿠폰 코드 입력"
-                            className="flex-1 bg-card-gray border border-themed-light rounded-xl px-4 py-3 text-t-primary text-sm font-semibold outline-none focus:border-[#14b8a6]/50 transition-colors"
+                            className="flex-1 bg-card-gray border border-themed-light rounded-xl px-4 py-3 text-t-primary text-sm font-semibold outline-none focus:border-accent/50 transition-colors"
                         />
                         <button
                             onClick={handleRegister}
                             disabled={!codeValue.trim()}
-                            className="px-4 py-3 rounded-xl bg-[#14b8a6] text-black font-bold text-sm active:scale-95 transition-all disabled:opacity-40"
+                            className="px-4 py-3 rounded-xl bg-accent text-accent-fg font-bold text-sm active:scale-95 transition-all disabled:opacity-40"
                         >
                             등록
                         </button>
                         </div>
                         {registerMsg && (
-                            <div className={`text-xs font-semibold px-1 ${registerMsg.type === 'success' ? 'text-[#14b8a6]' : 'text-red-400'}`}>
+                            <div className={`text-xs font-semibold px-1 ${registerMsg.type === 'success' ? 'text-accent' : 'text-red-400'}`}>
                                 {registerMsg.text}
                             </div>
                         )}
@@ -150,8 +150,8 @@ export default function CouponWallet() {
 
                                 <div className="flex justify-between items-start z-10 relative">
                                     <div className="flex items-center gap-3">
-                                        <div className={`size-10 rounded-full flex items-center justify-center ${coupon.status === 'ACTIVE' ? 'bg-[#14b8a6]/20' : 'bg-btn-secondary'}`}>
-                                            <span className={`material-symbols-outlined text-[20px] ${coupon.status === 'ACTIVE' ? 'text-[#14b8a6]' : 'text-t-muted'}`} style={{ fontVariationSettings: "'FILL' 1" }}>{coupon.icon}</span>
+                                        <div className={`size-10 rounded-full flex items-center justify-center ${coupon.status === 'ACTIVE' ? 'bg-accent-soft' : 'bg-btn-secondary'}`}>
+                                            <span className={`material-symbols-outlined text-[20px] ${coupon.status === 'ACTIVE' ? 'text-accent' : 'text-t-muted'}`} style={{ fontVariationSettings: "'FILL' 1" }}>{coupon.icon}</span>
                                         </div>
                                         <div className="flex flex-col gap-0.5">
                                             <span className="text-lg font-bold tracking-tight text-t-primary">{coupon.title}</span>
@@ -178,7 +178,7 @@ export default function CouponWallet() {
                                     {coupon.status === 'ACTIVE' && !usedCouponIds.includes(coupon.id) && (
                                         <button
                                             onClick={(e) => { e.stopPropagation(); handleUse(coupon); }}
-                                            className="bg-bg-inverse text-t-inverse px-4 py-2 rounded-lg text-xs font-extrabold active:scale-95 transition-transform shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
+                                            className="bg-accent text-accent-fg px-4 py-2 rounded-lg text-xs font-extrabold active:scale-95 transition-transform shadow-[0_0_15px_rgba(255,255,255,0.1)] group-hover:shadow-[0_0_25px_rgba(255,255,255,0.3)]"
                                         >
                                             사용하기
                                         </button>

@@ -26,6 +26,11 @@ export default function GenerateTab({ onSubviewChange }) {
     const [genResultOpen, setGenResultOpen] = useState(false); // 생성 결과 표시 중엔 헤더/리스트 접기
     const [myNumbers, setMyNumbers] = useState([]);
 
+    // 풀리(챗봇) 별자리 추천 등에서 딥링크(?tab=generate&gen=1)로 진입 시 추가 생성기 자동 오픈
+    useEffect(() => {
+        if (router.query.gen === '1') setShowGenerator(true);
+    }, [router.query.gen]);
+
     // 서브페이지(추가 생성) 진입 시 하단 네비 숨김을 부모(index)에 알림
     useEffect(() => {
         if (onSubviewChange) onSubviewChange(showGenerator);
@@ -72,13 +77,13 @@ export default function GenerateTab({ onSubviewChange }) {
                         {/* 설명 섹션 */}
                         <div className="mx-6 mt-2 bg-card-gray rounded-2xl border border-themed p-5">
                             <div className="flex items-center gap-2 mb-2">
-                                <span className="material-symbols-outlined text-[20px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>tune</span>
+                                <span className="material-symbols-outlined text-[20px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>tune</span>
                                 <h3 className="text-[15px] font-extrabold text-t-primary">나만의 번호 만들기</h3>
                             </div>
                             <p className="text-[13px] text-t-muted font-medium leading-relaxed">
                                 fulif이 제공하는 <span className="text-t-primary font-bold">35가지 가중치</span>를 직접 조절해
-                                나만의 전략으로 번호를 생성해요. Fulif 추천 10세트에 더해,
-                                <span className="text-t-primary font-bold"> 11번째 번호부터</span>는 원하는 만큼 직접 만들 수 있어요.
+                                나만의 전략으로 번호를 생성해요. 가중치를 조절해
+                                <span className="text-t-primary font-bold"> 나만의 10세트</span>를 더 만들 수 있어요.
                             </p>
                         </div>
 
@@ -96,7 +101,7 @@ export default function GenerateTab({ onSubviewChange }) {
                                                     <div key={j} className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-extrabold ${LOTTO_BALL_COLOR(num)}`}>{num}</div>
                                                 ))}
                                             </div>
-                                            <span className="text-[10px] font-bold text-[#14b8a6] bg-[#14b8a6]/15 px-2 py-0.5 rounded-full flex-shrink-0">{item.preset}</span>
+                                            <span className="text-[10px] font-bold text-accent bg-accent-soft px-2 py-0.5 rounded-full flex-shrink-0">{item.preset}</span>
                                         </div>
                                     );
                                 })}
@@ -119,7 +124,7 @@ export default function GenerateTab({ onSubviewChange }) {
 
             <TabHeader
                 title="번호생성"
-                subtitle="이번 주 번호 · 로또6/45 · 제1159회"
+                subtitle="Fulif 이번 주 번호 · 로또6/45 · 제1159회"
                 action={
                     <HeaderIconButton
                         icon="history"
@@ -134,7 +139,7 @@ export default function GenerateTab({ onSubviewChange }) {
             <div className="mx-6 bg-card-gray rounded-3xl p-8 flex flex-col gap-2 relative overflow-hidden border border-themed">
                 <div className="absolute right-0 top-0 w-32 h-32 opacity-20 pointer-events-none flex gap-1 transform rotate-12">
                     {[1, 2, 3, 4, 5].map(i => (
-                        <div key={i} className="h-full w-2 bg-gradient-to-t from-transparent via-[#14b8a6] to-transparent animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                        <div key={i} className="h-full w-2 bg-gradient-to-t from-transparent via-accent to-transparent animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                     ))}
                 </div>
                 <div className="text-t-secondary text-[13px] font-semibold z-10">지난주 1등 당첨금 · 제1158회</div>

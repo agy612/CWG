@@ -174,9 +174,9 @@ export default function Attendance() {
                             <span className="text-[40px] font-extrabold tracking-tight leading-none text-t-primary">{todayDay}번째</span>
                             <span className="text-[18px] font-extrabold text-t-secondary">도장</span>
                         </div>
-                        <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#14b8a6]/12 border border-[#14b8a6]/25">
-                            <span className="material-symbols-outlined text-[13px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
-                            <span className="text-[11px] font-extrabold text-[#14b8a6]">
+                        <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-accent-soft border border-accent">
+                            <span className="material-symbols-outlined text-[13px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
+                            <span className="text-[11px] font-extrabold text-accent">
                                 {checkedToday && todayReward
                                     ? `+${todayReward.points}P 받았어요`
                                     : `+${CYCLE_REWARDS[todayDay - 1]}P · 광고 보면 한 번 더`}
@@ -211,26 +211,26 @@ export default function Attendance() {
                                 <div key={day}
                                      className={`relative flex flex-col items-center gap-1 rounded-2xl py-3 border transition-all ${
                                          done
-                                             ? 'bg-[#14b8a6]/12 border-[#14b8a6]/30'
+                                             ? 'bg-accent-soft border-accent'
                                              : isTodaySlot
-                                                 ? 'bg-background border-[#14b8a6] border-dashed'
+                                                 ? 'bg-background border-accent border-dashed'
                                                  : 'bg-background border-themed'
                                      } ${isLast ? 'col-span-1' : ''}`}>
                                     {isTodaySlot && (
-                                        <span className="absolute -top-2 px-1.5 py-0.5 rounded-full bg-[#14b8a6] text-[8px] font-extrabold text-white">오늘</span>
+                                        <span className="absolute -top-2 px-1.5 py-0.5 rounded-full bg-accent text-[8px] font-extrabold text-white">오늘</span>
                                     )}
-                                    <span className={`text-[10px] font-bold ${done ? 'text-[#14b8a6]' : isTodaySlot ? 'text-t-primary' : 'text-t-dim'}`}>
+                                    <span className={`text-[10px] font-bold ${done ? 'text-accent' : isTodaySlot ? 'text-t-primary' : 'text-t-dim'}`}>
                                         {day}번째
                                     </span>
                                     {done ? (
-                                        <span className="material-symbols-outlined text-[20px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                        <span className="material-symbols-outlined text-[20px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                                     ) : (
-                                        <span className={`material-symbols-outlined text-[20px] ${isLast ? 'text-[#D4AF37]' : isTodaySlot ? 'text-[#14b8a6]' : 'text-t-dim'}`}
+                                        <span className={`material-symbols-outlined text-[20px] ${isLast ? 'text-[#D4AF37]' : isTodaySlot ? 'text-accent' : 'text-t-dim'}`}
                                               style={{ fontVariationSettings: "'FILL' 1" }}>
                                             {isLast ? 'redeem' : 'toll'}
                                         </span>
                                     )}
-                                    <span className={`text-[11px] font-extrabold ${isLast ? 'text-[#D4AF37]' : done ? 'text-[#14b8a6]' : 'text-t-muted'}`}>
+                                    <span className={`text-[11px] font-extrabold ${isLast ? 'text-[#D4AF37]' : done ? 'text-accent' : 'text-t-muted'}`}>
                                         {pts}P
                                     </span>
                                     {isLast && <span className="text-[8px] font-bold text-[#D4AF37]">개근</span>}
@@ -257,7 +257,7 @@ export default function Attendance() {
                             { icon: 'smart_display', text: '출석 후 동영상 광고 1개를 보면 그날 포인트를 한 번 더 받아요 (하루 1회)' },
                         ].map((r, i) => (
                             <div key={i} className="flex items-start gap-2.5">
-                                <span className="material-symbols-outlined text-[16px] text-[#14b8a6] mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>{r.icon}</span>
+                                <span className="material-symbols-outlined text-[16px] text-accent mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>{r.icon}</span>
                                 <span className="text-[12px] font-medium text-t-muted leading-relaxed flex-1">{r.text}</span>
                             </div>
                         ))}
@@ -283,7 +283,7 @@ export default function Attendance() {
                                 <div key={ds} className="flex items-center justify-center">
                                     <div className={`w-9 h-9 rounded-full flex items-center justify-center text-[12px] font-bold relative ${
                                         checked
-                                            ? 'bg-[#14b8a6]/15 text-[#14b8a6]'
+                                            ? 'bg-accent-soft text-accent'
                                             : isToday
                                                 ? 'border border-themed-light text-t-primary'
                                                 : isFuture ? 'text-t-faint' : 'text-t-muted'
@@ -294,7 +294,7 @@ export default function Attendance() {
                                             d.getDate()
                                         )}
                                         {isToday && !checked && (
-                                            <span className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-[#14b8a6]" />
+                                            <span className="absolute -bottom-0.5 w-1 h-1 rounded-full bg-accent" />
                                         )}
                                     </div>
                                 </div>
@@ -311,7 +311,7 @@ export default function Attendance() {
                         className={`w-full py-4 rounded-xl font-extrabold text-base transition-all ${
                             checkedToday
                                 ? 'bg-btn-secondary text-t-dim'
-                                : 'bg-bg-inverse text-t-inverse active:scale-95'
+                                : 'bg-accent text-accent-fg active:scale-95'
                         }`}
                     >
                         {checkedToday
@@ -329,10 +329,10 @@ export default function Attendance() {
                                 <div className="text-[11px] font-bold text-t-muted mb-4 tracking-widest uppercase">
                                     이번 주 {todayReward.day}번째 출석 완료
                                 </div>
-                                <div className="w-16 h-16 rounded-full bg-[#14b8a6]/15 flex items-center justify-center mb-3">
-                                    <span className="material-symbols-outlined text-[30px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
+                                <div className="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center mb-3">
+                                    <span className="material-symbols-outlined text-[30px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
                                 </div>
-                                <div className="text-[24px] font-extrabold text-[#14b8a6] mb-1">+{todayReward.points}P</div>
+                                <div className="text-[24px] font-extrabold text-accent mb-1">+{todayReward.points}P</div>
                                 <div className="text-[13px] text-t-muted font-medium mb-5">
                                     {todayReward.doubled
                                         ? <span className="text-[#D4AF37] font-bold">광고 시청 완료 — 오늘 포인트를 2배로 받았어요!</span>
@@ -340,7 +340,7 @@ export default function Attendance() {
                                 </div>
                                 <button
                                     onClick={() => closeReward()}
-                                    className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all"
+                                    className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all"
                                 >
                                     확인
                                 </button>

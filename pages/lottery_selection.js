@@ -156,7 +156,7 @@ export default function LotterySelection() {
                                     {selectedLotto.name}을(를) 이용할 수 있어요.<br />이 지역으로 시작할까요?
                                 </p>
                                 <div className="mt-6 inline-flex items-center gap-1.5 bg-card-gray border border-themed-light rounded-full px-4 py-2">
-                                    <span className="material-symbols-outlined text-[16px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
+                                    <span className="material-symbols-outlined text-[16px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>verified</span>
                                     <span className="text-[12px] font-bold text-t-muted">위치 자동 확인됨</span>
                                 </div>
                             </>
@@ -180,7 +180,7 @@ export default function LotterySelection() {
                         ) : (
                             <>
                                 <button onClick={confirmRegion}
-                                    className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all">
+                                    className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all">
                                     이 지역으로 시작
                                 </button>
                                 <button onClick={() => setConfirming(false)}
@@ -229,9 +229,9 @@ export default function LotterySelection() {
                                             <span className="material-symbols-outlined text-black text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>check</span>
                                         </div>
                                     )}
-                                    <div className="flex items-center gap-1 bg-[#14b8a6]/15 border border-[#14b8a6]/25 rounded-full px-2.5 py-1">
-                                        <span className="material-symbols-outlined text-[13px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>redeem</span>
-                                        <span className="text-[11px] font-extrabold text-[#14b8a6] whitespace-nowrap">{lotto.prizeDraw}</span>
+                                    <div className="flex items-center gap-1 bg-accent-soft border border-accent rounded-full px-2.5 py-1">
+                                        <span className="material-symbols-outlined text-[13px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>redeem</span>
+                                        <span className="text-[11px] font-extrabold text-accent whitespace-nowrap">{lotto.prizeDraw}</span>
                                     </div>
                                 </div>
 
@@ -254,7 +254,7 @@ export default function LotterySelection() {
                                         <span className="text-[12px] font-medium">낙첨 등록 {lotto.regStart} ~ {lotto.regEnd}</span>
                                     </div>
                                     {/* 경품추첨 */}
-                                    <div className="flex items-center gap-2 text-[#14b8a6]">
+                                    <div className="flex items-center gap-2 text-accent">
                                         <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>redeem</span>
                                         <span className="text-[12px] font-semibold">경품추첨 매주 {lotto.prizeDrawTime}</span>
                                     </div>
@@ -273,7 +273,7 @@ export default function LotterySelection() {
                         disabled={!selected}
                         className={`w-full py-4 rounded-xl font-extrabold text-base transition-all active:scale-95 ${
                             selected
-                                ? 'bg-bg-inverse text-t-inverse shadow-[0_0_20px_rgba(255,255,255,0.15)]'
+                                ? 'bg-accent text-accent-fg shadow-[0_0_20px_rgba(255,255,255,0.15)]'
                                 : 'bg-btn-secondary text-t-muted cursor-not-allowed'
                         }`}
                     >

@@ -82,10 +82,10 @@ export default function AttendancePopup() {
                         <Image src="/character.png" alt="풀리" width={112} height={112} unoptimized priority />
                     </div>
                     <h2 className="text-[20px] font-extrabold text-t-primary mt-3">
-                        이번 주 <span className="text-[#14b8a6]">{todayDay}번째 도장</span>을 찍어요!
+                        이번 주 <span className="text-accent">{todayDay}번째 도장</span>을 찍어요!
                     </h2>
                     <p className="text-t-muted text-[13px] font-medium mt-1 text-center">
-                        출석하면 <span className="text-[#14b8a6] font-bold">+{todayPoints}P</span> · 광고 보면 <span className="text-[#D4AF37] font-bold">한 번 더!</span>
+                        출석하면 <span className="text-accent font-bold">+{todayPoints}P</span> · 광고 보면 <span className="text-[#D4AF37] font-bold">한 번 더!</span>
                     </p>
                 </div>
 
@@ -93,7 +93,7 @@ export default function AttendancePopup() {
                 <div className="mx-5 mt-5 rounded-2xl bg-background border border-themed p-4">
                     <div className="flex items-center justify-between mb-3">
                         <span className="text-[12px] font-extrabold text-t-primary">이번 주 도장판</span>
-                        <span className="text-[12px] font-bold text-[#14b8a6]">{doneInCycle}/7 완료</span>
+                        <span className="text-[12px] font-bold text-accent">{doneInCycle}/7 완료</span>
                     </div>
                     <div className="grid grid-cols-7 gap-1">
                         {CYCLE_REWARDS.map((pts, i) => {
@@ -103,12 +103,12 @@ export default function AttendancePopup() {
                             const isLast = day === 7;
                             return (
                                 <div key={day} className="flex flex-col items-center gap-1">
-                                    <span className={`text-[9px] font-bold ${isToday ? 'text-[#14b8a6]' : 'text-t-dim'}`}>{day}</span>
+                                    <span className={`text-[9px] font-bold ${isToday ? 'text-accent' : 'text-t-dim'}`}>{day}</span>
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center border transition-all ${
                                         done
-                                            ? 'bg-[#14b8a6] border-[#14b8a6]'
+                                            ? 'bg-accent border-accent'
                                             : isToday
-                                                ? 'bg-[#14b8a6]/10 border-[#14b8a6] border-dashed animate-pulse'
+                                                ? 'bg-accent-soft border-accent border-dashed animate-pulse'
                                                 : 'bg-card-gray border-themed'
                                     }`}>
                                         {done ? (
@@ -116,10 +116,10 @@ export default function AttendancePopup() {
                                         ) : isLast ? (
                                             <span className="material-symbols-outlined text-[14px] text-[#D4AF37]" style={{ fontVariationSettings: "'FILL' 1" }}>redeem</span>
                                         ) : (
-                                            <span className={`text-[9px] font-extrabold ${isToday ? 'text-[#14b8a6]' : 'text-t-dim'}`}>{pts}</span>
+                                            <span className={`text-[9px] font-extrabold ${isToday ? 'text-accent' : 'text-t-dim'}`}>{pts}</span>
                                         )}
                                     </div>
-                                    <span className={`text-[8px] font-bold ${isLast ? 'text-[#D4AF37]' : done ? 'text-[#14b8a6]' : 'text-t-dim'}`}>
+                                    <span className={`text-[8px] font-bold ${isLast ? 'text-[#D4AF37]' : done ? 'text-accent' : 'text-t-dim'}`}>
                                         {pts}P
                                     </span>
                                 </div>
@@ -143,7 +143,7 @@ export default function AttendancePopup() {
                 <div className="flex gap-3 px-5 py-5">
                     <button
                         onClick={() => { setVisible(false); router.push('/attendance'); }}
-                        className="flex-1 py-3.5 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all"
+                        className="flex-1 py-3.5 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all"
                     >
                         {todayDay}번째 도장 찍고 +{todayPoints}P 받기
                     </button>

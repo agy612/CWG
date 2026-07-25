@@ -73,7 +73,7 @@ function Toggle({ on, onChange }) {
     return (
         <button
             onClick={() => onChange(!on)}
-            className={`relative w-12 h-6 rounded-full transition-all duration-200 flex-shrink-0 ${on ? 'bg-[#14b8a6]' : 'bg-zinc-700'}`}
+            className={`relative w-12 h-6 rounded-full transition-all duration-200 flex-shrink-0 ${on ? 'bg-accent' : 'bg-zinc-700'}`}
         >
             <div className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-transform duration-200 ${on ? 'translate-x-6' : 'translate-x-0.5'}`} />
         </button>
@@ -172,7 +172,7 @@ export default function NotificationSettings() {
                     <button
                         onClick={handleSave}
                         className={`w-full py-4 rounded-xl font-extrabold text-base active:scale-95 transition-all ${
-                            saved ? 'bg-[#14b8a6] text-black' : 'bg-bg-inverse text-t-inverse'
+                            saved ? 'bg-accent text-accent-fg' : 'bg-accent text-accent-fg'
                         }`}
                     >
                         {saved ? '✓ 저장 완료!' : '저장하기'}

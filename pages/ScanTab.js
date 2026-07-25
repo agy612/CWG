@@ -60,7 +60,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                 <p className="text-t-muted text-sm font-medium text-center mb-8">낙첨 티켓을 스캔하고 포인트를 적립하려면<br/>먼저 가입해주세요</p>
                 <button
                     onClick={() => router.push('/signup')}
-                    className="w-full max-w-[280px] py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all"
+                    className="w-full max-w-[280px] py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all"
                 >
                     무료로 시작하기
                 </button>
@@ -80,7 +80,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                 <p className="text-t-dim text-xs font-medium text-center mb-8">매주 초기화됩니다</p>
                 <button
                     onClick={() => router.push('/subscription')}
-                    className="w-full max-w-[280px] py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all"
+                    className="w-full max-w-[280px] py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all"
                 >
                     구독하고 계속하기
                 </button>
@@ -140,7 +140,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                         onClick={() => setMode(t.key)}
                         className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-[13px] font-bold transition-all ${
                             mode === t.key
-                                ? 'bg-bg-inverse text-t-inverse'
+                                ? 'bg-accent text-accent-fg'
                                 : 'text-t-muted hover:text-t-primary'
                         }`}
                     >
@@ -160,7 +160,7 @@ export default function ScanTab({ embedded = false, onClose }) {
 
             {/* Quota info */}
             <div className="mx-6 mt-3 flex items-center gap-2 bg-card-gray rounded-xl p-3 border border-themed">
-                <span className="material-symbols-outlined text-[16px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
+                <span className="material-symbols-outlined text-[16px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
                 <span className="text-xs font-semibold text-t-secondary">
                     이번 주 <span className="text-t-primary font-bold">{scansThisMonth}/{maxScansPerMonth}개</span> 등록 ·{' '}
                     {tier === 'FREE'
@@ -175,14 +175,14 @@ export default function ScanTab({ embedded = false, onClose }) {
                     {/* Main Viewfinder */}
                     <section className="flex-1 flex justify-center items-center mt-5 mb-6 px-4">
                         <div className="w-full max-w-[400px] aspect-[3/4] bg-surface rounded-[32px] relative flex flex-col justify-center items-center overflow-hidden border border-themed">
-                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#14b8a6]/10 to-transparent w-full h-[150%] animate-[scan_3s_ease-in-out_infinite]" />
+                            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent-soft to-transparent w-full h-[150%] animate-[scan_3s_ease-in-out_infinite]" />
                             <div className="absolute top-6 left-6 w-10 h-10 border-t-2 border-l-2 border-muted-teal" />
                             <div className="absolute top-6 right-6 w-10 h-10 border-t-2 border-r-2 border-muted-teal" />
                             <div className="absolute bottom-6 left-6 w-10 h-10 border-b-2 border-l-2 border-muted-teal" />
                             <div className="absolute bottom-6 right-6 w-10 h-10 border-b-2 border-r-2 border-muted-teal" />
                             <div className="flex flex-col items-center gap-3 z-10">
-                                <div className="w-12 h-12 rounded-full bg-[#14b8a6]/20 flex items-center justify-center">
-                                    <span className="material-symbols-outlined text-[26px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>photo_camera</span>
+                                <div className="w-12 h-12 rounded-full bg-accent-soft flex items-center justify-center">
+                                    <span className="material-symbols-outlined text-[26px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>photo_camera</span>
                                 </div>
                                 <p className="text-t-muted text-sm font-medium text-center max-w-[200px]">복권 티켓을 프레임 안에<br/>맞춰주세요</p>
                             </div>
@@ -231,7 +231,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                             <span className="text-[10px] font-bold text-t-muted bg-white/8 px-1.5 py-0.5 rounded-full">제1159회</span>
                             <span className="text-white/15">·</span>
                             <span className="text-[10px] text-t-muted font-medium">2026-02-27</span>
-                            <span className="ml-auto text-[10px] text-[#14b8a6] font-semibold">추첨 완료</span>
+                            <span className="ml-auto text-[10px] text-accent font-semibold">추첨 완료</span>
                         </div>
                     </div>
 
@@ -243,7 +243,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                                 <div className="text-[11px] text-t-muted font-medium mt-0.5">1~45 중 6개를 선택하세요</div>
                             </div>
                             <div className="text-[12px] font-bold">
-                                <span className={draft.length === 6 ? 'text-[#14b8a6]' : 'text-t-primary'}>{draft.length}</span>
+                                <span className={draft.length === 6 ? 'text-accent' : 'text-t-primary'}>{draft.length}</span>
                                 <span className="text-t-dim">/6</span>
                             </div>
                         </div>
@@ -292,7 +292,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                             disabled={draft.length !== 6 || remainingQuota <= 0}
                             className={`mt-4 w-full py-3 rounded-xl font-extrabold text-[13px] transition-all ${
                                 draft.length === 6 && remainingQuota > 0
-                                    ? 'bg-[#14b8a6] text-black active:scale-95'
+                                    ? 'bg-accent text-accent-fg active:scale-95'
                                     : 'bg-surface text-t-dim border border-themed'
                             }`}
                         >
@@ -350,7 +350,7 @@ export default function ScanTab({ embedded = false, onClose }) {
                             disabled={savedSets.length === 0}
                             className={`w-full py-4 rounded-xl font-extrabold text-base transition-all ${
                                 savedSets.length > 0
-                                    ? 'bg-bg-inverse text-t-inverse active:scale-95'
+                                    ? 'bg-accent text-accent-fg active:scale-95'
                                     : 'bg-surface text-t-dim border border-themed'
                             }`}
                         >

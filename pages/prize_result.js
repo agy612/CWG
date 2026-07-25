@@ -2,11 +2,24 @@ import React, { useState, useRef } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-const RANK_BADGE = (rank) => {
-    if (rank === 1) return 'bg-[#D4AF37]/15 text-[#D4AF37] border-[#D4AF37]/30';
-    if (rank === 2) return 'bg-zinc-300/15 text-zinc-200 border-zinc-300/30';
-    if (rank === 3) return 'bg-orange-700/20 text-orange-300 border-orange-700/40';
-    return 'bg-white/5 text-t-secondary border-themed';
+/* 등수 배지 색 (라이트) */
+const RANK_STYLE = (rank) => {
+    if (rank === 1) return { bg: '#FFF3D6', fg: '#D69500' };
+    if (rank === 2) return { bg: '#EEF1F4', fg: '#8B95A1' };
+    if (rank === 3) return { bg: '#F9EBDD', fg: '#C77B3C' };
+    return { bg: 'var(--color-btn-secondary)', fg: 'var(--color-text-secondary)' };
+};
+
+/* 경품명 → 데모 썸네일 이미지 + 후원 브랜드 */
+const PRIZE_INFO = (name = '') => {
+    if (/iphone|아이폰/i.test(name))       return { img: '/prizes/phone.svg',  brand: 'Apple' };
+    if (/갤럭시/i.test(name))               return { img: '/prizes/phone.svg',  brand: 'Samsung' };
+    if (/메가/i.test(name))                 return { img: '/prizes/coffee.svg', brand: '메가커피' };
+    if (/스타벅스/i.test(name))             return { img: '/prizes/coffee.svg', brand: '스타벅스' };
+    if (/커피|아메리카노/i.test(name))       return { img: '/prizes/coffee.svg', brand: '카페' };
+    if (/포인트|point/i.test(name))         return { img: '/prizes/coin.svg',   brand: 'FULIF' };
+    if (/기프티콘|상품권|쿠폰/i.test(name))  return { img: '/prizes/voucher.svg', brand: '기프티콘' };
+    return { img: '/prizes/gift.svg', brand: '후원사' };
 };
 
 const PRIZES = [
@@ -96,6 +109,7 @@ export default function PrizeResult() {
     const fileInputRef = useRef(null);
     const [proofFiles, setProofFiles] = useState([]);
     const [proofSubmitted, setProofSubmitted] = useState(false);
+    const [addr, setAddr] = useState({ name: '', phone: '', zip: '', address: '', detail: '' });
 
     const d = drawNo ? DRAW_DATA[drawNo] : null;
 
@@ -117,7 +131,10 @@ export default function PrizeResult() {
     }
 
     const won = d.myResult?.startsWith('WON');
-    const finalW = +(d.mySubWeight * d.myLuckyWeight).toFixed(2);
+    const needsDelivery = won && /iphone|아이폰|갤럭시|폰|에어팟|노트북|가전/i.test(d.myPrize || '');
+    const needsProof = won && d.myEntryType === 'MANUAL';
+    const addrFilled = addr.name && addr.phone && addr.address;
+    const canSubmit = (!needsProof || proofFiles.length > 0) && (!needsDelivery || addrFilled);
 
     return (
         <div className="bg-background font-sans text-t-primary antialiased min-h-screen">
@@ -125,37 +142,40 @@ export default function PrizeResult() {
             <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto bg-background shadow-2xl pb-12">
 
                 {/* Header */}
-                <div className="sticky top-0 z-50 bg-background/90 backdrop-blur-xl pt-12 pb-3 px-6 flex items-center gap-4">
-                    <button onClick={() => router.back()} className="active:scale-90 transition-transform">
-                        <span className="material-symbols-outlined text-[24px] text-t-secondary hover:text-t-primary transition-colors">arrow_back</span>
+                <div className="sticky top-0 z-50 bg-background/90 backdrop-blur-xl pt-12 pb-3 px-4 flex items-center gap-2">
+                    <button onClick={() => router.back()} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
+                        <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                     </button>
                     <div className="flex flex-col">
-                        <h1 className="text-[17px] font-extrabold tracking-tight leading-tight">제{d.drawNo}회 추첨 결과</h1>
-                        <span className="text-t-dim text-[11px] font-medium">{fmtDate(d.drawDate)}</span>
+                        <h1 className="text-[17px] font-bold tracking-tight leading-tight">제{d.drawNo}회 추첨 결과</h1>
+                        <span className="text-t-muted text-[12px] font-medium">{fmtDate(d.drawDate)}</span>
                     </div>
                 </div>
 
-                {/* My result hero — simple */}
-                <section className="mx-6 mt-3 bg-card-gray rounded-2xl border border-themed p-5">
-                    <div className="text-t-muted text-[11px] font-bold uppercase tracking-widest mb-3">내 당첨 결과</div>
+                {/* My result hero */}
+                <section className="mx-6 mt-3">
                     {won ? (
-                        <div className="flex items-center gap-3">
-                            <span className={`w-12 h-12 rounded-xl border flex items-center justify-center text-[18px] font-extrabold ${RANK_BADGE(d.myRank)}`}>
-                                {d.myRank}
-                            </span>
-                            <div className="flex flex-col">
-                                <span className="text-[#14b8a6] text-[20px] font-extrabold tracking-tight leading-none">{d.myRank}등 당첨</span>
-                                <span className="text-t-secondary text-[13px] font-bold mt-1">{d.myPrize}</span>
+                        <div className="rounded-[20px] p-5 ring-2 ring-accent bg-card-gray">
+                            <div className="flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[22px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>celebration</span>
+                                <span className="text-accent text-[20px] font-bold tracking-tight">{d.myRank}등 당첨</span>
+                            </div>
+                            <div className="mt-3 rounded-[16px] p-3.5 flex items-center gap-3" style={{ backgroundColor: 'var(--color-btn-secondary)' }}>
+                                <img src={PRIZE_INFO(d.myPrize).img} alt="" className="w-12 h-12 rounded-xl object-cover flex-shrink-0" />
+                                <div className="flex flex-col min-w-0">
+                                    <span className="text-[12px] font-medium text-t-muted">내 당첨 경품 · {PRIZE_INFO(d.myPrize).brand}</span>
+                                    <span className="text-[16px] font-bold text-t-primary truncate">{d.myPrize}</span>
+                                </div>
                             </div>
                         </div>
                     ) : (
-                        <div className="flex items-center gap-3">
-                            <span className="w-12 h-12 rounded-xl border border-themed bg-white/5 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-[22px] text-t-dim font-light">close</span>
+                        <div className="rounded-[20px] p-5 bg-card-gray flex items-center gap-3">
+                            <span className="w-12 h-12 rounded-2xl bg-btn-secondary flex items-center justify-center flex-shrink-0">
+                                <span className="material-symbols-outlined text-[24px] text-t-muted">sentiment_dissatisfied</span>
                             </span>
                             <div className="flex flex-col">
-                                <span className="text-t-primary text-[20px] font-extrabold tracking-tight leading-none">미당첨</span>
-                                <span className="text-t-dim text-[12px] font-medium mt-1">다음 회차에 다시 도전해보세요</span>
+                                <span className="text-t-primary text-[19px] font-bold tracking-tight leading-none">아쉽게 미당첨</span>
+                                <span className="text-t-muted text-[13px] font-medium mt-1.5">다음 회차에 다시 도전해보세요</span>
                             </div>
                         </div>
                     )}
@@ -166,7 +186,7 @@ export default function PrizeResult() {
                     <section className="mx-6 mt-3 bg-card-gray rounded-2xl border border-themed p-5 flex flex-col gap-3">
                         <div className="flex items-baseline justify-between">
                             <span className="text-t-muted text-[11px] font-bold uppercase tracking-widest inline-flex items-center gap-1.5">
-                                <span className="material-symbols-outlined text-[14px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_2</span>
+                                <span className="material-symbols-outlined text-[14px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_2</span>
                                 교환 바코드
                             </span>
                             <span className="text-[10px] font-bold text-t-dim">유효기간 {fmtDate(d.redeem.validUntil)}</span>
@@ -180,160 +200,149 @@ export default function PrizeResult() {
                     </section>
                 )}
 
-                {/* Manual-entry proof upload */}
-                {won && d.myEntryType === 'MANUAL' && (
-                    <section className="mx-6 mt-3 bg-amber-500/8 rounded-2xl border border-amber-500/30 p-5">
-                        <div className="flex items-baseline justify-between mb-2">
-                            <span className="text-amber-400 text-[11px] font-bold uppercase tracking-widest inline-flex items-center gap-1.5">
-                                <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>warning</span>
-                                구매 내역 첨부 필요
-                            </span>
-                            <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded-full border ${
-                                proofSubmitted
-                                    ? 'bg-[#14b8a6]/15 text-[#14b8a6] border-[#14b8a6]/30'
-                                    : 'bg-amber-500/15 text-amber-400 border-amber-500/30'
-                            }`}>
-                                {proofSubmitted ? '검토 중' : '미제출'}
+                {/* 경품 수령 — 구매내역/배송지 확인 (강조 카드) */}
+                {won && (needsProof || needsDelivery) && (
+                    <section className="mx-6 mt-3 rounded-[20px] overflow-hidden bg-card-gray ring-2 ring-accent">
+                        {/* 헤더 바 */}
+                        <div className="px-5 py-3.5 flex items-center justify-between" style={{ backgroundColor: 'var(--color-accent)' }}>
+                            <div className="flex items-center gap-2">
+                                <span className="material-symbols-outlined text-[20px] text-white" style={{ fontVariationSettings: "'FILL' 1" }}>card_giftcard</span>
+                                <span className="text-[15px] font-bold text-white">경품 수령 정보 입력</span>
+                            </div>
+                            <span className="text-[11px] font-bold px-2 py-1 rounded-full bg-white/20 text-white">
+                                {proofSubmitted ? '접수 완료' : '입력 필요'}
                             </span>
                         </div>
-                        <p className="text-[12px] text-t-secondary font-medium leading-relaxed mb-4">
-                            직접 입력한 응모권으로 당첨된 건으로, 경품 지급을 위해 <span className="text-t-primary font-bold">모바일 복권 구매 내역(스크린샷)</span>을 첨부해 주세요. 최대 5장까지 업로드 가능합니다.
-                        </p>
 
-                        {/* Files grid (after first upload) */}
-                        {proofFiles.length > 0 && (
-                            <div className="grid grid-cols-3 gap-2 mb-3">
-                                {proofFiles.map((f, i) => (
-                                    <div key={i} className="aspect-square rounded-lg bg-black border border-themed relative overflow-hidden">
-                                        <img src={f.url} alt="" className="absolute inset-0 w-full h-full object-cover" />
-                                        {!proofSubmitted && (
-                                            <button
-                                                onClick={() => removeFile(i)}
-                                                className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/70 flex items-center justify-center active:scale-90 transition-transform"
-                                                aria-label="삭제"
-                                            >
-                                                <span className="material-symbols-outlined text-[14px] text-white">close</span>
-                                            </button>
-                                        )}
+                        <div className="p-5 flex flex-col gap-5">
+                            {proofSubmitted ? (
+                                <div className="flex items-start gap-3">
+                                    <span className="material-symbols-outlined text-[24px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                    <div className="flex flex-col">
+                                        <span className="text-[15px] font-bold text-t-primary">수령 신청이 접수됐어요</span>
+                                        <span className="text-[13px] font-medium text-t-muted mt-0.5">영업일 기준 1~2일 내 검토 후 {needsDelivery ? '배송해 드려요' : '경품이 지급돼요'}.</span>
                                     </div>
-                                ))}
-                                {!proofSubmitted && proofFiles.length < 5 && (
-                                    <button
-                                        onClick={() => fileInputRef.current?.click()}
-                                        className="aspect-square rounded-lg border-2 border-dashed border-themed-light bg-card-gray flex flex-col items-center justify-center hover:bg-card-hover transition-colors active:scale-95"
-                                    >
-                                        <span className="material-symbols-outlined text-[22px] text-t-dim">add</span>
-                                        <span className="text-[10px] text-t-dim font-bold mt-0.5">{proofFiles.length}/5</span>
-                                    </button>
-                                )}
-                            </div>
-                        )}
-
-                        {/* Empty upload zone */}
-                        {proofFiles.length === 0 && !proofSubmitted && (
-                            <button
-                                onClick={() => fileInputRef.current?.click()}
-                                className="w-full py-8 border-2 border-dashed border-themed-light rounded-xl bg-card-gray/40 flex flex-col items-center gap-2 hover:bg-card-hover transition-colors active:scale-[0.99]"
-                            >
-                                <span className="material-symbols-outlined text-[28px] text-t-dim" style={{ fontVariationSettings: "'FILL' 1" }}>add_photo_alternate</span>
-                                <span className="text-[12px] text-t-secondary font-bold">스크린샷 첨부하기</span>
-                                <span className="text-[11px] text-t-dim font-medium">탭하여 사진 선택 (최대 5장)</span>
-                            </button>
-                        )}
-
-                        <input type="file" ref={fileInputRef} accept="image/*" multiple onChange={onFileSelect} className="hidden" />
-
-                        {/* Submit button */}
-                        {!proofSubmitted && proofFiles.length > 0 && (
-                            <button
-                                onClick={submitProof}
-                                className="mt-3 w-full py-3 rounded-xl bg-[#14b8a6] text-black font-extrabold text-[13px] active:scale-95 transition-transform"
-                            >
-                                {proofFiles.length}장 제출하기
-                            </button>
-                        )}
-
-                        {/* Submitted state */}
-                        {proofSubmitted && (
-                            <div className="bg-[#14b8a6]/10 border border-[#14b8a6]/25 rounded-xl px-3 py-2.5 flex items-start gap-2">
-                                <span className="material-symbols-outlined text-[16px] text-[#14b8a6] mt-0.5" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                                <div className="flex-1">
-                                    <div className="text-[12px] font-bold text-t-primary">제출 완료</div>
-                                    <div className="text-[11px] text-t-muted font-medium mt-0.5">영업일 기준 1~2일 내 검토 후 경품이 지급됩니다.</div>
                                 </div>
-                            </div>
-                        )}
+                            ) : (
+                                <>
+                                    {/* 구매 내역 첨부 (직접 입력 당첨) */}
+                                    {needsProof && (
+                                        <div>
+                                            <div className="flex items-center gap-1.5 mb-1">
+                                                <span className="text-[14px] font-bold text-t-primary">모바일 복권 구매 내역</span>
+                                                <span className="text-[11px] font-bold text-accent">필수</span>
+                                            </div>
+                                            <p className="text-[12px] text-t-muted font-medium leading-relaxed mb-3">
+                                                직접 입력 당첨 건은 구매 내역 <span className="font-bold text-t-secondary">스크린샷</span>으로 확인해요 (최대 5장)
+                                            </p>
+                                            {proofFiles.length > 0 ? (
+                                                <div className="grid grid-cols-3 gap-2">
+                                                    {proofFiles.map((f, i) => (
+                                                        <div key={i} className="aspect-square rounded-xl bg-btn-secondary relative overflow-hidden">
+                                                            <img src={f.url} alt="" className="absolute inset-0 w-full h-full object-cover" />
+                                                            <button onClick={() => removeFile(i)} className="absolute top-1 right-1 w-5 h-5 rounded-full bg-black/60 flex items-center justify-center" aria-label="삭제">
+                                                                <span className="material-symbols-outlined text-[14px] text-white">close</span>
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                    {proofFiles.length < 5 && (
+                                                        <button onClick={() => fileInputRef.current?.click()} className="aspect-square rounded-xl border-2 border-dashed border-themed-medium bg-input-bg flex flex-col items-center justify-center">
+                                                            <span className="material-symbols-outlined text-[22px] text-t-dim">add</span>
+                                                            <span className="text-[10px] text-t-dim font-bold mt-0.5">{proofFiles.length}/5</span>
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <button onClick={() => fileInputRef.current?.click()} className="pressable w-full py-7 border-2 border-dashed border-accent rounded-2xl bg-accent-soft flex flex-col items-center gap-1.5">
+                                                    <span className="material-symbols-outlined text-[28px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>add_photo_alternate</span>
+                                                    <span className="text-[13px] text-accent font-bold">스크린샷 첨부하기</span>
+                                                </button>
+                                            )}
+                                            <input type="file" ref={fileInputRef} accept="image/*" multiple onChange={onFileSelect} className="hidden" />
+                                        </div>
+                                    )}
+
+                                    {/* 배송지 입력 (실물 경품) */}
+                                    {needsDelivery && (
+                                        <div>
+                                            <div className="flex items-center gap-1.5 mb-2.5">
+                                                <span className="text-[14px] font-bold text-t-primary">배송 정보</span>
+                                                <span className="text-[11px] font-bold text-accent">필수</span>
+                                                <span className="text-[12px] font-medium text-t-muted ml-auto">실물 경품은 택배로 배송돼요</span>
+                                            </div>
+                                            <div className="flex flex-col gap-2">
+                                                <div className="grid grid-cols-2 gap-2">
+                                                    <input value={addr.name} onChange={e => setAddr(a => ({ ...a, name: e.target.value }))} placeholder="받는 분" className="py-3 px-3.5 rounded-xl bg-input-bg text-[14px] font-semibold text-t-primary outline-none border border-themed focus:border-accent transition-colors" />
+                                                    <input value={addr.phone} onChange={e => setAddr(a => ({ ...a, phone: e.target.value }))} inputMode="tel" placeholder="연락처" className="py-3 px-3.5 rounded-xl bg-input-bg text-[14px] font-semibold text-t-primary outline-none border border-themed focus:border-accent transition-colors" />
+                                                </div>
+                                                <input value={addr.address} onChange={e => setAddr(a => ({ ...a, address: e.target.value }))} placeholder="주소 (도로명/지번)" className="py-3 px-3.5 rounded-xl bg-input-bg text-[14px] font-semibold text-t-primary outline-none border border-themed focus:border-accent transition-colors" />
+                                                <input value={addr.detail} onChange={e => setAddr(a => ({ ...a, detail: e.target.value }))} placeholder="상세 주소 (동/호수)" className="py-3 px-3.5 rounded-xl bg-input-bg text-[14px] font-semibold text-t-primary outline-none border border-themed focus:border-accent transition-colors" />
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    <button
+                                        onClick={submitProof}
+                                        disabled={!canSubmit}
+                                        className={`pressable w-full py-4 rounded-2xl font-bold text-[15px] transition-colors ${canSubmit ? 'bg-accent text-accent-fg' : 'bg-btn-secondary text-t-dim'}`}
+                                    >
+                                        경품 수령 신청하기
+                                    </button>
+                                </>
+                            )}
+                        </div>
                     </section>
                 )}
 
-                {/* Target lottery banner */}
-                <div className="mx-6 mt-4 bg-card-gray rounded-2xl px-4 py-2.5 border border-themed">
-                    <div className="flex items-center gap-2 flex-wrap">
+                {/* 대상 복권 + 일정 */}
+                <section className="mx-6 mt-4 bg-card-gray rounded-[20px] p-5 flex flex-col gap-3">
+                    <div className="flex items-center gap-1.5">
                         <svg width="18" height="13" viewBox="0 0 22 16" style={{ borderRadius: 3, flexShrink: 0 }}>
                             <rect width="22" height="16" rx="2" fill="#003DA5" />
-                            <text x="11" y="11.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#fff" fontFamily="Inter,sans-serif">KR</text>
+                            <text x="11" y="11.5" textAnchor="middle" fontSize="7" fontWeight="700" fill="#fff" fontFamily="Pretendard,Inter,sans-serif">KR</text>
                         </svg>
-                        <span className="text-[12px] font-bold text-t-primary">{d.lottery}</span>
-                        <span className="text-[10px] font-bold text-t-muted bg-white/8 px-1.5 py-0.5 rounded-full">제{d.targetRound}회</span>
-                        <span className="text-white/15">·</span>
-                        <span className="text-[10px] text-t-muted font-medium">{fmtDate(d.targetDate)}</span>
-                        <span className="ml-auto text-[10px] text-[#14b8a6] font-semibold">제{d.drawNo}회 추첨</span>
+                        <span className="text-[14px] font-bold text-t-primary">{d.lottery} 제{d.targetRound}회 대상</span>
                     </div>
-                </div>
-
-                {/* Schedule */}
-                <section className="mx-6 mt-3 bg-card-gray rounded-2xl border border-themed p-5 flex flex-col gap-3">
+                    <div className="h-px" style={{ backgroundColor: 'var(--color-border)' }} />
                     <div className="flex items-center justify-between">
-                        <span className="text-t-muted text-[13px] font-semibold">낙첨 등록 기간</span>
-                        <span className="text-t-primary text-[13px] font-bold">{fmtDate(d.registerFrom)} ~ {fmtDate(d.registerTo)}</span>
+                        <span className="text-t-muted text-[14px] font-medium">낙첨 등록 기간</span>
+                        <span className="text-t-primary text-[14px] font-bold">{fmtDate(d.registerFrom)} ~ {fmtDate(d.registerTo)}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                        <span className="text-t-muted text-[13px] font-semibold">경품 추첨일시</span>
-                        <span className="text-t-primary text-[13px] font-bold">{fmtDate(d.drawDate)}</span>
+                        <span className="text-t-muted text-[14px] font-medium">경품 추첨일시</span>
+                        <span className="text-accent text-[14px] font-bold">{fmtDate(d.drawDate)}</span>
                     </div>
                 </section>
 
-                {/* My entry status */}
-                <section className="mx-6 mt-3 bg-card-gray rounded-2xl border border-themed p-5">
-                    <div className="flex items-baseline justify-between mb-3">
-                        <span className="text-t-muted text-[11px] font-bold uppercase tracking-widest">내 응모 현황</span>
-                        <span className="text-t-primary text-[14px] font-extrabold">
-                            응모권 {d.myEntries}장 · 가중치 <span className={finalW >= 2 ? 'text-[#D4AF37]' : 'text-[#14b8a6]'}>×{finalW}</span>
-                        </span>
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                        <div className="flex justify-between text-[12px]">
-                            <span className="text-t-muted">구독 등급 · {d.mySubTier}</span>
-                            <span className="text-t-secondary font-bold">×{d.mySubWeight.toFixed(1)}</span>
-                        </div>
-                        <div className="flex justify-between text-[12px]">
-                            <span className="text-t-muted">럭키스코어 · {d.myLuckyScore}점</span>
-                            <span className="text-t-secondary font-bold">×{d.myLuckyWeight.toFixed(1)}</span>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Prizes 1~5 */}
+                {/* 이번 회차 경품 */}
                 <section className="mx-6 mt-5">
-                    <div className="flex items-baseline justify-between mb-2 px-1">
-                        <h2 className="text-t-muted text-[11px] font-bold uppercase tracking-widest">이번 회차 경품</h2>
-                        <span className="text-t-dim text-[11px] font-medium">1~5등</span>
+                    <div className="flex items-baseline justify-between mb-2.5 px-1">
+                        <h2 className="text-[16px] font-bold text-t-primary">이번 회차 경품</h2>
+                        <span className="text-t-muted text-[12px] font-medium">1~5등</span>
                     </div>
-                    <div className="flex flex-col gap-2">
-                        {d.prizes.map(p => (
-                            <div key={p.rank} className={`bg-card-gray rounded-2xl border flex items-center gap-3 px-4 py-3 ${won && p.rank === d.myRank ? 'border-[#14b8a6]/40' : 'border-themed'}`}>
-                                <div className={`w-9 h-9 rounded-lg border flex items-center justify-center ${RANK_BADGE(p.rank)}`}>
-                                    <span className="text-[13px] font-extrabold">{p.rank}</span>
-                                </div>
-                                <div className="flex-1 flex flex-col">
-                                    <div className="text-t-primary text-[14px] font-bold leading-tight">{p.name}</div>
-                                    <div className="text-t-dim text-[11px] font-medium mt-0.5">
-                                        {p.count.toLocaleString()}명
-                                        {won && p.rank === d.myRank && <span className="ml-2 text-[#14b8a6] font-bold">· 당첨</span>}
+                    <div className="bg-card-gray rounded-[20px] px-5 py-1">
+                        {d.prizes.map((p, i) => {
+                            const st = RANK_STYLE(p.rank);
+                            const info = PRIZE_INFO(p.name);
+                            const mine = won && p.rank === d.myRank;
+                            return (
+                                <div key={p.rank} className={`flex items-center gap-3 py-3.5 ${i < d.prizes.length - 1 ? 'border-b border-themed' : ''}`}>
+                                    <div className="relative flex-shrink-0">
+                                        <img src={info.img} alt="" className="w-12 h-12 rounded-2xl object-cover" />
+                                        <span className="absolute -top-1 -left-1 w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-extrabold ring-2 ring-[var(--color-card)]" style={{ backgroundColor: st.bg, color: st.fg }}>{p.rank}</span>
                                     </div>
+                                    <div className="flex-1 flex flex-col min-w-0">
+                                        <div className="text-t-primary text-[15px] font-bold leading-tight truncate">{p.name}</div>
+                                        <div className="text-t-muted text-[12px] font-medium mt-0.5">{info.brand}</div>
+                                    </div>
+                                    {mine ? (
+                                        <span className="text-[11px] font-bold px-2 py-1 rounded-full bg-accent-soft text-accent flex-shrink-0">내 당첨</span>
+                                    ) : (
+                                        <span className="text-t-muted text-[13px] font-semibold flex-shrink-0">{p.count.toLocaleString()}명</span>
+                                    )}
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 </section>
             </div>

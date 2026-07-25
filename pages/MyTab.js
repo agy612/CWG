@@ -1,22 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
 import { useTheme } from '../contexts/ThemeContext';
 import TabHeader, { HeaderIconButton } from './components/TabHeader';
 
+/* 메뉴 순서 — 스크린샷 기준. img=3D 아이콘, theme=화면모드 피커, danger=계정 삭제(빨강), route=null은 준비 중 */
 const menuItems = [
-    { id: 'chat', icon: 'forum', label: '풀리에게 물어보기', route: '/chat' },
-    { id: 'attendance', icon: 'event_available', label: '출석체크', route: '/attendance' },
-    { id: 'daily_ads', icon: 'smart_display', label: '오늘의 광고 보기', route: '/daily_ads' },
-    { id: 'invite', icon: 'group_add', label: '친구 초대', route: '/invite' },
-    { id: 'shop', icon: 'store', label: '포인트샵', route: '/point_shop' },
-    { id: 'sub', icon: 'credit_card', label: '구독 관리', route: '/my_subscription' },
-    { id: 'prize', icon: 'redeem', label: '경품추첨', route: '/prize_draw' },
-    { id: 'coupon', icon: 'confirmation_number', label: '쿠폰함', route: '/coupon_wallet' },
-    { id: 'lucky', icon: 'filter_vintage', label: '럭키/제외 번호', route: '/lucky_numbers' },
-    { id: 'notifications', icon: 'notifications', label: '알림 설정', route: '/notification_settings' },
-    { id: 'tutorial', icon: 'school', label: '튜토리얼 다시 보기', route: '/tutorial_intro' },
-    { id: 'help', icon: 'help', label: '고객센터', route: '/help' },
+    { id: 'attendance', img: '/menu/attendance.png', label: '출석체크', route: '/attendance' },
+    { id: 'invite', img: '/menu/invite.png', label: '친구초대', route: '/invite' },
+    { id: 'daily_ads', img: '/menu/daily_ads.png', label: '오늘의 광고보기', route: '/daily_ads' },
+    { id: 'shop', img: '/menu/shop.png', label: '포인트 교환', route: '/point_shop' },
+    { id: 'sub', img: '/menu/sub.png', label: '구독 관리', route: '/my_subscription' },
+    { id: 'coupon', img: '/menu/coupon.png', label: '쿠폰함', route: '/coupon_wallet' },
+    { id: 'scan_history', img: '/menu/scan_history.png', label: '스캔 내역', route: '/point_history' },
+    { id: 'results', img: '/menu/results.png', label: '내 결과 기록', route: '/championship_history' },
+    { id: 'notifications', img: '/menu/notifications.png', label: '알림 설정', route: '/notification_settings' },
+    { id: 'language', img: '/menu/language.png', label: '언어 설정', route: null },
+    { id: 'theme', img: '/menu/theme.png', label: '화면모드 설정', theme: true },
+    { id: 'lotto', img: '/menu/lotto.png', label: '내 로또 설정', route: '/lucky_numbers' },
+    { id: 'guide', img: '/menu/guide.png', label: '가이드 / 도움말', route: '/guide' },
+    { id: 'help', img: '/menu/help.png', label: '고객센터', route: '/help' },
+    { id: 'delete', img: '/menu/delete.png', label: '계정 삭제', danger: true, route: null },
 ];
 
 export default function MyTab() {
@@ -27,6 +31,17 @@ export default function MyTab() {
     const isGuest = tier === 'GUEST';
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [showThemePicker, setShowThemePicker] = useState(false);
+    const [profile, setProfile] = useState({ nickname: 'Nickname', image: '' });
+
+    useEffect(() => {
+        try {
+            const raw = localStorage.getItem('fulif_profile');
+            if (raw) {
+                const p = JSON.parse(raw);
+                setProfile({ nickname: p.nickname || 'Nickname', image: p.image || '' });
+            }
+        } catch {}
+    }, []);
 
     const handleLogout = () => {
         localStorage.removeItem('user_registered');
@@ -43,7 +58,7 @@ export default function MyTab() {
                 </div>
                 <h2 className="text-2xl font-extrabold text-center mb-2">아직 가입하지 않으셨나요?</h2>
                 <p className="text-t-muted text-sm font-medium text-center mb-8">가입하면 +100P 보너스와 함께<br/>모든 기능을 이용할 수 있어요</p>
-                <button onClick={() => router.push('/signup')} className="w-full max-w-[280px] py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all mb-3">
+                <button onClick={() => router.push('/signup')} className="w-full max-w-[280px] py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all mb-3">
                     무료로 시작하기
                 </button>
                 <button onClick={() => router.push('/lottery_selection')} className="text-t-muted text-sm font-semibold hover:text-t-primary transition-colors">
@@ -53,129 +68,157 @@ export default function MyTab() {
         );
     }
 
+    const earnedPoints = scansThisMonth * (tier === 'FREE' ? 50 : tier === 'STANDARD' ? 75 : 100);
+
     return (
         <div className="flex flex-col w-full min-h-screen bg-background text-t-primary pb-32">
 
             {/* Header */}
             <TabHeader
                 title="마이"
-                subtitle="환영합니다"
                 action={
-                    <HeaderIconButton
-                        icon="notifications"
-                        label="알림"
+                    <button
                         onClick={() => router.push('/notifications')}
-                    />
+                        aria-label="알림"
+                        className="pressable relative inline-flex items-center gap-1 pl-2.5 pr-3 py-2 rounded-full bg-card-gray text-t-secondary"
+                        style={{ boxShadow: '0 2px 8px var(--color-shadow)' }}
+                    >
+                        <span className="material-symbols-outlined text-[18px]">notifications</span>
+                        <span className="text-[13px] font-bold">알림</span>
+                        <span className="absolute top-1.5 left-6 w-2 h-2 rounded-full bg-[#F04452] ring-2 ring-[var(--color-card)]" />
+                    </button>
                 }
             />
 
-            {/* Profile */}
-            <div className="flex items-center gap-5 px-6 mb-8">
-                <div className="w-16 h-16 rounded-full bg-card-gray flex items-center justify-center border border-themed-light" style={{ boxShadow: '0 0 20px var(--color-glow)' }}>
-                    <span className="material-symbols-outlined text-[32px] font-light text-t-secondary">person</span>
+            {/* Profile 카드 → 프로필 편집 */}
+            <button
+                onClick={() => router.push('/profile_edit')}
+                className="pressable mx-6 mb-3 bg-card-gray rounded-[24px] p-5 flex items-center gap-4 text-left"
+            >
+                <div className="w-14 h-14 rounded-full bg-btn-secondary flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    {profile.image
+                        ? <img src={profile.image} alt="" className="w-full h-full object-cover" />
+                        : <span className="material-symbols-outlined text-[30px] text-t-muted" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>}
                 </div>
-                <div className="flex flex-col gap-1">
-                    <div className="text-[20px] font-extrabold tracking-tight">Nickname</div>
-                    <div className="flex items-center gap-2 mt-1">
-                        <span className={`px-3 py-1 rounded-full text-[11px] font-bold ${badgeColor}`}>{badgeLabel}</span>
-                        <span className="text-t-muted text-xs font-semibold">가입일: 2026-01-15</span>
+                <div className="flex flex-col gap-1 min-w-0 flex-1">
+                    <div className="text-[19px] font-bold tracking-tight truncate">{profile.nickname}</div>
+                    <div className="flex items-center gap-2">
+                        <span className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold ${badgeColor}`}>{badgeLabel}</span>
+                        <span className="text-t-muted text-[12px] font-medium">가입 2026-01-15</span>
                     </div>
                 </div>
-            </div>
+                <span className="material-symbols-outlined text-[22px] text-t-dim">chevron_right</span>
+            </button>
 
             {/* Points Card */}
-            <div className="mx-6 bg-card-gray rounded-3xl p-6 flex flex-col gap-2 relative overflow-hidden border border-themed mb-4">
-                <div className="absolute inset-0 metallic-grain" />
-                <div className="text-t-muted text-sm font-semibold z-10">내 포인트</div>
-                <div className="text-4xl font-extrabold tracking-tight text-t-primary mb-1 z-10">{points.toLocaleString()} P</div>
-                <div className="flex items-center justify-between z-10">
-                    <div className="text-t-dim text-xs font-medium">만료 예정: 2027-01-15</div>
-                    <button onClick={() => router.push('/point_history')} className="text-t-muted text-[13px] font-semibold hover:text-t-primary transition-colors">
-                        거래 내역 보기 &gt;
-                    </button>
+            <button
+                onClick={() => router.push('/point_history')}
+                className="pressable mx-6 mb-3 bg-card-gray rounded-[24px] p-5 text-left block"
+            >
+                <div className="flex items-center justify-between mb-2">
+                    <span className="text-[14px] text-t-muted font-semibold">내 포인트</span>
+                    <span className="inline-flex items-center text-[13px] text-t-muted font-semibold whitespace-nowrap">
+                        포인트 내역
+                        <span className="material-symbols-outlined text-[15px] ml-0.5">chevron_right</span>
+                    </span>
+                </div>
+                <div className="text-[38px] leading-none font-bold tracking-tight text-t-primary">{points.toLocaleString()}<span className="text-[24px] font-bold ml-0.5">P</span></div>
+                <div className="text-t-muted text-[12px] font-medium mt-2.5">2027-01-15 만료 예정</div>
+            </button>
+
+            {/* Scan Stats — 한 블럭 */}
+            <div className="mx-6 mb-4 bg-card-gray rounded-[20px] p-5">
+                <div className="text-[15px] font-bold text-t-primary mb-4">이번 주 활동 통계</div>
+                <div className="grid grid-cols-3">
+                    {[
+                        { label: '스캔 횟수', value: `${scansThisMonth}회`, accent: false },
+                        { label: '획득 포인트', value: `${earnedPoints.toLocaleString()}P`, accent: true },
+                        { label: '남은 스캔', value: `${maxScansPerMonth - scansThisMonth}회`, accent: false },
+                    ].map((s, i) => (
+                        <div key={s.label} className={`flex flex-col items-center ${i < 2 ? 'border-r border-themed' : ''}`}>
+                            <span className={`text-[22px] font-bold tracking-tight ${s.accent ? 'text-accent' : 'text-t-primary'}`}>{s.value}</span>
+                            <span className="text-[12px] font-medium text-t-muted mt-1">{s.label}</span>
+                        </div>
+                    ))}
                 </div>
             </div>
 
-            {/* Scan Stats */}
-            <div className="mx-6 bg-card-gray rounded-3xl p-6 grid grid-cols-3 gap-y-3 gap-x-4 border border-themed mb-4">
-                <div className="col-span-3 text-t-muted text-sm font-semibold">이번 주 스캔 통계</div>
-                <div className="flex flex-col">
-                    <div className="text-t-dim text-[10px] font-bold uppercase tracking-widest mb-1">스캔 횟수</div>
-                    <div className="text-xl font-bold text-t-primary">{scansThisMonth}회</div>
-                </div>
-                <div className="flex flex-col">
-                    <div className="text-t-dim text-[10px] font-bold uppercase tracking-widest mb-1">획득 포인트</div>
-                    <div className="text-xl font-bold text-[#14b8a6]">{(scansThisMonth * (tier === 'FREE' ? 50 : tier === 'STANDARD' ? 75 : 100)).toLocaleString()}P</div>
-                </div>
-                <div className="flex flex-col">
-                    <div className="text-t-dim text-[10px] font-bold uppercase tracking-widest mb-1">남은 스캔</div>
-                    <div className="text-xl font-bold text-t-primary">{maxScansPerMonth - scansThisMonth}회</div>
-                </div>
-            </div>
-
-            {/* Subscription Status */}
-            {subscriptionPlan && (
-                <div className={`mx-6 mb-4 flex items-center gap-3 rounded-2xl p-4 border ${
-                    subscriptionPlan === 'PRO'
-                        ? 'bg-[#D4AF37]/10 border-[#D4AF37]/20'
-                        : 'bg-card-gray border-themed-light'
-                }`}>
-                    <span className={`material-symbols-outlined text-[22px] ${subscriptionPlan === 'PRO' ? 'text-[#D4AF37]' : 'text-t-primary'}`} style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
-                    <div className="flex-1">
-                        <div className={`text-sm font-bold ${subscriptionPlan === 'PRO' ? 'text-[#D4AF37]' : 'text-t-primary'}`}>{subscriptionPlan} 구독 중</div>
-                        <div className="text-xs text-t-muted font-medium mt-0.5">{subscriptionExpiry} 갱신 예정</div>
-                    </div>
-                    <button onClick={() => router.push('/my_subscription')} className="text-xs font-semibold text-t-secondary hover:text-t-primary transition-colors">관리</button>
-                </div>
-            )}
-
-            {/* Upgrade prompt for FREE */}
-            {tier === 'FREE' && (
-                <div className="mx-6 mb-4 flex items-center gap-3 bg-card-gray rounded-2xl p-4 border border-themed">
-                    <span className="material-symbols-outlined text-[22px] text-t-muted" style={{ fontVariationSettings: "'FILL' 1" }}>upgrade</span>
-                    <div className="flex-1">
-                        <div className="text-sm font-bold text-t-primary">무료 회원</div>
-                        <div className="text-xs text-t-muted font-medium mt-0.5">구독하면 포인트 1.5배 + 픽 무제한</div>
-                    </div>
-                    <button onClick={() => router.push('/subscription')} className="text-xs font-bold text-[#14b8a6] hover:opacity-80 transition-opacity">업그레이드</button>
-                </div>
-            )}
-
-            {/* Menu */}
-            <div className="flex flex-col px-6 gap-1 mb-8">
-                <div className="text-t-muted text-xs font-bold uppercase tracking-wider mb-3 px-2">메뉴</div>
-
-                {/* Theme Setting */}
-                <button onClick={() => setShowThemePicker(true)}
-                    className="flex justify-between items-center py-4 border-b border-themed cursor-pointer hover:bg-card-hover rounded-xl px-2 -mx-2 transition-colors group active:scale-[0.98] w-full"
+            {/* Subscription / Upgrade 배너 */}
+            {subscriptionPlan ? (
+                <button
+                    onClick={() => router.push('/my_subscription')}
+                    className="pressable mx-6 mb-4 flex items-center gap-3 rounded-[20px] p-4 bg-card-gray text-left"
                 >
-                    <div className="flex items-center gap-4">
-                        <span className="material-symbols-outlined text-[24px] text-t-secondary font-light group-hover:text-t-primary transition-colors">palette</span>
-                        <span className="text-[15px] font-semibold text-t-primary">화면 모드</span>
+                    <span className="material-symbols-outlined text-[26px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>workspace_premium</span>
+                    <div className="flex-1 min-w-0">
+                        <div className="text-[15px] font-bold text-t-primary">{subscriptionPlan} 구독 중</div>
+                        <div className="text-[12px] text-t-muted font-medium mt-0.5">{subscriptionExpiry} 갱신 예정</div>
                     </div>
-                    <div className="flex items-center gap-2">
-                        <span className="text-[13px] text-t-muted font-medium">{THEMES[theme].label}</span>
-                        <span className="material-symbols-outlined text-[20px] text-t-dim font-light group-hover:text-t-primary transition-colors">chevron_right</span>
+                    <span className="material-symbols-outlined text-[22px] text-t-dim">chevron_right</span>
+                </button>
+            ) : tier === 'FREE' && (
+                <button
+                    onClick={() => router.push('/subscription')}
+                    className="pressable mx-6 mb-4 block text-left"
+                >
+                    <div className="relative overflow-hidden rounded-[20px]" style={{ height: 132 }}>
+                        <img src="/sub_banner.png" alt="" className="absolute inset-0 w-full h-full object-cover object-right pointer-events-none" />
+                        {/* 좌측 흰색 그라데이션 오버레이 (글자 가독성) */}
+                        <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(90deg, rgba(233,242,253,0.98) 0%, rgba(233,242,253,0.85) 38%, rgba(233,242,253,0) 68%)' }} />
+                        <div className="relative z-10 h-full px-5 flex flex-col justify-center">
+                            <div className="text-[19px] font-bold" style={{ color: '#14304C' }}>구독으로 더 많은 혜택을!</div>
+                            <div className="inline-flex items-center gap-0.5 mt-1.5 text-[13px] font-semibold" style={{ color: '#1B64DA' }}>
+                                자세히 보기
+                                <span className="material-symbols-outlined text-[15px]">chevron_right</span>
+                            </div>
+                        </div>
                     </div>
                 </button>
+            )}
 
-                {menuItems.map(item => (
-                    <button key={item.id} onClick={() => router.push(item.route)}
-                        className="flex justify-between items-center py-4 border-b border-themed cursor-pointer hover:bg-card-hover rounded-xl px-2 -mx-2 transition-colors group active:scale-[0.98] w-full"
-                    >
-                        <div className="flex items-center gap-4">
-                            <span className="material-symbols-outlined text-[24px] text-t-secondary font-light group-hover:text-t-primary transition-colors">{item.icon}</span>
-                            <span className="text-[15px] font-semibold text-t-primary">{item.label}</span>
-                        </div>
-                        <span className="material-symbols-outlined text-[20px] text-t-dim font-light group-hover:text-t-primary transition-colors">chevron_right</span>
-                    </button>
-                ))}
+            {/* Menu — 토스식 흰 카드 그룹 (제목도 카드 안에) */}
+            <div className="mx-6 mb-6 bg-card-gray rounded-[20px] px-4 pt-4 pb-1">
+                <div className="text-t-secondary text-[14px] font-bold mb-1 px-1">메뉴</div>
+                {menuItems.map((item, i) => {
+                    const onClick = item.theme
+                        ? () => setShowThemePicker(true)
+                        : item.danger
+                            ? () => setShowLogoutConfirm(true)
+                            : item.route
+                                ? () => router.push(item.route)
+                                : undefined;
+                    return (
+                        <React.Fragment key={item.id}>
+                            <button onClick={onClick}
+                                className="flex justify-between items-center py-2.5 px-1 w-full active:opacity-60 transition-opacity disabled:opacity-100"
+                                disabled={!onClick}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <img src={item.img} alt="" className="w-9 h-9 object-contain flex-shrink-0" />
+                                    <span className={`text-[15px] font-semibold ${item.danger ? 'text-t-muted' : 'text-t-primary'}`}>{item.label}</span>
+                                </div>
+                                <span className="material-symbols-outlined text-[20px] text-t-dim">chevron_right</span>
+                            </button>
+                            {i < menuItems.length - 1 && <div className="h-px" style={{ backgroundColor: 'var(--color-border)' }} />}
+                        </React.Fragment>
+                    );
+                })}
             </div>
 
             {/* Footer */}
-            <div className="text-center flex flex-col items-center gap-4 mt-auto border-t border-themed pt-8 mx-6">
-                <div className="text-t-dim text-xs font-semibold">버전: 1.0.0</div>
-                <button onClick={() => setShowLogoutConfirm(true)} className="bg-transparent border-none text-[#FF453A] text-sm font-bold cursor-pointer hover:opacity-80 transition-opacity">로그아웃</button>
+            <div className="px-6 mt-auto pb-2">
+                <button
+                    onClick={() => setShowLogoutConfirm(true)}
+                    className="pressable w-full py-3.5 rounded-2xl bg-card-gray text-t-secondary font-bold text-[15px]"
+                >
+                    로그아웃
+                </button>
+                <div className="text-center mt-6">
+                    <div className="text-t-secondary text-[13px] font-bold">FULIF Inc.</div>
+                    <div className="text-t-dim text-[11px] font-medium mt-1 leading-relaxed">
+                        서울특별시 송파구 법원로9길 26<br/>H비즈니스파크 C동 10층 · 버전 1.0.0
+                    </div>
+                </div>
             </div>
 
             {/* Logout confirm dialog */}
@@ -217,23 +260,23 @@ export default function MyTab() {
                                     onClick={() => { switchTheme(t.key); setShowThemePicker(false); }}
                                     className={`flex items-center gap-4 p-4 rounded-2xl border transition-all active:scale-[0.98] ${
                                         theme === t.key
-                                            ? 'bg-[#14b8a6]/10 border-[#14b8a6]/30'
+                                            ? 'bg-accent-soft border-accent'
                                             : 'bg-background border-themed hover:border-themed-light'
                                     }`}
                                 >
                                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                                        theme === t.key ? 'bg-[#14b8a6]/20' : 'bg-card-gray'
+                                        theme === t.key ? 'bg-accent-soft' : 'bg-card-gray'
                                     }`}>
                                         <span className={`material-symbols-outlined text-[22px] ${
-                                            theme === t.key ? 'text-[#14b8a6]' : 'text-t-secondary'
+                                            theme === t.key ? 'text-accent' : 'text-t-secondary'
                                         }`} style={{ fontVariationSettings: "'FILL' 1" }}>{t.icon}</span>
                                     </div>
                                     <div className="flex-1 text-left">
-                                        <div className={`text-[15px] font-bold ${theme === t.key ? 'text-[#14b8a6]' : 'text-t-primary'}`}>{t.label}</div>
+                                        <div className={`text-[15px] font-bold ${theme === t.key ? 'text-accent' : 'text-t-primary'}`}>{t.label}</div>
                                         <div className="text-xs text-t-muted font-medium mt-0.5">{t.desc}</div>
                                     </div>
                                     {theme === t.key && (
-                                        <span className="material-symbols-outlined text-[22px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                        <span className="material-symbols-outlined text-[22px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                                     )}
                                 </button>
                             ))}

@@ -169,7 +169,7 @@ export default function AiScannerPage() {
             <h2 className="text-2xl font-extrabold text-center mb-2">로그인이 필요합니다</h2>
             <p className="text-t-muted text-sm font-medium text-center mb-8">낙첨 티켓을 스캔하고 포인트를 적립하려면<br/>먼저 가입해주세요</p>
             <button onClick={() => router.push('/signup')}
-                className="w-full max-w-[280px] py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all">
+                className="w-full max-w-[280px] py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all">
                 무료로 시작하기
             </button>
         </div>
@@ -184,7 +184,7 @@ export default function AiScannerPage() {
             <p className="text-t-muted text-sm font-medium text-center mb-2">주 {maxScansPerMonth}회 스캔을 모두 사용했습니다</p>
             <p className="text-t-dim text-xs font-medium text-center mb-8">매주 초기화됩니다</p>
             <button onClick={() => router.push('/subscription')}
-                className="w-full max-w-[280px] py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all">
+                className="w-full max-w-[280px] py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all">
                 구독하고 계속하기
             </button>
         </div>
@@ -202,9 +202,9 @@ export default function AiScannerPage() {
                     <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                 </button>
                 <p className="text-[16px] font-extrabold absolute left-1/2 -translate-x-1/2">낙첨 내역</p>
-                <button onClick={() => router.push('/?tab=scan')} className="ml-auto flex items-center gap-1.5 bg-[#14b8a6]/15 rounded-xl px-3 py-1.5 active:opacity-60 transition-opacity">
-                    <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_scanner</span>
-                    <span className="text-[11px] font-bold text-[#14b8a6]">낙첨 복권 스캔</span>
+                <button onClick={() => router.push('/?tab=scan')} className="ml-auto flex items-center gap-1.5 bg-accent-soft rounded-xl px-3 py-1.5 active:opacity-60 transition-opacity">
+                    <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>qr_code_scanner</span>
+                    <span className="text-[11px] font-bold text-accent">낙첨 복권 스캔</span>
                 </button>
             </header>
 
@@ -218,7 +218,7 @@ export default function AiScannerPage() {
                         <p className="text-t-muted text-[13px] leading-relaxed">낙첨 복권을 스캔하면<br/>아쉬움 지수와 AI Re-Draw를 받을 수 있어요</p>
                     </div>
                     <button onClick={() => router.push('/?tab=scan')}
-                        className="flex items-center gap-2 px-6 py-3.5 bg-bg-inverse text-t-inverse font-bold text-[14px] rounded-2xl active:scale-95 transition-all">
+                        className="flex items-center gap-2 px-6 py-3.5 bg-accent text-accent-fg font-bold text-[14px] rounded-2xl active:scale-95 transition-all">
                         <span className="material-symbols-outlined text-[18px]">document_scanner</span>
                         낙첨복권 스캔하기
                     </button>
@@ -317,7 +317,7 @@ export default function AiScannerPage() {
             {/* 스캔 모드 칩 */}
             <div className="flex justify-center mt-4 px-6">
                 <div className="flex bg-card-gray rounded-full p-1 gap-1">
-                    <button className="px-4 py-1.5 rounded-full bg-bg-inverse text-t-inverse text-[12px] font-bold">카메라</button>
+                    <button className="px-4 py-1.5 rounded-full bg-accent text-accent-fg text-[12px] font-bold">카메라</button>
                     <button onClick={() => router.push('/manual_entry')}
                         className="px-4 py-1.5 rounded-full text-t-muted text-[12px] font-semibold">직접 입력</button>
                 </div>
@@ -636,7 +636,7 @@ export default function AiScannerPage() {
 
                 {/* 하단 버튼 */}
                 <button onClick={() => setStep('history')}
-                    className="w-full py-4 rounded-2xl bg-bg-inverse text-t-inverse font-bold text-[14px] active:scale-95 transition-all">
+                    className="w-full py-4 rounded-2xl bg-accent text-accent-fg font-bold text-[14px] active:scale-95 transition-all">
                     확인
                 </button>
             </div>

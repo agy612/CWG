@@ -120,7 +120,7 @@ function NextBtn({ label = '다음', disabled, onClick }) {
     return (
         <button disabled={disabled} onClick={onClick}
             className={`w-full py-4 rounded-xl font-extrabold text-base transition-all active:scale-95 ${
-                disabled ? 'bg-card-gray text-t-dim cursor-not-allowed' : 'bg-bg-inverse text-t-inverse'
+                disabled ? 'bg-card-gray text-t-dim cursor-not-allowed' : 'bg-accent text-accent-fg'
             }`}>
             {label}
         </button>
@@ -186,11 +186,11 @@ export default function Signup() {
                 <p className="text-sm text-t-muted text-center mb-8">첫 가입 보너스로 100P를 드렸어요!</p>
                 <div className="w-full bg-card-gray rounded-3xl p-8 flex flex-col items-center gap-2 border border-themed mb-8">
                     <p className="text-t-muted text-sm font-semibold">현재 포인트</p>
-                    <p className="text-5xl font-extrabold text-[#14b8a6]">100 P</p>
+                    <p className="text-5xl font-extrabold text-accent">100 P</p>
                     <p className="text-xs text-t-dim font-medium mt-1">첫 가입 보너스 +100P 지급 완료</p>
                 </div>
                 <button onClick={() => router.replace('/tutorial_intro?from=signup')}
-                    className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all">
+                    className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all">
                     시작하기
                 </button>
             </div>
@@ -208,7 +208,7 @@ export default function Signup() {
                     </button>
                 </div>
                 <div className="relative mx-4 mb-5 rounded-3xl overflow-hidden border border-[#4ade80]/15 bg-gradient-to-br from-[#061e1e] via-[#0a2828] to-[#061424]" style={{ height: 180 }}>
-                    <div className="absolute -right-6 -top-6 w-40 h-40 rounded-full bg-[#14b8a6]/10 pointer-events-none" />
+                    <div className="absolute -right-6 -top-6 w-40 h-40 rounded-full bg-accent-soft pointer-events-none" />
                     <div className="absolute left-5 top-0 bottom-0 flex flex-col justify-center" style={{ right: 150 }}>
                         <h2 className="text-[22px] font-extrabold text-white leading-snug tracking-tight">같이<br/>시작해봐요!</h2>
                         <p className="text-[12px] text-white/40 mt-2 font-medium">가입하면 바로 100P 드려요</p>
@@ -236,13 +236,13 @@ export default function Signup() {
                             type={showCf ? 'text' : 'password'}
                             right={<button onClick={() => setShowCf(p => !p)}><span className="material-symbols-outlined text-[20px] text-t-dim">{showCf ? 'visibility' : 'visibility_off'}</span></button>} />
                         {confirm.length > 0 && !confirmOk && <p className="text-[11px] text-red-400 pl-1">비밀번호가 일치하지 않아요</p>}
-                        {confirmOk && <p className="text-[11px] text-[#14b8a6] pl-1">✓ 비밀번호가 일치해요</p>}
+                        {confirmOk && <p className="text-[11px] text-accent pl-1">✓ 비밀번호가 일치해요</p>}
                     </div>
                 </div>
                 <div className="mt-auto px-6 pb-12 pt-8">
                     <NextBtn disabled={!authValid} onClick={() => setStep(1)} />
                     <div className="mt-4 text-center">
-                        <span className="text-[#14b8a6] text-xs font-bold bg-[#14b8a6]/10 px-3 py-1.5 rounded-full inline-flex items-center gap-1 border border-[#14b8a6]/20">
+                        <span className="text-accent text-xs font-bold bg-accent-soft px-3 py-1.5 rounded-full inline-flex items-center gap-1 border border-accent/20">
                             <span className="material-symbols-outlined text-[14px]">redeem</span>
                             첫 가입 보너스 +100P!
                         </span>
@@ -300,7 +300,7 @@ export default function Signup() {
                                             src: '/character.png',
                                             glow: 'rgba(74,222,128,0.38)',
                                             selectedBg: 'rgba(20,184,166,0.1)',
-                                            selectedBorder: '#14b8a6',
+                                            selectedBorder: '#3182F6',
                                         },
                                         {
                                             g: '여성',
@@ -403,14 +403,14 @@ export default function Signup() {
                                         <button key={t.key} onClick={() => switchTheme(t.key)}
                                             className={`flex-1 flex flex-col items-center gap-3 py-8 rounded-3xl border transition-all active:scale-95 ${
                                                 theme === t.key
-                                                    ? 'border-[#14b8a6] bg-[#14b8a6]/10'
+                                                    ? 'border-accent bg-accent-soft'
                                                     : 'border-themed bg-card-gray'
                                             }`}>
                                             <span className="material-symbols-outlined text-[32px]"
-                                                style={{ fontVariationSettings: "'FILL' 1", color: theme === t.key ? '#14b8a6' : 'var(--color-text-muted)' }}>
+                                                style={{ fontVariationSettings: "'FILL' 1", color: theme === t.key ? '#3182F6' : 'var(--color-text-muted)' }}>
                                                 {t.icon}
                                             </span>
-                                            <p className={`text-[16px] font-bold ${theme === t.key ? 'text-[#14b8a6]' : 'text-t-primary'}`}>
+                                            <p className={`text-[16px] font-bold ${theme === t.key ? 'text-accent' : 'text-t-primary'}`}>
                                                 {t.label}
                                             </p>
                                         </button>

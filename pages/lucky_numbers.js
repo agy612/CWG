@@ -68,7 +68,7 @@ export default function LuckyNumbers() {
                 <div className="mx-6 mb-6 bg-card-gray rounded-2xl p-4 border border-themed">
                     <p className="text-t-secondary text-xs font-semibold leading-relaxed">
                         럭키이벤트 번호 생성 시 사용됩니다.<br/>
-                        <span className="text-[#14b8a6]">럭키 번호</span>는 최대 {MAX_LUCKY}개, <span className="text-red-400">제외 번호</span>는 최대 {MAX_EXCLUDE}개 설정 가능합니다.
+                        <span className="text-accent">럭키 번호</span>는 최대 {MAX_LUCKY}개, <span className="text-red-400">제외 번호</span>는 최대 {MAX_EXCLUDE}개 설정 가능합니다.
                     </p>
                 </div>
 
@@ -77,7 +77,7 @@ export default function LuckyNumbers() {
                     <button
                         onClick={() => setActiveSection('lucky')}
                         className={`flex-1 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-center gap-1.5 ${
-                            activeSection === 'lucky' ? 'bg-[#14b8a6] text-black' : 'text-t-muted'
+                            activeSection === 'lucky' ? 'bg-accent text-accent-fg' : 'text-t-muted'
                         }`}
                     >
                         <span className="material-symbols-outlined text-[14px]" style={{ fontVariationSettings: "'FILL' 1" }}>filter_vintage</span>
@@ -175,7 +175,7 @@ export default function LuckyNumbers() {
                     <button
                         onClick={handleSave}
                         className={`w-full py-4 rounded-xl font-extrabold text-base active:scale-95 transition-all ${
-                            saved ? 'bg-[#14b8a6] text-black' : 'bg-bg-inverse text-t-inverse'
+                            saved ? 'bg-accent text-accent-fg' : 'bg-accent text-accent-fg'
                         }`}
                     >
                         {saved ? '✓ 저장 완료!' : '저장하기'}

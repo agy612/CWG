@@ -55,7 +55,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                     <div className="mx-6 bg-card-gray rounded-3xl p-8 flex flex-col gap-2 relative overflow-hidden border border-themed">
                         <div className="absolute right-0 top-0 w-32 h-32 opacity-20 pointer-events-none flex gap-1 transform rotate-12">
                             {[1, 2, 3, 4, 5].map(i => (
-                                <div key={i} className="h-full w-2 bg-gradient-to-t from-transparent via-[#14b8a6] to-transparent animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
+                                <div key={i} className="h-full w-2 bg-gradient-to-t from-transparent via-accent to-transparent animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
                             ))}
                         </div>
                         <div className="text-t-muted text-[13px] font-semibold z-10">로또6/45 제1158회 · 2026-02-22 (토)</div>
@@ -74,9 +74,9 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
             {/* Picks Section */}
             <div className="px-6 flex flex-col gap-3 mt-6">
                 <div className="flex justify-between items-center mb-1">
-                    <h3 className="text-sm font-semibold text-t-muted uppercase tracking-wider">{embedded ? 'Fulif 추천 번호 (10세트)' : '생성된 번호 (10세트)'}</h3>
+                    <h3 className="text-sm font-semibold text-t-muted uppercase tracking-wider">생성된 번호 (10세트)</h3>
                     {isUnlocked && (
-                        <span className="text-xs font-semibold text-[#14b8a6] bg-[#14b8a6]/10 px-2 py-1 rounded">무제한 열람</span>
+                        <span className="text-xs font-semibold text-accent bg-accent-soft px-2 py-1 rounded">무제한 열람</span>
                     )}
                 </div>
 
@@ -96,7 +96,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                                         </div>
                                     ))}
                                     {pick.tag && (
-                                        <span className="ml-2 text-[10px] font-extrabold text-[#14b8a6] bg-[#14b8a6]/15 px-2 py-0.5 rounded-full">{pick.tag}</span>
+                                        <span className="ml-2 text-[10px] font-extrabold text-accent bg-accent-soft px-2 py-0.5 rounded-full">{pick.tag}</span>
                                     )}
                                 </div>
                             ) : (
@@ -112,7 +112,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                             {isUnlocked && (
                                 <div className="mt-3 flex items-center gap-2 px-0.5">
                                     <div className="flex-1 h-0.5 bg-btn-secondary rounded-full">
-                                        <div className="h-full bg-[#14b8a6]/40 rounded-full" style={{ width: `${pick.confidence}%` }} />
+                                        <div className="h-full bg-accent/40 rounded-full" style={{ width: `${pick.confidence}%` }} />
                                     </div>
                                     <span className="text-[10px] font-bold text-t-dim">{pick.confidence}%</span>
                                 </div>
@@ -131,14 +131,18 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                 독립 모드는 기존대로 미열람 시에만 표시. */}
             {(embedded || !isUnlocked) && (
                 <div className="fixed bottom-[80px] left-0 right-0 max-w-[430px] mx-auto p-6 bg-gradient-to-t from-[var(--color-gradient-solid)] via-[var(--color-gradient-solid)]/90 to-transparent z-40">
-                    <div id="tut-picks-panel" className="bg-overlay-heavy backdrop-blur-xl p-6 rounded-3xl w-full flex flex-col items-center border border-themed-light shadow-[0_-10px_40px_rgba(0,0,0,0.5)]">
+                    <div
+                        id="tut-picks-panel"
+                        className="backdrop-blur-xl p-6 rounded-3xl w-full flex flex-col items-center border border-themed"
+                        style={{ backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, transparent)', boxShadow: '0 12px 40px var(--color-shadow)' }}
+                    >
                         {!isUnlocked ? (
                             isGuest ? (
                                 <>
                                     <p className="text-t-secondary text-[13px] font-semibold mb-5 text-center">로그인 후 번호를 열람할 수 있습니다</p>
                                     <button
                                         onClick={() => router.push('/signup')}
-                                        className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-bold text-base active:scale-95 transition-all"
+                                        className="w-full py-4 rounded-xl bg-accent text-accent-fg font-bold text-base active:scale-95 transition-all"
                                     >
                                         무료로 시작하기
                                     </button>
@@ -160,7 +164,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                                                 setConfirming(true);
                                             }
                                         }}
-                                        className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-bold text-base active:scale-95 transition-all disabled:opacity-30 mb-3"
+                                        className="w-full py-4 rounded-xl bg-accent text-accent-fg font-bold text-base active:scale-95 transition-all disabled:opacity-30 mb-3"
                                     >
                                         {points >= picksUnlockCost ? `${picksUnlockCost}P로 열람하기` : `포인트 부족 (${picksUnlockCost - points}P 더 필요)`}
                                     </button>
@@ -182,7 +186,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                                 <button
                                     id="tut-generator"
                                     onClick={() => onAddGenerate && onAddGenerate()}
-                                    className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-bold text-base active:scale-95 transition-all flex items-center justify-center gap-2"
+                                    className="w-full py-4 rounded-xl bg-accent text-accent-fg font-bold text-base active:scale-95 transition-all flex items-center justify-center gap-2"
                                 >
                                     <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
                                     번호 추가 생성하기
@@ -197,9 +201,9 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
 
             {/* Unlocked state — analysis note */}
             {isUnlocked && (
-                <div className="mx-6 mt-6 flex items-center gap-2 bg-[#14b8a6]/10 rounded-2xl p-4 border border-[#14b8a6]/20">
-                    <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
-                    <span className="text-xs font-semibold text-[#14b8a6]">추첨 후 번호 일치 결과가 자동으로 확인됩니다</span>
+                <div className="mx-6 mt-6 flex items-center gap-2 bg-accent-soft rounded-2xl p-4 border border-accent/20">
+                    <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>info</span>
+                    <span className="text-xs font-semibold text-accent">추첨 후 번호 일치 결과가 자동으로 확인됩니다</span>
                 </div>
             )}
 
@@ -209,7 +213,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                     <div className="absolute inset-0 bg-overlay backdrop-blur-sm" onClick={() => setConfirming(false)} />
                     <div className="relative w-full bg-card-gray rounded-t-3xl border-t border-themed-light p-6 pb-10 shadow-2xl">
                         <div className="flex flex-col items-center gap-1 mb-6">
-                            <span className="material-symbols-outlined text-[36px] text-[#14b8a6] mb-1" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
+                            <span className="material-symbols-outlined text-[36px] text-accent mb-1" style={{ fontVariationSettings: "'FILL' 1" }}>lock_open</span>
                             <h3 className="text-lg font-extrabold text-t-primary">번호 열람 확인</h3>
                             <p className="text-t-muted text-sm font-medium text-center">
                                 {picksUnlockCost}P를 사용해서 이번 주 CWG 번호<br/>10세트를 열람합니다
@@ -224,7 +228,7 @@ export default function PicksTab({ embedded = false, onAddGenerate }) {
                             </button>
                             <button
                                 onClick={handleUnlockConfirm}
-                                className="flex-1 py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all"
+                                className="flex-1 py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all"
                             >
                                 {picksUnlockCost}P 사용하기
                             </button>

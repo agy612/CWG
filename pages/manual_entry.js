@@ -113,7 +113,7 @@ export default function ManualEntry() {
                                 <FlagBadge code={g.countryCode} bg={g.countryBg} />
                                 <span className={`text-sm font-semibold ${selectedGame.code === g.code ? 'text-t-primary' : 'text-t-secondary'}`}>{g.label}</span>
                                 {selectedGame.code === g.code && (
-                                    <span className="material-symbols-outlined text-[18px] text-[#14b8a6] ml-auto" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                    <span className="material-symbols-outlined text-[18px] text-accent ml-auto" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                                 )}
                             </button>
                         ))}
@@ -181,7 +181,7 @@ export default function ManualEntry() {
                         <button
                             onClick={addNumber}
                             disabled={numbers.length >= required}
-                            className="px-5 py-3 rounded-xl bg-bg-inverse text-t-inverse font-bold text-sm active:scale-95 transition-all disabled:opacity-30"
+                            className="px-5 py-3 rounded-xl bg-accent text-accent-fg font-bold text-sm active:scale-95 transition-all disabled:opacity-30"
                         >
                             추가
                         </button>
@@ -226,7 +226,7 @@ export default function ManualEntry() {
                     <button
                         onClick={handleSubmit}
                         disabled={!isComplete}
-                        className="w-full py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-base active:scale-95 transition-all disabled:opacity-30"
+                        className="w-full py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-base active:scale-95 transition-all disabled:opacity-30"
                     >
                         {isComplete ? '낙첨 확인하기 (25P 적립)' : `번호 ${required}개 모두 입력하세요`}
                     </button>

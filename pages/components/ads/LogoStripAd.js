@@ -32,7 +32,7 @@ export default function LogoStripAd({ className = '', noMargin = false }) {
         <div className={`${marginX} ${className}`}>
             <div className="relative overflow-hidden">
                 {/* AD label */}
-                <span className="absolute top-1.5 right-2 z-20 text-[8px] font-bold tracking-wider px-1.5 py-0.5 rounded text-white/40 bg-white/5">
+                <span className="absolute top-1.5 right-2 z-20 text-[8px] font-bold tracking-wider px-1.5 py-0.5 rounded text-t-dim bg-btn-secondary">
                     AD
                 </span>
                 {/* Scroll strip */}
@@ -41,11 +41,11 @@ export default function LogoStripAd({ className = '', noMargin = false }) {
                         <LogoChip key={`${logo.id}-${idx}`} logo={logo} />
                     ))}
                 </div>
-                {/* Edge fades to background */}
+                {/* Edge fades to background (테마 배경색 따라감) */}
                 <div className="absolute left-0 top-0 bottom-0 w-8 pointer-events-none"
-                     style={{ background: 'linear-gradient(to right, var(--color-background, #0a0a0a), transparent)' }} />
+                     style={{ background: 'linear-gradient(to right, var(--color-bg), transparent)' }} />
                 <div className="absolute right-0 top-0 bottom-0 w-8 pointer-events-none"
-                     style={{ background: 'linear-gradient(to left, var(--color-background, #0a0a0a), transparent)' }} />
+                     style={{ background: 'linear-gradient(to left, var(--color-bg), transparent)' }} />
             </div>
         </div>
     );

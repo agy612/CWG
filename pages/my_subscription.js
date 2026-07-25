@@ -2,16 +2,16 @@ import React, { useState, useMemo } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
-import PlanPicker, { PRICE, won } from '../components/PlanPicker';
+import { PRICE, won, PLAN_FEATURES } from '../components/PlanPicker';
 
-const GOLD         = 'var(--color-gold)';
-const GOLD_FG      = 'var(--color-gold-fg)';
-const GOLD_SOFT    = 'var(--color-gold-soft)';
-const GOLD_BORDER  = 'var(--color-gold-border)';
-const GOLD_CARD_BG = 'var(--color-gold-card-bg)';
+const GOLD         = 'var(--color-accent)';
+const GOLD_FG      = 'var(--color-accent-fg)';
+const GOLD_SOFT    = 'var(--color-accent-soft)';
+const GOLD_BORDER  = 'var(--color-accent)';
+const GOLD_CARD_BG = 'var(--color-accent-soft)';
 
 const SOURCE_LABEL = {
-    SHOP:     { label: '포인트샵', icon: 'store',                color: '#14b8a6' },
+    SHOP:     { label: '포인트 교환', icon: 'store',                color: '#3182F6' },
     COUPON:   { label: '쿠폰',     icon: 'confirmation_number',  color: '#a78bfa' },
     STORE:    { label: '스토어',   icon: 'shopping_bag',         color: '#f59e0b' },
     PROMO:    { label: '프로모션', icon: 'campaign',             color: '#60a5fa' },
@@ -20,8 +20,8 @@ const SOURCE_LABEL = {
 /* mock: 보유 구독권/할인권 */
 const INITIAL_TICKETS = [
     { id: 't1', kind: 'PLAN',     plan: 'PRO',      duration: '1개월', source: 'SHOP',   acquiredAt: '2026-05-12', expiresAt: '2026-08-12' },
-    { id: 't2', kind: 'PLAN',     plan: 'STANDARD', duration: '1개월', source: 'COUPON', acquiredAt: '2026-05-20', expiresAt: '2026-07-20' },
-    { id: 't3', kind: 'PLAN',     plan: 'STANDARD', duration: '3개월', source: 'STORE',  acquiredAt: '2026-04-30', expiresAt: '2026-10-30' },
+    { id: 't2', kind: 'PLAN',     plan: 'PRO', duration: '1개월', source: 'COUPON', acquiredAt: '2026-05-20', expiresAt: '2026-07-20' },
+    { id: 't3', kind: 'PLAN',     plan: 'PRO', duration: '3개월', source: 'STORE',  acquiredAt: '2026-04-30', expiresAt: '2026-10-30' },
     { id: 't4', kind: 'DISCOUNT', plan: null,       rate: 20,         source: 'PROMO',  acquiredAt: '2026-05-25', expiresAt: '2026-06-30' },
     { id: 't5', kind: 'DISCOUNT', plan: null,       rate: 10,         source: 'COUPON', acquiredAt: '2026-05-01', expiresAt: '2026-06-15' },
 ];
@@ -29,9 +29,9 @@ const INITIAL_TICKETS = [
 /* mock: 이력 */
 const HISTORY = [
     { id: 'h1', type: 'PURCHASE', label: 'PRO 구독 1개월 결제', amount: 8000, date: '2026-05-12', meta: '카드 결제' },
-    { id: 'h2', type: 'APPLY',    label: 'Standard 1개월 적용', amount: null, date: '2026-04-10', meta: '쿠폰 사용' },
-    { id: 'h3', type: 'EXPIRE',   label: 'Standard 1개월 만료', amount: null, date: '2026-03-15', meta: '자동 만료' },
-    { id: 'h4', type: 'PURCHASE', label: 'Standard 구독 1개월 결제', amount: 5000, date: '2026-02-15', meta: '카드 결제' },
+    { id: 'h2', type: 'APPLY',    label: 'PRO 1개월 적용', amount: null, date: '2026-04-10', meta: '쿠폰 사용' },
+    { id: 'h3', type: 'EXPIRE',   label: 'PRO 1개월 만료', amount: null, date: '2026-03-15', meta: '자동 만료' },
+    { id: 'h4', type: 'PURCHASE', label: 'PRO 구독 1개월 결제', amount: 5000, date: '2026-02-15', meta: '카드 결제' },
 ];
 
 const TABS = [
@@ -98,99 +98,151 @@ export default function MySubscription() {
             <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto shadow-2xl pb-24">
 
                 {/* Header */}
-                <div className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl pt-12 pb-4 px-6 flex items-center gap-3">
-                    <button onClick={() => router.back()} className="active:scale-90 transition-transform">
-                        <span className="material-symbols-outlined text-[24px] text-t-secondary">arrow_back</span>
+                <div className="sticky top-0 z-40 bg-background/90 backdrop-blur-xl pt-12 pb-3 px-4 flex items-center gap-2">
+                    <button onClick={() => router.back()} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
+                        <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                     </button>
-                    <h1 className="text-xl font-extrabold tracking-tight">내 구독</h1>
+                    <h1 className="text-[17px] font-bold tracking-tight">내 구독</h1>
+                    <div className="ml-auto flex items-center gap-1.5">
+                        <button onClick={() => router.push('/point_shop')} className="pressable inline-flex items-center gap-1 pl-2 pr-2.5 py-1.5 rounded-full bg-card-gray text-t-secondary">
+                            <span className="material-symbols-outlined text-[16px]">storefront</span>
+                            <span className="text-[12px] font-bold">교환</span>
+                        </button>
+                        <button onClick={() => router.push('/coupon_wallet')} className="pressable inline-flex items-center gap-1 pl-2 pr-2.5 py-1.5 rounded-full bg-card-gray text-t-secondary">
+                            <span className="material-symbols-outlined text-[16px]">confirmation_number</span>
+                            <span className="text-[12px] font-bold">쿠폰함</span>
+                        </button>
+                    </div>
                 </div>
 
-                {/* Tabs */}
-                <div className="flex px-6 mt-2 gap-6 border-b border-themed">
-                    {TABS.map(tab => {
-                        const isOn = activeTab === tab.id;
-                        return (
-                            <button
-                                key={tab.id}
-                                onClick={() => setActiveTab(tab.id)}
-                                className={`pb-3 text-[14px] font-bold transition-all relative ${isOn ? 'text-t-primary' : 'text-t-dim'}`}
-                            >
-                                {tab.label}
-                                {tab.id === 'OWNED' && tickets.length > 0 && (
-                                    <span className={`ml-1.5 text-[10px] font-extrabold px-1.5 py-0.5 rounded-full ${isOn ? 'bg-bg-inverse text-t-inverse' : 'bg-btn-secondary text-t-muted'}`}>
-                                        {tickets.length}
-                                    </span>
-                                )}
-                                {isOn && (
-                                    <div className="absolute bottom-0 left-0 w-full h-[2px] bg-white rounded-t-full shadow-[0_-2px_10px_rgba(255,255,255,0.5)]" />
-                                )}
-                            </button>
-                        );
-                    })}
+                {/* Tabs — 토스식 세그먼트 컨트롤 */}
+                <div className="px-6 pt-1 pb-2">
+                    <div className="flex bg-card-gray rounded-2xl p-1">
+                        {TABS.map(tab => {
+                            const isOn = activeTab === tab.id;
+                            return (
+                                <button
+                                    key={tab.id}
+                                    onClick={() => setActiveTab(tab.id)}
+                                    className={`flex-1 py-2.5 rounded-xl text-[14px] font-bold transition-colors flex items-center justify-center gap-1 ${isOn ? 'bg-background text-t-primary' : 'text-t-muted'}`}
+                                    style={isOn ? { boxShadow: '0 2px 6px var(--color-shadow)' } : undefined}
+                                >
+                                    {tab.label}
+                                    {tab.id === 'OWNED' && tickets.length > 0 && (
+                                        <span className={`text-[10px] font-extrabold px-1.5 py-0.5 rounded-full ${isOn ? 'bg-accent text-accent-fg' : 'bg-btn-secondary text-t-dim'}`}>
+                                            {tickets.length}
+                                        </span>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 {/* === 현재 구독 === */}
                 {activeTab === 'CURRENT' && (
-                    <div className="pt-4">
-                        {/* 구독 중인 사용자에겐 간단한 현재 구독 정보 카드 + 액션 라인 */}
-                        {isActive && (
-                            <div className="px-6 mb-2 flex flex-col gap-2">
-                                <div
-                                    className={`p-4 rounded-2xl border flex items-center gap-3 ${isPro ? '' : 'bg-card-gray border-themed-light'}`}
-                                    style={isPro ? { background: GOLD_CARD_BG, borderColor: GOLD_BORDER } : undefined}
-                                >
-                                    <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1", color: isPro ? GOLD : 'var(--color-text)' }}>workspace_premium</span>
-                                    <div className="flex-1">
-                                        <div className="text-sm font-extrabold" style={isPro ? { color: GOLD } : undefined}>
-                                            {isPro ? 'PRO' : 'Standard'} 구독 중
-                                        </div>
-                                        <div className="text-[11px] text-t-muted font-medium">다음 결제일: {nextBillingDate}</div>
+                    <div className="px-6 pt-5">
+                        {isActive ? (
+                            <>
+                                {/* PRO 구독 중 상태 카드 */}
+                                <div className="bg-card-gray rounded-[20px] p-5 ring-2 ring-accent">
+                                    <div className="flex items-center gap-2">
+                                        <img src="/sub/badge.png" alt="" className="w-8 h-8 object-contain" />
+                                        <span className="text-[20px] font-bold text-t-primary">FULIF PRO</span>
+                                        <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-accent-soft text-accent ml-1">구독 중</span>
                                     </div>
-                                    <button
-                                        onClick={() => setActiveTab('OWNED')}
-                                        className="text-[11px] font-bold text-t-secondary underline underline-offset-2 active:opacity-60"
-                                    >
-                                        보유 구독권 {tickets.length}
-                                    </button>
+                                    <div className="text-[13px] text-t-muted font-medium mt-2">다음 결제일 {nextBillingDate}</div>
+                                    <div className="h-px my-4" style={{ backgroundColor: 'var(--color-border)' }} />
+                                    <div className="flex flex-col gap-2.5">
+                                        {PLAN_FEATURES.PRO.map((f, i) => (
+                                            <div key={i} className="flex items-center gap-2.5">
+                                                <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                                <span className="text-[14px] font-medium text-t-secondary">{f}</span>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        )}
 
-                        {/* 핵심: 업그레이드 안내 + 플랜 피커 */}
-                        <PlanPicker
-                            tier={tier}
-                            nextBillingDate={nextBillingDate}
-                            embedded
-                            onManageClick={() => setActiveTab('OWNED')}
-                        />
+                                {/* 보유 구독권 바로가기 */}
+                                <button
+                                    onClick={() => setActiveTab('OWNED')}
+                                    className="pressable w-full mt-3 bg-card-gray rounded-[20px] p-4 flex items-center gap-3"
+                                >
+                                    <span className="w-10 h-10 rounded-full bg-btn-secondary flex items-center justify-center flex-shrink-0">
+                                        <span className="material-symbols-outlined text-[20px] text-t-secondary">confirmation_number</span>
+                                    </span>
+                                    <div className="flex flex-col flex-1 text-left">
+                                        <span className="text-[15px] font-bold text-t-primary">보유 구독권</span>
+                                        <span className="text-[12px] font-medium text-t-muted mt-0.5">{tickets.length}개 보유 중</span>
+                                    </div>
+                                    <span className="material-symbols-outlined text-[20px] text-t-dim">chevron_right</span>
+                                </button>
 
-                        {/* 구독자 전용 하단 액션 (해지) */}
-                        {isActive && (
-                            <div className="px-6 mt-6">
+                                {/* 해지 */}
                                 <button
                                     onClick={() => showToast('해지 플로우는 결제 페이지에서 진행됩니다')}
-                                    className="w-full flex items-center justify-between p-4 bg-card-gray rounded-2xl border border-themed active:opacity-80 transition-opacity"
+                                    className="pressable w-full mt-3 bg-card-gray rounded-[20px] p-4 flex items-center justify-between"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <span className="material-symbols-outlined text-[20px] text-t-muted">cancel</span>
-                                        <span className="text-sm font-semibold text-t-secondary">구독 해지</span>
+                                        <span className="w-10 h-10 rounded-full bg-btn-secondary flex items-center justify-center flex-shrink-0">
+                                            <span className="material-symbols-outlined text-[20px] text-t-muted">cancel</span>
+                                        </span>
+                                        <span className="text-[15px] font-semibold text-t-secondary">구독 해지</span>
                                     </div>
-                                    <span className="material-symbols-outlined text-[18px] text-t-dim">chevron_right</span>
+                                    <span className="material-symbols-outlined text-[20px] text-t-dim">chevron_right</span>
                                 </button>
-                                <p className="mt-3 text-xs text-t-dim font-medium text-center">
-                                    해지 즉시 혜택이 종료됩니다. 적립 포인트는 유지됩니다.
+                                <p className="mt-3 text-[12px] text-t-dim font-medium text-center">
+                                    해지 즉시 혜택이 종료돼요. 적립 포인트는 유지됩니다.
                                 </p>
-                            </div>
+                            </>
+                        ) : (
+                            <>
+                                {/* 멤버십 히어로 배너 (4:3, 구독 참고 이미지 스타일) */}
+                                <div className="relative overflow-hidden rounded-[24px]" style={{ aspectRatio: '4 / 3', backgroundColor: '#0A1A3A' }}>
+                                    <img src="/sub_hero.png" alt="" className="absolute inset-0 w-full h-full object-cover object-right pointer-events-none" />
+                                    <div className="relative z-10 p-6 h-full flex flex-col justify-center">
+                                        <h2 className="text-[24px] font-bold text-white leading-snug tracking-tight">
+                                            월 8,000원에<br/>모든 혜택을 누리세요
+                                        </h2>
+                                        <p className="text-[13px] font-medium mt-2.5" style={{ color: '#9DB4E0' }}>
+                                            낙첨번호 등록 · 챔피언십 · AI 콘텐츠까지
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* PRO 혜택 미리보기 */}
+                                <div className="bg-card-gray rounded-[20px] p-5 mt-3">
+                                    <div className="text-[15px] font-bold text-t-primary mb-3">PRO 혜택</div>
+                                    <div className="flex flex-col gap-2.5">
+                                        {PLAN_FEATURES.PRO.map((f, i) => (
+                                            <div key={i} className="flex items-center gap-2.5">
+                                                <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                                                <span className="text-[14px] font-medium text-t-secondary">{f}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                <button
+                                    onClick={() => router.push('/subscription')}
+                                    className="pressable w-full mt-4 py-4 rounded-2xl bg-accent text-accent-fg font-bold text-[16px]"
+                                >
+                                    PRO 구독 시작하기
+                                </button>
+                                <p className="mt-3 text-[12px] text-t-dim font-medium text-center">
+                                    보유한 구독권이 있다면 <button onClick={() => setActiveTab('OWNED')} className="text-t-secondary font-semibold underline underline-offset-2">보유 구독권</button>에서 사용할 수 있어요
+                                </p>
+                            </>
                         )}
                     </div>
                 )}
 
                 {/* === 보유 구독권 === */}
                 {activeTab === 'OWNED' && (
-                    <div className="px-6 pt-6 flex flex-col gap-6">
+                    <div className="px-6 pt-5 flex flex-col gap-6">
                         {/* PLAN 구독권 */}
                         <section className="flex flex-col gap-3">
-                            <h2 className="text-[13px] font-bold text-t-muted uppercase tracking-widest pl-1">구독권 {planTickets.length}개</h2>
+                            <h2 className="text-[15px] font-bold text-t-primary pl-1">구독권 {planTickets.length}개</h2>
                             {planTickets.length === 0 ? (
                                 <div className="p-6 rounded-2xl bg-card-gray border border-themed text-center text-xs text-t-dim font-medium">
                                     보유한 구독권이 없어요
@@ -206,9 +258,7 @@ export default function MySubscription() {
                                     >
                                         <div className="flex items-start justify-between gap-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="size-11 rounded-xl flex items-center justify-center" style={isPlanPro ? { background: GOLD_SOFT } : { background: 'var(--color-btn-secondary)' }}>
-                                                    <span className="material-symbols-outlined text-[22px]" style={{ fontVariationSettings: "'FILL' 1", color: isPlanPro ? GOLD : 'var(--color-text)' }}>workspace_premium</span>
-                                                </div>
+                                                <img src="/sub/badge.png" alt="" className="w-11 h-11 object-contain flex-shrink-0" />
                                                 <div className="flex flex-col">
                                                     <div className="flex items-center gap-2">
                                                         <span className="text-base font-extrabold" style={isPlanPro ? { color: GOLD } : undefined}>{t.plan}</span>
@@ -249,22 +299,20 @@ export default function MySubscription() {
 
                         {/* DISCOUNT 할인권 */}
                         <section className="flex flex-col gap-3">
-                            <h2 className="text-[13px] font-bold text-t-muted uppercase tracking-widest pl-1">할인권 {discountTickets.length}개</h2>
+                            <h2 className="text-[15px] font-bold text-t-primary pl-1">할인권 {discountTickets.length}개</h2>
                             {discountTickets.length === 0 ? (
-                                <div className="p-6 rounded-2xl bg-card-gray border border-themed text-center text-xs text-t-dim font-medium">
+                                <div className="p-6 rounded-2xl bg-card-gray text-center text-xs text-t-dim font-medium">
                                     보유한 할인권이 없어요
                                 </div>
                             ) : discountTickets.map(t => {
                                 const src = SOURCE_LABEL[t.source];
                                 return (
-                                    <div key={t.id} className="p-5 rounded-2xl bg-card-gray border border-themed flex items-center justify-between gap-3">
+                                    <div key={t.id} className="p-5 rounded-[20px] bg-card-gray flex items-center justify-between gap-3">
                                         <div className="flex items-center gap-3">
-                                            <div className="size-11 rounded-xl flex items-center justify-center bg-[#14b8a6]/15">
-                                                <span className="material-symbols-outlined text-[22px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>local_offer</span>
-                                            </div>
+                                            <img src="/menu/coupon.png" alt="" className="w-11 h-11 object-contain flex-shrink-0" />
                                             <div className="flex flex-col">
-                                                <div className="text-base font-extrabold text-t-primary">{t.rate}% 할인</div>
-                                                <div className="text-[11px] text-t-muted font-medium mt-0.5">구독 결제 시 · ~{t.expiresAt}</div>
+                                                <div className="text-[16px] font-bold text-t-primary">{t.rate}% 할인</div>
+                                                <div className="text-[12px] text-t-muted font-medium mt-0.5">구독 결제 시 · ~{t.expiresAt}</div>
                                             </div>
                                         </div>
                                         <div className="flex flex-col items-end gap-1.5">
@@ -274,7 +322,7 @@ export default function MySubscription() {
                                             </span>
                                             <button
                                                 onClick={() => openConfirmTicket(t)}
-                                                className="px-3 py-1.5 rounded-lg bg-bg-inverse text-t-inverse font-bold text-xs active:scale-95 transition-all"
+                                                className="px-3 py-1.5 rounded-lg bg-accent text-accent-fg font-bold text-xs active:scale-95 transition-all"
                                             >
                                                 사용
                                             </button>
@@ -283,15 +331,6 @@ export default function MySubscription() {
                                 );
                             })}
                         </section>
-
-                        <div className="flex flex-col gap-2 mt-2">
-                            <button onClick={() => router.push('/point_shop')} className="text-xs text-t-muted font-semibold underline underline-offset-2 active:opacity-60">
-                                포인트샵에서 더 보기
-                            </button>
-                            <button onClick={() => router.push('/coupon_wallet')} className="text-xs text-t-muted font-semibold underline underline-offset-2 active:opacity-60">
-                                쿠폰함 열기
-                            </button>
-                        </div>
                     </div>
                 )}
 
@@ -300,21 +339,19 @@ export default function MySubscription() {
                     <div className="px-6 pt-6 flex flex-col gap-3">
                         {HISTORY.map(h => {
                             const meta = h.type === 'PURCHASE'
-                                ? { icon: 'shopping_cart', color: '#14b8a6', tag: '결제' }
+                                ? { img: '/sub/payment.png', color: '#3182F6', tag: '결제' }
                                 : h.type === 'APPLY'
-                                ? { icon: 'check_circle', color: '#a78bfa', tag: '적용' }
-                                : { icon: 'event_busy',  color: '#f87171', tag: '만료' };
+                                ? { img: '/sub/apply.png', color: '#0BA678', tag: '적용' }
+                                : { img: '/sub/expire.png', color: '#8B95A1', tag: '만료' };
                             return (
-                                <div key={h.id} className="p-4 rounded-2xl bg-card-gray border border-themed flex items-center gap-3">
-                                    <div className="size-10 rounded-xl flex items-center justify-center" style={{ background: `${meta.color}1a` }}>
-                                        <span className="material-symbols-outlined text-[20px]" style={{ color: meta.color }}>{meta.icon}</span>
-                                    </div>
+                                <div key={h.id} className="p-4 rounded-[20px] bg-card-gray flex items-center gap-3">
+                                    <img src={meta.img} alt="" className="w-10 h-10 object-contain flex-shrink-0" />
                                     <div className="flex-1 flex flex-col">
                                         <div className="flex items-center gap-2">
-                                            <span className="text-sm font-bold text-t-primary">{h.label}</span>
+                                            <span className="text-[15px] font-bold text-t-primary">{h.label}</span>
                                             <span className="text-[10px] font-bold px-1.5 py-0.5 rounded" style={{ background: `${meta.color}1a`, color: meta.color }}>{meta.tag}</span>
                                         </div>
-                                        <div className="text-[11px] text-t-muted font-medium mt-0.5">{h.date} · {h.meta}</div>
+                                        <div className="text-[12px] text-t-muted font-medium mt-0.5">{h.date} · {h.meta}</div>
                                     </div>
                                     {h.amount != null && (
                                         <div className="text-sm font-extrabold text-t-primary">₩{h.amount.toLocaleString('ko-KR')}</div>
@@ -338,7 +375,7 @@ export default function MySubscription() {
                             </p>
                             <div className="flex gap-3">
                                 <button onClick={() => setConfirmTicket(null)} className="flex-1 py-4 rounded-xl bg-btn-secondary text-btn-secondary-text font-bold text-sm active:scale-95 transition-all border border-themed">취소</button>
-                                <button onClick={() => handleApply(confirmTicket)} className="flex-1 py-4 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all">
+                                <button onClick={() => handleApply(confirmTicket)} className="flex-1 py-4 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all">
                                     사용하기
                                 </button>
                             </div>
@@ -360,7 +397,7 @@ export default function MySubscription() {
 
                                 {/* 플랜 선택 */}
                                 <div className="flex gap-2 mb-3">
-                                    {['STANDARD', 'PRO'].map(p => {
+                                    {['PRO'].map(p => {
                                         const on = discPlan === p;
                                         const proGold = p === 'PRO';
                                         return (
@@ -391,7 +428,7 @@ export default function MySubscription() {
                                                 key={k}
                                                 onClick={() => setDiscBilling(k)}
                                                 className={`flex-1 py-2 rounded-lg text-xs font-bold transition-all ${
-                                                    on ? 'bg-bg-inverse text-t-inverse shadow-sm' : 'text-t-muted'
+                                                    on ? 'bg-accent text-accent-fg shadow-sm' : 'text-t-muted'
                                                 }`}
                                             >
                                                 {label}
@@ -406,7 +443,7 @@ export default function MySubscription() {
                                         <span>정가</span>
                                         <span className="line-through">{won(base)}</span>
                                     </div>
-                                    <div className="flex justify-between items-center text-xs font-bold mt-1" style={{ color: '#14b8a6' }}>
+                                    <div className="flex justify-between items-center text-xs font-bold mt-1" style={{ color: '#3182F6' }}>
                                         <span>{confirmTicket.rate}% 할인</span>
                                         <span>-{won(saving)}</span>
                                     </div>
@@ -454,7 +491,7 @@ export default function MySubscription() {
 
                 {/* Toast */}
                 {toast && (
-                    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[300] bg-bg-inverse text-t-inverse text-sm font-bold px-5 py-3 rounded-full shadow-2xl">
+                    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[300] bg-accent text-accent-fg text-sm font-bold px-5 py-3 rounded-full shadow-2xl">
                         {toast}
                     </div>
                 )}

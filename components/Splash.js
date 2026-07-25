@@ -34,7 +34,7 @@ export default function Splash({ duration = 1800, onDone }) {
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div
                     className="absolute top-1/2 left-1/2 w-[420px] h-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-30 splash-glow"
-                    style={{ background: 'radial-gradient(circle, #14b8a6 0%, transparent 60%)' }}
+                    style={{ background: 'radial-gradient(circle, #3182F6 0%, transparent 60%)' }}
                 />
                 <div
                     className="absolute top-1/2 left-1/2 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-15 splash-glow-slow"
@@ -62,10 +62,10 @@ export default function Splash({ duration = 1800, onDone }) {
                 {/* Wordmark */}
                 <div className="mt-6 flex flex-col items-center">
                     <div className="flex items-center gap-2 mb-2">
-                        <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                        <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>
                             auto_awesome
                         </span>
-                        <span className="text-[10px] font-bold tracking-[0.4em] text-[#14b8a6] uppercase">CWG AI</span>
+                        <span className="text-[10px] font-bold tracking-[0.4em] text-accent uppercase">CWG AI</span>
                     </div>
                     <h1 className="text-[36px] font-extrabold text-white tracking-tight leading-none">
                         Catch Win Game

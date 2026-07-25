@@ -373,7 +373,7 @@ export default function AiLeaguePage() {
             <div className="flex gap-1 mx-6 mb-4 bg-card-gray rounded-xl p-1">
                 {[['this', '이번 주'], ['last', '지난 주 결과']].map(([id, label]) => (
                     <button key={id} onClick={() => setTab(id)}
-                        className={`flex-1 py-2 rounded-lg text-[12px] font-bold transition-all ${tab === id ? 'bg-bg-inverse text-t-inverse' : 'text-t-muted'}`}>
+                        className={`flex-1 py-2 rounded-lg text-[12px] font-bold transition-all ${tab === id ? 'bg-accent text-accent-fg' : 'text-t-muted'}`}>
                         {label}
                     </button>
                 ))}

@@ -10,30 +10,33 @@ const tabs = [
 
 export default function BottomNav({ activeTab, setActiveTab }) {
     return (
-        <nav className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto bg-overlay-heavy backdrop-blur-xl px-6 py-4 border-t border-themed z-50">
+        <nav
+            className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto backdrop-blur-xl px-4 pt-1.5 pb-3 border-t border-themed z-50"
+            style={{ backgroundColor: 'color-mix(in srgb, var(--color-card) 94%, transparent)' }}
+        >
             <div className="flex justify-between items-center">
                 {tabs.map((tab) => {
                     const isActive = activeTab === tab.id;
-                    const iconClass = isActive
-                        ? "material-symbols-outlined text-[26px]"
-                        : "material-symbols-outlined text-[26px] font-light";
-
                     const iconStyle = isActive
-                        ? { fontVariationSettings: "'FILL' 1, 'wght' 600" }
-                        : { fontVariationSettings: "'FILL' 0, 'wght' 300" };
+                        ? { fontVariationSettings: "'FILL' 1, 'wght' 500" }
+                        : { fontVariationSettings: "'FILL' 0, 'wght' 400" };
 
-                    const textClass = isActive ? "text-t-primary" : "text-t-muted";
+                    const textClass = isActive ? "text-accent" : "text-t-dim";
 
                     return (
-                        <div
+                        <button
                             key={tab.id}
                             id={`tut-nav-${tab.id}`}
                             onClick={() => setActiveTab(tab.id)}
-                            className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${textClass}`}
+                            className={`pressable flex flex-col items-center cursor-pointer flex-1 py-1 transition-colors ${textClass}`}
                         >
-                            <span className={iconClass} style={iconStyle}>{tab.icon}</span>
-                            <span className="text-[10px] font-medium mt-1">{tab.label}</span>
-                        </div>
+                            <span
+                                className={`flex items-center justify-center w-12 h-7 rounded-full transition-colors duration-200 ${isActive ? 'bg-accent-soft' : ''}`}
+                            >
+                                <span className="material-symbols-outlined text-[23px]" style={iconStyle}>{tab.icon}</span>
+                            </span>
+                            <span className={`text-[10px] mt-1 ${isActive ? 'font-bold text-accent' : 'font-medium'}`}>{tab.label}</span>
+                        </button>
                     );
                 })}
             </div>

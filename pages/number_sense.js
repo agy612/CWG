@@ -3,6 +3,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useUser } from '../contexts/UserContext';
+import SubscribeGate from './components/SubscribeGate';
 
 /* ─── 레벨 설정 ──────────────────────────────────────────────── */
 const LEVELS = [
@@ -217,45 +218,38 @@ function RankPopup({ score, onClose }) {
     const myIdx = MOCK_RANKS.findIndex(r => r.isMe);
     return (
         <div className="fixed inset-0 z-50 flex flex-col justify-end max-w-[430px] mx-auto">
-            <div className="absolute inset-0 bg-black/60" onClick={onClose} />
-            <div className="relative z-10 rounded-t-3xl px-5 pt-5 pb-8"
-                style={{ background: '#111827', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="absolute inset-0 bg-overlay backdrop-blur-sm" onClick={onClose} />
+            <div className="relative z-10 rounded-t-3xl px-5 pt-5 pb-8 bg-card-gray">
+                <div className="w-10 h-1 rounded-full bg-t-faint mx-auto mb-4" />
                 <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-[18px] text-yellow-400"
-                            style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
-                        <p className="text-[15px] font-extrabold text-white">이번 주 순위</p>
-                    </div>
-                    <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-full active:scale-90"
-                        style={{ background: 'rgba(255,255,255,0.08)' }}>
-                        <span className="material-symbols-outlined text-[18px] text-white/50">close</span>
+                    <p className="text-[18px] font-bold text-t-primary">이번 주 순위</p>
+                    <button onClick={onClose} className="w-8 h-8 flex items-center justify-center rounded-full bg-btn-secondary active:scale-90">
+                        <span className="material-symbols-outlined text-[18px] text-t-muted">close</span>
                     </button>
                 </div>
-                {MOCK_RANKS.map((r, i) => (
-                    <div key={i} className="flex items-center gap-3 py-2.5"
-                        style={{ borderBottom: i < MOCK_RANKS.length - 1 ? '1px solid rgba(255,255,255,0.06)' : 'none',
-                            background: r.isMe ? 'rgba(99,102,241,0.07)' : 'transparent',
-                            borderRadius: r.isMe ? 12 : 0, paddingLeft: r.isMe ? 8 : 0, paddingRight: r.isMe ? 8 : 0 }}>
-                        <p className="w-5 text-center text-[13px] font-extrabold flex-shrink-0"
-                            style={{ color: i === 0 ? '#fbbf24' : i === 1 ? '#94a3b8' : i === 2 ? '#b87333' : 'rgba(255,255,255,0.2)' }}>
-                            {i + 1}
-                        </p>
-                        <div className="w-7 h-7 rounded-full flex items-center justify-center text-[14px] flex-shrink-0"
-                            style={{ background: 'rgba(255,255,255,0.07)' }}>{r.emoji}</div>
-                        <p className="flex-1 text-[13px] font-bold text-white/75 truncate">
-                            {r.name}
-                            {r.isMe && <span className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full font-extrabold"
-                                style={{ background: 'rgba(99,102,241,0.25)', color: '#818cf8' }}>나</span>}
-                        </p>
-                        <p className="text-[13px] font-extrabold flex-shrink-0"
-                            style={{ color: r.isMe ? '#818cf8' : 'rgba(255,255,255,0.5)' }}>
-                            {r.isMe ? score.toLocaleString() : r.score.toLocaleString()}P
-                        </p>
-                    </div>
-                ))}
+                {MOCK_RANKS.map((r, i) => {
+                    const medal = [{ bg: '#FFF3D6', fg: '#D69500' }, { bg: '#EEF1F4', fg: '#8B95A1' }, { bg: '#F9EBDD', fg: '#C77B3C' }][i];
+                    return (
+                        <div key={i} className={`flex items-center gap-3 py-3 ${i < MOCK_RANKS.length - 1 ? 'border-b border-themed' : ''} ${r.isMe ? '-mx-2 px-2 rounded-xl' : ''}`}
+                            style={r.isMe ? { backgroundColor: 'var(--color-accent-soft)' } : undefined}>
+                            <span className="w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-extrabold flex-shrink-0"
+                                style={medal ? { backgroundColor: medal.bg, color: medal.fg } : { backgroundColor: 'var(--color-btn-secondary)', color: 'var(--color-text-muted)' }}>
+                                {i + 1}
+                            </span>
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center text-[15px] flex-shrink-0 bg-btn-secondary">{r.emoji}</div>
+                            <p className={`flex-1 text-[14px] font-bold truncate ${r.isMe ? 'text-accent' : 'text-t-primary'}`}>
+                                {r.name}
+                                {r.isMe && <span className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded-full font-bold bg-accent text-accent-fg">나</span>}
+                            </p>
+                            <p className={`text-[14px] font-bold flex-shrink-0 ${r.isMe ? 'text-accent' : 'text-t-secondary'}`}>
+                                {r.isMe ? score.toLocaleString() : r.score.toLocaleString()}P
+                            </p>
+                        </div>
+                    );
+                })}
                 {myIdx >= 0 && (
-                    <p className="text-center text-[11px] text-white/25 mt-3">
-                        1위까지 <span className="text-white/50 font-bold">{(MOCK_RANKS[0].score - score).toLocaleString()}P</span> 남음
+                    <p className="text-center text-[12px] text-t-muted mt-4">
+                        1위까지 <span className="text-t-primary font-bold">{(MOCK_RANKS[0].score - score).toLocaleString()}P</span> 남음
                     </p>
                 )}
             </div>
@@ -275,7 +269,7 @@ function SlideHead({ icon, color, badge, title }) {
             {badge && (
                 <p className="text-[10px] font-extrabold tracking-widest uppercase mb-1.5" style={{ color }}>{badge}</p>
             )}
-            <h3 className="text-[20px] font-extrabold text-white leading-tight">{title}</h3>
+            <h3 className="text-[20px] font-extrabold text-t-primary leading-tight">{title}</h3>
         </div>
     );
 }
@@ -288,7 +282,7 @@ function GuideCarousel({ onClose }) {
         /* 0 · 소개 */
         () => (
             <div className="flex flex-col items-center">
-                <SlideHead icon="psychology" color="#818cf8" badge="What is it?" title="넘버 센스란?" />
+                <SlideHead icon="psychology" color="#3182F6" badge="What is it?" title="넘버 센스란?" />
                 <div className="flex items-center justify-center gap-2 mb-5">
                     {[7, 23, 38].map((n, i) => {
                         const { bg, text } = ballColor(n);
@@ -300,16 +294,16 @@ function GuideCarousel({ onClose }) {
                             </div>
                         );
                     })}
-                    <span className="material-symbols-outlined text-[22px] text-white/25 mx-1">arrow_forward</span>
-                    <div className="flex items-center justify-center rounded-full text-white/25 text-[11px] font-bold"
-                        style={{ width: 52, height: 52, background: 'rgba(255,255,255,0.05)', border: '1.5px dashed rgba(255,255,255,0.14)' }}>
+                    <span className="material-symbols-outlined text-[22px] text-t-dim mx-1">arrow_forward</span>
+                    <div className="flex items-center justify-center rounded-full text-t-dim text-[11px] font-bold"
+                        style={{ width: 52, height: 52, backgroundColor: 'var(--color-btn-secondary)', border: '1.5px dashed var(--color-border-medium)' }}>
                         ?
                     </div>
                 </div>
-                <p className="text-[14px] text-white/55 leading-relaxed text-center px-2">
-                    화면에 <span className="text-white font-bold">잠깐</span> 나타난 로또 번호를 기억했다가,
-                    번호가 사라진 뒤 <span className="text-white font-bold">1~45 숫자판</span>에서
-                    그대로 골라내는 <span style={{ color: '#a5b4fc' }} className="font-extrabold">번호 기억 게임</span>이에요.
+                <p className="text-[14px] text-t-secondary leading-relaxed text-center px-2">
+                    화면에 <span className="text-t-primary font-bold">잠깐</span> 나타난 로또 번호를 기억했다가,
+                    번호가 사라진 뒤 <span className="text-t-primary font-bold">1~45 숫자판</span>에서
+                    그대로 골라내는 <span style={{ color: '#3182F6' }} className="font-extrabold">번호 기억 게임</span>이에요.
                 </p>
             </div>
         ),
@@ -317,10 +311,10 @@ function GuideCarousel({ onClose }) {
         () => (
             <div className="flex flex-col">
                 <SlideHead icon="touch_app" color="#34d399" badge="How to play" title="이렇게 진행돼요" />
-                <div className="rounded-2xl p-4 mb-3" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                    <p className="text-[10px] font-extrabold tracking-widest text-white/25 mb-2">STEP 1 · 기억</p>
-                    <p className="text-[14px] font-extrabold text-white mb-1">번호를 눈에 담아요</p>
-                    <p className="text-[12px] text-white/45 mb-3">로또 번호가 짧게 표시됐다 사라져요. 잘 기억해 두세요.</p>
+                <div className="rounded-2xl p-4 mb-3" style={{ backgroundColor: 'var(--color-btn-secondary)' }}>
+                    <p className="text-[10px] font-extrabold tracking-widest text-t-dim mb-2">STEP 1 · 기억</p>
+                    <p className="text-[14px] font-extrabold text-t-primary mb-1">번호를 눈에 담아요</p>
+                    <p className="text-[12px] text-t-secondary mb-3">로또 번호가 짧게 표시됐다 사라져요. 잘 기억해 두세요.</p>
                     <div className="flex gap-2">
                         {[7, 23, 38].map(n => {
                             const { bg, text } = ballColor(n);
@@ -331,16 +325,16 @@ function GuideCarousel({ onClose }) {
                                 </div>
                             );
                         })}
-                        <div className="flex items-center justify-center rounded-full text-white/20 text-[10px] font-bold"
-                            style={{ width: 38, height: 38, background: 'rgba(255,255,255,0.05)', border: '1.5px dashed rgba(255,255,255,0.12)' }}>
+                        <div className="flex items-center justify-center rounded-full text-t-dim text-[10px] font-bold"
+                            style={{ width: 38, height: 38, backgroundColor: 'var(--color-btn-secondary)', border: '1.5px dashed var(--color-border-medium)' }}>
                             사라짐
                         </div>
                     </div>
                 </div>
-                <div className="rounded-2xl p-4" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                    <p className="text-[10px] font-extrabold tracking-widest text-white/25 mb-2">STEP 2 · 선택</p>
-                    <p className="text-[14px] font-extrabold text-white mb-1">기억한 번호를 탭해요</p>
-                    <p className="text-[12px] text-white/45 mb-3">숫자판에서 기억한 번호만 골라 탭! 제한 시간 안에 전부 맞히면 성공.</p>
+                <div className="rounded-2xl p-4" style={{ backgroundColor: 'var(--color-btn-secondary)' }}>
+                    <p className="text-[10px] font-extrabold tracking-widest text-t-dim mb-2">STEP 2 · 선택</p>
+                    <p className="text-[14px] font-extrabold text-t-primary mb-1">기억한 번호를 탭해요</p>
+                    <p className="text-[12px] text-t-secondary mb-3">숫자판에서 기억한 번호만 골라 탭! 제한 시간 안에 전부 맞히면 성공.</p>
                     <div className="grid gap-1" style={{ gridTemplateColumns: 'repeat(9, 1fr)' }}>
                         {Array.from({ length: 9 }, (_, i) => i + 1).map(n => {
                             const hit = [7].includes(n);
@@ -360,14 +354,14 @@ function GuideCarousel({ onClose }) {
         () => (
             <div className="flex flex-col">
                 <SlideHead icon="stairs" color="#60a5fa" badge="Stages" title="5단계로 점점 어려워져요" />
-                <p className="text-[13px] text-white/50 leading-relaxed text-center mb-4 px-1">
-                    한 단계는 <span className="text-white font-bold">3라운드</span>예요.
-                    3라운드를 모두 성공하면 <span className="text-white font-bold">다음 단계</span>로 올라가요.
+                <p className="text-[13px] text-t-secondary leading-relaxed text-center mb-4 px-1">
+                    한 단계는 <span className="text-t-primary font-bold">3라운드</span>예요.
+                    3라운드를 모두 성공하면 <span className="text-t-primary font-bold">다음 단계</span>로 올라가요.
                 </p>
-                <div className="rounded-2xl p-3" style={{ background: 'rgba(255,255,255,0.04)' }}>
-                    <div className="grid grid-cols-2 px-1 pb-1.5 mb-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                        <p className="text-[10px] font-bold text-white/30">단계</p>
-                        <p className="text-[10px] font-bold text-white/30 text-right">기억할 번호</p>
+                <div className="rounded-2xl p-3" style={{ backgroundColor: 'var(--color-btn-secondary)' }}>
+                    <div className="grid grid-cols-2 px-1 pb-1.5 mb-1" style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        <p className="text-[10px] font-bold text-t-dim">단계</p>
+                        <p className="text-[10px] font-bold text-t-dim text-right">기억할 번호</p>
                     </div>
                     {LEVELS.map((lv, i) => (
                         <div key={lv.level} className="grid grid-cols-2 items-center px-1 py-1.5"
@@ -377,7 +371,7 @@ function GuideCarousel({ onClose }) {
                                 <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full"
                                     style={{ background: `${lv.color}22`, color: lv.color }}>{lv.label}</span>
                             </div>
-                            <p className="text-[13px] font-extrabold text-white/80 text-right">
+                            <p className="text-[13px] font-extrabold text-t-primary/80 text-right">
                                 {lv.count}개
                             </p>
                         </div>
@@ -392,21 +386,21 @@ function GuideCarousel({ onClose }) {
                 <div className="flex flex-col gap-3">
                     <div className="rounded-2xl p-3.5 flex items-start gap-2.5" style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.16)' }}>
                         <span className="material-symbols-outlined text-[18px] mt-0.5" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>check_circle</span>
-                        <p className="text-[13px] text-white/65 leading-relaxed">
-                            한 단계(3라운드)를 클리어할 때마다 <span className="text-white font-bold">보너스 포인트</span>를 받아요.
+                        <p className="text-[13px] text-t-secondary leading-relaxed">
+                            한 단계(3라운드)를 클리어할 때마다 <span className="text-t-primary font-bold">보너스 포인트</span>를 받아요.
                         </p>
                     </div>
                     <div className="rounded-2xl p-3.5 flex items-start gap-2.5" style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.16)' }}>
                         <span className="material-symbols-outlined text-[18px] mt-0.5" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>alt_route</span>
-                        <p className="text-[13px] text-white/65 leading-relaxed">
-                            클리어할 때마다 <span className="text-white font-bold">지금 받고 끝내기</span> 또는
-                            <span className="text-white font-bold"> 다음 단계 도전</span>을 고를 수 있어요.
+                        <p className="text-[13px] text-t-secondary leading-relaxed">
+                            클리어할 때마다 <span className="text-t-primary font-bold">지금 받고 끝내기</span> 또는
+                            <span className="text-t-primary font-bold"> 다음 단계 도전</span>을 고를 수 있어요.
                         </p>
                     </div>
                     <div className="rounded-2xl p-3.5 flex items-start gap-2.5" style={{ background: 'rgba(251,191,36,0.07)', border: '1px solid rgba(251,191,36,0.16)' }}>
                         <span className="material-symbols-outlined text-[18px] mt-0.5" style={{ color: '#fbbf24', fontVariationSettings: "'FILL' 1" }}>trending_up</span>
-                        <p className="text-[13px] text-white/65 leading-relaxed">
-                            계속 도전하면 보너스가 <span className="text-white font-bold">×2로 불어나요.</span> 단계가 오를수록 점점 커집니다.
+                        <p className="text-[13px] text-t-secondary leading-relaxed">
+                            계속 도전하면 보너스가 <span className="text-t-primary font-bold">×2로 불어나요.</span> 단계가 오를수록 점점 커집니다.
                         </p>
                     </div>
                 </div>
@@ -419,11 +413,11 @@ function GuideCarousel({ onClose }) {
                 <div className="flex flex-col gap-2 mb-4">
                     <div className="rounded-2xl p-3.5 flex items-center gap-2.5" style={{ background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.16)' }}>
                         <span className="material-symbols-outlined text-[17px]" style={{ color: '#f87171', fontVariationSettings: "'FILL' 1" }}>close</span>
-                        <p className="text-[13px] text-white/55">기억에 없던 번호를 탭하면 바로 종료</p>
+                        <p className="text-[13px] text-t-secondary">기억에 없던 번호를 탭하면 바로 종료</p>
                     </div>
                     <div className="rounded-2xl p-3.5 flex items-center gap-2.5" style={{ background: 'rgba(239,68,68,0.07)', border: '1px solid rgba(239,68,68,0.16)' }}>
                         <span className="material-symbols-outlined text-[17px]" style={{ color: '#f87171', fontVariationSettings: "'FILL' 1" }}>timer_off</span>
-                        <p className="text-[13px] text-white/55">제한 시간 안에 다 고르지 못해도 종료</p>
+                        <p className="text-[13px] text-t-secondary">제한 시간 안에 다 고르지 못해도 종료</p>
                     </div>
                 </div>
                 <div className="rounded-2xl px-4 py-3.5" style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.22)' }}>
@@ -443,16 +437,16 @@ function GuideCarousel({ onClose }) {
                         <span key={i} className="material-symbols-outlined text-[34px]"
                             style={{ color: '#60a5fa', fontVariationSettings: "'FILL' 1", filter: 'drop-shadow(0 0 8px rgba(96,165,250,0.5))' }}>bolt</span>
                     ))}
-                    <span className="text-[14px] font-extrabold text-white/70 ml-1">최대 3개</span>
+                    <span className="text-[14px] font-extrabold text-t-secondary ml-1">최대 3개</span>
                 </div>
                 <div className="flex flex-col gap-2">
                     <div className="rounded-2xl p-3.5 flex items-center gap-2.5" style={{ background: 'rgba(96,165,250,0.07)', border: '1px solid rgba(96,165,250,0.16)' }}>
                         <span className="material-symbols-outlined text-[17px]" style={{ color: '#60a5fa' }}>sports_esports</span>
-                        <p className="text-[13px] text-white/55">게임 1회 플레이에 파워 <span className="text-white font-bold">1개</span>를 사용해요</p>
+                        <p className="text-[13px] text-t-secondary">게임 1회 플레이에 파워 <span className="text-t-primary font-bold">1개</span>를 사용해요</p>
                     </div>
                     <div className="rounded-2xl p-3.5 flex items-center gap-2.5" style={{ background: 'rgba(96,165,250,0.07)', border: '1px solid rgba(96,165,250,0.16)' }}>
                         <span className="material-symbols-outlined text-[17px]" style={{ color: '#60a5fa' }}>schedule</span>
-                        <p className="text-[13px] text-white/55">파워는 <span className="text-white font-bold">1시간에 1개씩</span> 자동 충전돼요</p>
+                        <p className="text-[13px] text-t-secondary">파워는 <span className="text-t-primary font-bold">1시간에 1개씩</span> 자동 충전돼요</p>
                     </div>
                 </div>
             </div>
@@ -474,21 +468,21 @@ function GuideCarousel({ onClose }) {
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col justify-end max-w-[430px] mx-auto">
-            <div className="absolute inset-0 bg-black/60" onClick={onClose} />
+            <div className="absolute inset-0 bg-overlay backdrop-blur-sm" onClick={onClose} />
             <div className="relative z-10 rounded-t-3xl flex flex-col"
-                style={{ background: '#111827', borderTop: '1px solid rgba(255,255,255,0.08)', height: '78vh' }}>
+                style={{ background: 'var(--color-card)', height: '78vh' }}>
 
                 {/* 헤더 — 점 인디케이터 + 닫기 */}
                 <div className="flex items-center justify-between px-5 pt-5 pb-3 flex-shrink-0">
                     <div className="flex items-center gap-1.5">
                         {slides.map((_, i) => (
                             <button key={i} onClick={() => go(i)} className="rounded-full transition-all duration-300"
-                                style={{ width: i === page ? 22 : 7, height: 7, background: i === page ? '#818cf8' : 'rgba(255,255,255,0.18)' }} />
+                                style={{ width: i === page ? 22 : 7, height: 7, background: i === page ? 'var(--color-accent)' : 'var(--color-text-faint)' }} />
                         ))}
                     </div>
                     <button onClick={onClose} className="w-7 h-7 flex items-center justify-center rounded-full active:scale-90"
-                        style={{ background: 'rgba(255,255,255,0.08)' }}>
-                        <span className="material-symbols-outlined text-[18px] text-white/50">close</span>
+                        style={{ backgroundColor: 'var(--color-btn-secondary)' }}>
+                        <span className="material-symbols-outlined text-[18px] text-t-secondary">close</span>
                     </button>
                 </div>
 
@@ -501,17 +495,17 @@ function GuideCarousel({ onClose }) {
 
                 {/* 푸터 — 이전 / 다음 */}
                 <div className="flex items-center gap-3 px-5 pt-3 pb-7 flex-shrink-0"
-                    style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    style={{ borderTop: '1px solid var(--color-border)' }}>
                     {page > 0 && (
                         <button onClick={() => go(page - 1)}
                             className="px-5 py-3.5 rounded-2xl font-bold text-[14px] active:scale-95 transition-all"
-                            style={{ background: 'rgba(255,255,255,0.06)', color: 'rgba(255,255,255,0.5)', border: '1px solid rgba(255,255,255,0.1)' }}>
+                            style={{ backgroundColor: 'var(--color-btn-secondary)', color: 'rgba(255,255,255,0.5)', border: '1px solid var(--color-border)' }}>
                             이전
                         </button>
                     )}
                     <button onClick={() => (isLast ? onClose() : go(page + 1))}
-                        className="flex-1 py-3.5 rounded-2xl font-extrabold text-[15px] text-white active:scale-95 transition-all"
-                        style={{ background: 'linear-gradient(135deg, #4f46e5, #818cf8)' }}>
+                        className="flex-1 py-3.5 rounded-2xl font-extrabold text-[15px] text-t-primary active:scale-95 transition-all"
+                        style={{ backgroundColor: 'var(--color-accent)' }}>
                         {isLast ? '확인했어요' : '다음'}
                     </button>
                 </div>
@@ -533,13 +527,13 @@ const MOCK_RANKS = [
 /* ─── 목업 번호 감각 분석 ─────────────────────────────────────── */
 const MOCK_SENSE = {
     hasData: true,
-    accuracy: 68,
-    avgReactionMs: 2140,
-    weakRange: '31~40',
-    oddRatio: 62,
-    highRatio: 55,
-    streak: 3,
-    avgDeathRound: 3.8,
+    avgCorrect: 4.2,    // 평균 정답 수
+    bestStage: 8,       // 최고 단계
+    maxCorrect: 6,      // 최다 정답 수
+    weakStage: 5,       // 자주 막히는 단계
+    stableCount: 4,     // 안정 기억 개수
+    clears: 7,          // 클리어 횟수
+    attempts: 12,       // 도전 횟수
 };
 
 /* ─── 메인 ────────────────────────────────────────────────────── */
@@ -706,6 +700,25 @@ export default function NumberSense() {
     }, [g.phase, g.roundKey]);
 
 
+    /* 넘버 센스 = 구독 전용 콘텐츠 — 무료·게스트는 구독 유도 화면 */
+    const isSubscriber = user?.tier === 'STANDARD' || user?.tier === 'PRO';
+    if (!isSubscriber) {
+        return (
+            <SubscribeGate
+                character="/char_memo.png"
+                glow="rgba(49,130,246,0.35)"
+                title={<>기억력으로 즐기는<br /><span className="text-accent">넘버 센스</span></>}
+                desc={<>잠깐 본 번호를 기억하고 정확히 찾아내는<br />감각 게임을 PRO 구독으로 즐겨보세요.</>}
+                benefits={[
+                    { icon: 'psychology', desc: '번호 기억력 감각 트레이닝 게임' },
+                    { icon: 'insights', desc: '평균 정답 수 · 최고 단계 기록 분석' },
+                    { icon: 'redeem', desc: '플레이할수록 쌓이는 포인트 적립' },
+                ]}
+                onBack={() => router.back()}
+            />
+        );
+    }
+
     const STYLES = (
         <style jsx global>{`
             ::-webkit-scrollbar { display: none; }
@@ -737,26 +750,27 @@ export default function NumberSense() {
         const noPower = powerState.power <= 0;
 
         return (
-            <div className="font-sans select-none min-h-screen overflow-y-auto"
-                style={{ background: 'linear-gradient(180deg, #080818 0%, #0c0c24 55%, #09091e 100%)' }}>
+            <div className="font-sans select-none min-h-screen overflow-y-auto bg-background text-t-primary">
                 <Head><title>넘버 센스</title></Head>
                 {STYLES}
                 <div className="relative flex min-h-screen w-full flex-col max-w-[430px] mx-auto pb-32">
 
                     {/* 헤더 */}
-                    <div className="pt-12 pb-4 px-6 relative flex items-center" style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
-                        <button onClick={() => router.back()} className="active:scale-90 transition-transform relative z-10">
-                            <span className="material-symbols-outlined text-[28px] font-light text-white/50">arrow_back</span>
+                    <div className="sticky top-0 z-30 bg-background/90 backdrop-blur-xl pt-12 pb-3 px-4 flex items-center gap-2">
+                        <button onClick={() => router.back()} aria-label="뒤로" className="w-9 h-9 flex items-center justify-center rounded-full active:bg-card-gray transition-colors">
+                            <span className="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
                         </button>
-                        <h1 className="absolute inset-x-0 text-center text-[17px] font-extrabold tracking-tight text-white pointer-events-none">넘버 센스</h1>
-                        <div className="ml-auto flex items-center gap-2 relative z-10">
-                            <button onClick={() => setShowRank(true)} className="w-8 h-8 flex items-center justify-center rounded-full active:scale-90 transition-transform"
-                                style={{ background: 'rgba(255,255,255,0.07)' }}>
-                                <span className="material-symbols-outlined text-[18px] text-white/50">emoji_events</span>
+                        <h1 className="text-[17px] font-bold tracking-tight">넘버 센스</h1>
+                        <div className="ml-auto flex items-center gap-1.5">
+                            <button onClick={() => setShowRank(true)} aria-label="랭킹"
+                                className="pressable inline-flex items-center gap-1 pl-2.5 pr-3 py-2 rounded-full bg-card-gray text-t-secondary" style={{ boxShadow: '0 2px 8px var(--color-shadow)' }}>
+                                <span className="material-symbols-outlined text-[16px]">leaderboard</span>
+                                <span className="text-[13px] font-bold">랭킹</span>
                             </button>
-                            <button onClick={() => setShowInfo(true)} className="w-8 h-8 flex items-center justify-center rounded-full active:scale-90 transition-transform"
-                                style={{ background: 'rgba(255,255,255,0.07)' }}>
-                                <span className="material-symbols-outlined text-[18px] text-white/50">info</span>
+                            <button onClick={() => setShowInfo(true)} aria-label="안내"
+                                className="pressable inline-flex items-center gap-1 pl-2.5 pr-3 py-2 rounded-full bg-card-gray text-t-secondary" style={{ boxShadow: '0 2px 8px var(--color-shadow)' }}>
+                                <span className="material-symbols-outlined text-[16px]">help</span>
+                                <span className="text-[13px] font-bold">안내</span>
                             </button>
                         </div>
                     </div>
@@ -764,130 +778,97 @@ export default function NumberSense() {
                     {showRank && <RankPopup score={0} onClose={() => setShowRank(false)} />}
 
                     {/* 히어로 */}
-                    <div className="flex flex-col items-center pt-2 pb-2">
-                        <Image src="/character.png" alt="" width={160} height={160} unoptimized priority />
-                        <p className="text-[22px] font-extrabold text-white tracking-tight leading-snug mt-3 text-center px-6">
+                    <div className="flex flex-col items-center pt-4 pb-2">
+                        <img src="/char_memo.png" alt="" width={150} height={150} className="object-contain" />
+                        <p className="text-[23px] font-bold text-t-primary tracking-tight leading-snug mt-3 text-center px-6">
                             당신의 번호 감각,<br />
-                            <span style={{ color: '#818cf8' }}>얼마나 정확할까요?</span>
+                            <span className="text-accent">얼마나 정확할까요?</span>
                         </p>
-                        <p className="text-white/30 text-[12px] font-medium mt-2 text-center px-8 leading-relaxed">
-                            로또 번호를 기억하고 골라내는 과정에서<br />당신만의 숫자 패턴이 드러납니다
+                        <p className="text-t-muted text-[13px] font-medium mt-2 text-center px-8 leading-relaxed">
+                            잠깐 본 번호를 기억하고<br />정확히 찾아내는 감각 게임
                         </p>
                     </div>
 
                     {/* 게임 규칙 요약 — 아이콘 3개 */}
-                    <div className="flex items-center justify-center gap-5 mt-5 mb-6 px-5">
+                    <div className="flex items-center justify-center gap-3 mt-5 mb-6 px-6">
                         {[
                             { icon: 'visibility',      label: '번호 노출', desc: '0.7~2.5초' },
                             { icon: 'touch_app',       label: '기억 후 탭', desc: '1~6개 번호' },
                             { icon: 'workspace_premium', label: '포인트 적립', desc: '단계별 보상' },
                         ].map(item => (
-                            <div key={item.label} className="flex flex-col items-center gap-1.5">
-                                <div className="w-10 h-10 rounded-2xl flex items-center justify-center"
-                                    style={{ background: 'rgba(99,102,241,0.15)' }}>
-                                    <span className="material-symbols-outlined text-[20px]"
-                                        style={{ color: '#818cf8', fontVariationSettings: "'FILL' 1" }}>{item.icon}</span>
+                            <div key={item.label} className="flex-1 flex flex-col items-center gap-2 bg-card-gray rounded-[18px] py-4">
+                                <div className="w-10 h-10 rounded-2xl bg-accent-soft flex items-center justify-center">
+                                    <span className="material-symbols-outlined text-[20px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>{item.icon}</span>
                                 </div>
-                                <p className="text-[11px] font-extrabold text-white/70">{item.label}</p>
-                                <p className="text-[10px] text-white/30">{item.desc}</p>
+                                <p className="text-[12px] font-bold text-t-primary">{item.label}</p>
+                                <p className="text-[11px] text-t-muted font-medium">{item.desc}</p>
                             </div>
                         ))}
                     </div>
 
-                    {/* AI 번호 감각 분석 카드 */}
-                    <div className="mx-5 mb-5">
-                        <div className="rounded-3xl overflow-hidden"
-                            style={{
-                                background: 'linear-gradient(145deg, rgba(99,102,241,0.13) 0%, rgba(139,92,246,0.07) 100%)',
-                                border: '1px solid rgba(99,102,241,0.22)',
-                            }}>
-
+                    {/* 번호 감각 분석 카드 */}
+                    <div className="mx-6 mb-5">
+                        <div className="rounded-[24px] overflow-hidden bg-card-gray">
                             {/* 카드 헤더 */}
-                            <div className="px-5 pt-5 pb-4 flex items-center justify-between"
-                                style={{ borderBottom: '1px solid rgba(99,102,241,0.12)' }}>
+                            <div className="px-5 pt-5 pb-4 flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                    <span className="material-symbols-outlined text-[18px]"
-                                        style={{ color: '#818cf8', fontVariationSettings: "'FILL' 1" }}>psychology</span>
-                                    <p className="text-[14px] font-extrabold text-white">번호 감각 분석</p>
+                                    <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>psychology</span>
+                                    <p className="text-[15px] font-bold text-t-primary">번호 감각 분석</p>
                                 </div>
-                                <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full"
-                                    style={{ background: 'rgba(99,102,241,0.2)', color: '#818cf8', border: '1px solid rgba(99,102,241,0.3)' }}>
-                                    AI
-                                </span>
+                                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-accent-soft text-accent">AI</span>
                             </div>
 
                             {!sense.hasData ? (
-                                <div className="px-5 py-8 flex flex-col items-center gap-2">
-                                    <span className="material-symbols-outlined text-[40px] text-white/10"
-                                        style={{ fontVariationSettings: "'FILL' 1" }}>bar_chart</span>
-                                    <p className="text-[13px] font-bold text-white/30">플레이 후 분석됩니다</p>
-                                    <p className="text-[11px] text-white/20 text-center leading-relaxed">
+                                <div className="px-5 py-8 flex flex-col items-center gap-2 border-t border-themed">
+                                    <span className="material-symbols-outlined text-[40px] text-t-faint" style={{ fontVariationSettings: "'FILL' 1" }}>bar_chart</span>
+                                    <p className="text-[14px] font-bold text-t-muted">플레이 후 분석돼요</p>
+                                    <p className="text-[12px] text-t-dim text-center leading-relaxed">
                                         정답률, 반응속도, 편향 패턴 등<br />당신만의 번호 감각을 수치로 보여드려요
                                     </p>
                                 </div>
                             ) : (
                                 <>
                                     {/* 종합 인사이트 */}
-                                    <div className="px-5 py-4"
-                                        style={{ borderBottom: '1px solid rgba(99,102,241,0.1)' }}>
-                                        <p className="text-[10px] font-extrabold tracking-wider text-white/25 mb-1.5">종합 인사이트</p>
-                                        <p className="text-[15px] font-extrabold text-white leading-snug">
+                                    <div className="px-5 py-4 border-t border-themed">
+                                        <p className="text-[12px] font-bold text-t-muted mb-1.5">종합 인사이트</p>
+                                        <p className="text-[16px] font-bold text-t-primary leading-snug">
                                             {sense.weakRange}번대 기억이 가장 취약해요
                                         </p>
-                                        <p className="text-[12px] text-white/40 mt-1.5 leading-relaxed">
-                                            {sense.oddRatio > 50 ? '홀수' : '짝수'}에 치우친 선택 패턴이 반복됩니다.
-                                            번호를 고르게 기억하는 훈련이 필요해요.
+                                        <p className="text-[13px] text-t-muted mt-1.5 leading-relaxed">
+                                            {sense.oddRatio > 50 ? '홀수' : '짝수'}에 치우친 선택 패턴이 반복돼요. 번호를 고르게 기억하는 훈련이 필요해요.
                                         </p>
                                     </div>
 
                                     {/* 핵심 지표 3개 */}
-                                    <div className="grid grid-cols-3"
-                                        style={{ borderBottom: '1px solid rgba(99,102,241,0.1)' }}>
+                                    <div className="grid grid-cols-3 border-t border-themed">
                                         {[
-                                            { label: '정답률',   value: `${sense.accuracy}%`,                          color: '#818cf8' },
-                                            { label: '반응속도', value: `${(sense.avgReactionMs/1000).toFixed(1)}s`,    color: '#fbbf24' },
-                                            { label: '평균생존', value: `${sense.avgDeathRound}R`,                      color: 'rgba(255,255,255,0.55)' },
+                                            { label: '평균 정답 수', value: `${sense.avgCorrect}개`, color: 'text-accent' },
+                                            { label: '최고 단계',   value: `${sense.bestStage}단계`, color: 'text-t-primary' },
+                                            { label: '최다 정답 수', value: `${sense.maxCorrect}개`, color: 'text-t-primary' },
                                         ].map((m, i) => (
-                                            <div key={m.label} className="flex flex-col items-center py-4"
-                                                style={{ borderRight: i < 2 ? '1px solid rgba(99,102,241,0.1)' : 'none' }}>
-                                                <p className="text-[22px] font-extrabold leading-none" style={{ color: m.color }}>{m.value}</p>
-                                                <p className="text-[10px] text-white/30 mt-1">{m.label}</p>
+                                            <div key={m.label} className={`flex flex-col items-center py-4 ${i < 2 ? 'border-r border-themed' : ''}`}>
+                                                <p className={`text-[22px] font-bold leading-none ${m.color}`}>{m.value}</p>
+                                                <p className="text-[11px] text-t-muted font-medium mt-1.5">{m.label}</p>
                                             </div>
                                         ))}
                                     </div>
 
                                     {/* 패턴 리스트 */}
-                                    <div className="px-5 py-4 flex flex-col gap-3">
+                                    <div className="px-5 py-4 flex flex-col gap-3 border-t border-themed">
                                         <div className="flex items-center justify-between">
-                                            <p className="text-[10px] font-bold text-white/30">자주 틀리는 구간</p>
-                                            <p className="text-[13px] font-extrabold" style={{ color: '#f87171' }}>
-                                                {sense.weakRange}번대
-                                            </p>
+                                            <p className="text-[12px] font-medium text-t-muted">자주 막히는 단계</p>
+                                            <p className="text-[14px] font-bold text-[#F04452]">{sense.weakStage}단계</p>
                                         </div>
-                                        <div className="h-px" style={{ background: 'rgba(99,102,241,0.1)' }} />
+                                        <div className="h-px" style={{ backgroundColor: 'var(--color-border)' }} />
                                         {[
-                                            {
-                                                label: '홀/짝 경향',
-                                                dominant: sense.oddRatio > 50 ? '홀수' : '짝수',
-                                                pct: sense.oddRatio > 50 ? sense.oddRatio : 100 - sense.oddRatio,
-                                                sub: `반대 ${sense.oddRatio > 50 ? 100 - sense.oddRatio : sense.oddRatio}%`,
-                                                color: '#f472b6',
-                                            },
-                                            {
-                                                label: '번호대 경향',
-                                                dominant: sense.highRatio > 50 ? '높은 번호(23~45)' : '낮은 번호(1~22)',
-                                                pct: sense.highRatio > 50 ? sense.highRatio : 100 - sense.highRatio,
-                                                sub: `반대 ${sense.highRatio > 50 ? 100 - sense.highRatio : sense.highRatio}%`,
-                                                color: '#60a5fa',
-                                            },
+                                            { label: '안정 기억 개수', value: `${sense.stableCount}개` },
+                                            { label: '클리어 / 도전', value: `${sense.clears}회 / ${sense.attempts}회` },
                                         ].map((p, i) => (
                                             <React.Fragment key={p.label}>
-                                                {i > 0 && <div className="h-px" style={{ background: 'rgba(99,102,241,0.1)' }} />}
+                                                {i > 0 && <div className="h-px" style={{ backgroundColor: 'var(--color-border)' }} />}
                                                 <div className="flex items-center justify-between">
-                                                    <p className="text-[10px] font-bold text-white/30">{p.label}</p>
-                                                    <p className="text-[13px] font-extrabold" style={{ color: p.color }}>
-                                                        {p.dominant} {p.pct}%
-                                                    </p>
+                                                    <p className="text-[12px] font-medium text-t-muted">{p.label}</p>
+                                                    <p className="text-[14px] font-bold text-accent">{p.value}</p>
                                                 </div>
                                             </React.Fragment>
                                         ))}
@@ -899,36 +880,30 @@ export default function NumberSense() {
 
 
                     {/* 시작 버튼 — 하단 고정 */}
-                    <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto px-5 pb-8 pt-4 z-40"
-                        style={{ background: 'linear-gradient(to top, #09091e 65%, transparent)' }}>
+                    <div className="fixed bottom-0 left-0 right-0 max-w-[430px] mx-auto px-6 pb-8 pt-4 z-40"
+                        style={{ background: 'linear-gradient(to top, var(--color-bg) 65%, transparent)' }}>
                         {/* 파워 상태 */}
                         <div className="flex items-center justify-center gap-1 mb-3">
                             {Array.from({ length: MAX_POWER }, (_, i) => (
                                 <span key={i} className="material-symbols-outlined text-[20px]"
-                                    style={{
-                                        color: i < powerState.power ? '#60a5fa' : 'rgba(255,255,255,0.15)',
-                                        fontVariationSettings: "'FILL' 1",
-                                        filter: i < powerState.power ? 'drop-shadow(0 0 6px rgba(96,165,250,0.5))' : 'none',
-                                    }}>bolt</span>
+                                    style={{ color: i < powerState.power ? '#3182F6' : 'var(--color-text-faint)', fontVariationSettings: "'FILL' 1" }}>bolt</span>
                             ))}
-                            <p className="text-[11px] font-extrabold text-white/45 ml-1.5">파워 {powerState.power}/{MAX_POWER}</p>
+                            <p className="text-[12px] font-bold text-t-secondary ml-1.5">파워 {powerState.power}/{MAX_POWER}</p>
                             {nextRefillSec > 0 && (
-                                <p className="text-[10px] text-white/25 ml-1 tabular-nums">· {fmtRefill(nextRefillSec)} 후 충전</p>
+                                <p className="text-[11px] text-t-muted ml-1 tabular-nums">· {fmtRefill(nextRefillSec)} 후 충전</p>
                             )}
                         </div>
                         {noPower ? (
                             <button onClick={() => setShowPowerSheet(true)}
-                                className="w-full py-4 rounded-2xl font-extrabold text-[17px] active:scale-95 transition-all flex items-center justify-center gap-2"
-                                style={{ background: 'linear-gradient(135deg, #d97706, #fbbf24)', color: '#000' }}>
-                                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>toll</span>
+                                className="pressable w-full py-4 rounded-2xl font-bold text-[16px] flex items-center justify-center gap-2 bg-accent text-accent-fg">
+                                <span className="material-symbols-outlined text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>bolt</span>
                                 30P로 파워 구매
                             </button>
                         ) : (
                             <button onClick={handleStartGame}
-                                className="w-full py-4 rounded-2xl font-extrabold text-[17px] active:scale-95 transition-all"
-                                style={{ background: 'linear-gradient(135deg, #4f46e5, #818cf8)', color: '#fff' }}>
+                                className="pressable w-full py-4 rounded-2xl font-bold text-[16px] bg-accent text-accent-fg">
                                 게임 시작
-                                <span className="text-[12px] font-bold opacity-60 ml-1.5">⚡ 파워 1개 사용</span>
+                                <span className="text-[12px] font-bold opacity-75 ml-1.5">⚡ 파워 1개 사용</span>
                             </button>
                         )}
                     </div>

@@ -24,7 +24,7 @@ const SPEND = [
 
 function PolicyTable({ rows, type }) {
     const earn = type === 'earn';
-    const amtColor = earn ? 'text-[#14b8a6]' : 'text-t-secondary';
+    const amtColor = earn ? 'text-accent' : 'text-t-secondary';
     return (
         <div className="bg-card-gray rounded-2xl border border-themed divide-y divide-themed overflow-hidden">
             {rows.map((r) => (
@@ -70,7 +70,7 @@ export default function PointGuide() {
                 {/* 적립 */}
                 <div className="px-6 mb-7">
                     <div className="flex items-center gap-2 mb-3">
-                        <span className="material-symbols-outlined text-[18px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
+                        <span className="material-symbols-outlined text-[18px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>add_circle</span>
                         <h2 className="text-[15px] font-extrabold text-t-primary">적립 (획득)</h2>
                     </div>
                     <PolicyTable rows={EARN} type="earn" />

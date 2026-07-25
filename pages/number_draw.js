@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 const LEAGUE = { week: 15, drawNo: 1159, deadline: '04.19 토 20:00', dDay: 6, status: 'OPEN' };
 
 const AI_MODELS = [
-    { id: 'stat',   name: '닥터 로또',    type: '통계 최적화',   icon: 'biotech',       color: '#14b8a6', win: 23, loss: 5,  nums: [5, 12, 22, 31, 38, 44] },
+    { id: 'stat',   name: '닥터 로또',    type: '통계 최적화',   icon: 'biotech',       color: '#3182F6', win: 23, loss: 5,  nums: [5, 12, 22, 31, 38, 44] },
     { id: 'deep',   name: '딥마인드',     type: '딥러닝 패턴',   icon: 'hub',           color: '#60a5fa', win: 19, loss: 9,  nums: [3, 11, 19, 28, 35, 42] },
     { id: 'random', name: '랜덤 오라클', type: '완전 랜덤',     icon: 'casino',        color: '#f59e0b', win: 12, loss: 16, nums: [7, 16, 24, 33, 40, 45] },
     { id: 'shaman', name: '샤먼 스텔라', type: '직관 예측',     icon: 'auto_awesome',  color: '#a78bfa', win: 17, loss: 11, nums: [4, 13, 21, 29, 36, 43] },
@@ -249,7 +249,7 @@ function RegisterScreen({ setScreen }) {
                 </div>
             </div>
             <button onClick={() => setScreen('bracket')}
-                className="w-full py-4 rounded-2xl bg-bg-inverse text-t-inverse font-extrabold text-[15px] active:scale-95 transition-all">
+                className="w-full py-4 rounded-2xl bg-accent text-accent-fg font-extrabold text-[15px] active:scale-95 transition-all">
                 스코어보드 보기 →
             </button>
             <button onClick={() => setScreen('main')} className="text-[13px] text-t-muted font-medium">
@@ -269,7 +269,7 @@ function RegisterScreen({ setScreen }) {
                 <div className="bg-card-gray rounded-3xl p-5 border border-themed flex flex-col gap-4">
                     <div className="flex items-center justify-between">
                         <p className="text-[13px] font-bold text-t-muted">참전 번호</p>
-                        <button className="flex items-center gap-1.5 text-[12px] font-semibold text-[#14b8a6] active:opacity-60">
+                        <button className="flex items-center gap-1.5 text-[12px] font-semibold text-accent active:opacity-60">
                             <span className="material-symbols-outlined text-[14px]">auto_awesome</span>
                             도슨트 번호 불러오기
                         </button>
@@ -368,7 +368,7 @@ function BracketScreen({ setScreen }) {
             <div className="flex px-6 gap-2 py-3 border-b border-themed">
                 {[['board', '순위표'], ['matchup', '대진표']].map(([id, label]) => (
                     <button key={id} onClick={() => setTab(id)}
-                        className={`px-4 py-2 rounded-full text-[13px] font-bold transition-all ${tab === id ? 'bg-bg-inverse text-t-inverse' : 'bg-card-gray text-t-muted border border-themed'}`}>
+                        className={`px-4 py-2 rounded-full text-[13px] font-bold transition-all ${tab === id ? 'bg-accent text-accent-fg' : 'bg-card-gray text-t-muted border border-themed'}`}>
                         {label}
                     </button>
                 ))}
@@ -540,7 +540,7 @@ function ShopScreen({ setScreen }) {
                         <p className="text-[12px] text-t-muted mt-0.5">낙첨 티켓 스캔하고 포인트 적립</p>
                     </div>
                     <button onClick={() => setScreen('main')}
-                        className="px-4 py-2.5 rounded-2xl bg-bg-inverse text-t-inverse font-bold text-[12px] active:scale-95 transition-all">
+                        className="px-4 py-2.5 rounded-2xl bg-accent text-accent-fg font-bold text-[12px] active:scale-95 transition-all">
                         스캔하기
                     </button>
                 </div>

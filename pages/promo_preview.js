@@ -7,7 +7,7 @@ const PROMOS = [
         id: 'POINT',
         label: '포인트 지급',
         icon: 'monetization_on',
-        color: '#14b8a6',
+        color: '#3182F6',
         title: '신규 가입 환영 이벤트!',
         desc: '지금 바로 받아가세요!',
         benefits: ['500 포인트 즉시 지급', '럭키이벤트 3회 무료'],
@@ -18,7 +18,7 @@ const PROMOS = [
         id: 'COUPON',
         label: '쿠폰 지급',
         icon: 'confirmation_number',
-        color: '#14b8a6',
+        color: '#3182F6',
         title: '럭키이벤트 무료 체험!',
         desc: '쿠폰함에서 바로 확인하세요',
         benefits: ['럭키이벤트 3회 무료 쿠폰'],
@@ -30,7 +30,7 @@ const PROMOS = [
         id: 'TICKET',
         label: '무료 티켓',
         icon: 'local_activity',
-        color: '#14b8a6',
+        color: '#3182F6',
         title: '첫 스캔 기념!',
         desc: '럭키이벤트 탭에서 확인하세요',
         benefits: ['럭키이벤트 3회 무료 티켓'],
@@ -122,7 +122,7 @@ function PromoPopup({ promo, onClose }) {
                         <div className="w-full flex gap-3">
                             <button
                                 onClick={handleClaim}
-                                className="flex-1 py-3 rounded-xl bg-bg-inverse text-t-inverse font-bold text-sm active:scale-95 transition-all"
+                                className="flex-1 py-3 rounded-xl bg-accent text-accent-fg font-bold text-sm active:scale-95 transition-all"
                             >
                                 {promo.btnLabel}
                             </button>

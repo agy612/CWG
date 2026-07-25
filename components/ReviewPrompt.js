@@ -100,7 +100,7 @@ export default function ReviewPrompt({ open, onClose }) {
                             </button>
                             <button
                                 onClick={() => setStep('positive')}
-                                className="flex-1 py-3.5 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all"
+                                className="flex-1 py-3.5 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all"
                             >
                                 좋아요!
                             </button>
@@ -122,7 +122,7 @@ export default function ReviewPrompt({ open, onClose }) {
                         </p>
                         <button
                             onClick={goStore}
-                            className="w-full py-3.5 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all mb-1"
+                            className="w-full py-3.5 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all mb-1"
                         >
                             <span className="inline-flex items-center gap-1.5">
                                 <span className="material-symbols-outlined text-[16px] text-[#D4AF37]" style={{ fontVariationSettings: "'FILL' 1" }}>star</span>
@@ -149,14 +149,14 @@ export default function ReviewPrompt({ open, onClose }) {
                             onChange={(e) => setFeedback(e.target.value)}
                             placeholder="예) 스캔이 자꾸 실패해요, 포인트 적립이 헷갈려요…"
                             rows={4}
-                            className="w-full rounded-xl bg-background border border-themed p-3.5 text-[13px] text-t-primary font-medium placeholder:text-t-faint resize-none outline-none focus:border-[#14b8a6]/50 mb-4"
+                            className="w-full rounded-xl bg-background border border-themed p-3.5 text-[13px] text-t-primary font-medium placeholder:text-t-faint resize-none outline-none focus:border-accent/50 mb-4"
                         />
                         <button
                             onClick={sendFeedback}
                             disabled={!feedback.trim()}
                             className={`w-full py-3.5 rounded-xl font-extrabold text-sm transition-all mb-1 ${
                                 feedback.trim()
-                                    ? 'bg-bg-inverse text-t-inverse active:scale-95'
+                                    ? 'bg-accent text-accent-fg active:scale-95'
                                     : 'bg-btn-secondary text-t-dim'
                             }`}
                         >
@@ -170,8 +170,8 @@ export default function ReviewPrompt({ open, onClose }) {
 
                 {step === 'thanks' && (
                     <div className="relative flex flex-col items-center px-6 pt-7 pb-6 text-center">
-                        <div className="w-16 h-16 rounded-full bg-[#14b8a6]/15 flex items-center justify-center mb-4">
-                            <span className="material-symbols-outlined text-[30px] text-[#14b8a6]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <div className="w-16 h-16 rounded-full bg-accent-soft flex items-center justify-center mb-4">
+                            <span className="material-symbols-outlined text-[30px] text-accent" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                         </div>
                         <h3 className="text-[19px] font-extrabold text-t-primary mb-1.5">소중한 의견 감사합니다</h3>
                         <p className="text-t-muted text-[13px] font-medium leading-relaxed mb-5">
@@ -179,7 +179,7 @@ export default function ReviewPrompt({ open, onClose }) {
                         </p>
                         <button
                             onClick={close}
-                            className="w-full py-3.5 rounded-xl bg-bg-inverse text-t-inverse font-extrabold text-sm active:scale-95 transition-all"
+                            className="w-full py-3.5 rounded-xl bg-accent text-accent-fg font-extrabold text-sm active:scale-95 transition-all"
                         >
                             확인
                         </button>

@@ -9,14 +9,14 @@ const CHARACTERS = {
         name: '닥터 로또',
         title: '데이터 분석가',
         tag: '데이터 중심',
-        tagColor: 'text-[#14b8a6] bg-[#14b8a6]/10',
+        tagColor: 'text-accent bg-accent-soft',
         gradient: 'from-[#0f2027] via-[#203a43] to-[#2c5364]',
         cardGradient: 'from-[#0f2027] via-[#1a3a4a] to-[#0e4a5a]',
-        accentColor: '#14b8a6',
+        accentColor: '#3182F6',
         icon: 'biotech',
-        iconBg: 'bg-[#14b8a6]/20',
-        iconColor: 'text-[#14b8a6]',
-        borderColor: 'border-[#14b8a6]/30',
+        iconBg: 'bg-accent-soft',
+        iconColor: 'text-accent',
+        borderColor: 'border-accent',
         bubbleBg: 'bg-[#1e3a42]',
         inputBg: 'bg-[#1e3a42]/50',
         greeting: '안녕하세요. 저는 52주간의 당첨 데이터를 분석하는 닥터 로또입니다.',
@@ -603,7 +603,7 @@ export default function AiLuckyDocentPage() {
                         공유하기
                     </button>
                     <button onClick={() => router.push('/?tab=contents')}
-                        className="flex-1 py-3.5 rounded-2xl bg-bg-inverse text-t-inverse font-bold text-[13px] active:scale-95 transition-all">
+                        className="flex-1 py-3.5 rounded-2xl bg-accent text-accent-fg font-bold text-[13px] active:scale-95 transition-all">
                         확인
                     </button>
                 </div>

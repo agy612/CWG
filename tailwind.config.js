@@ -21,6 +21,12 @@ module.exports = {
                 "btn-secondary": "var(--color-btn-secondary)",
                 "btn-secondary-text": "var(--color-btn-secondary-text)",
                 "input-bg": "var(--color-input-bg)",
+                "accent": "var(--color-accent)",
+                "accent-pressed": "var(--color-accent-pressed)",
+                "accent-soft": "var(--color-accent-soft)",
+                "accent-fg": "var(--color-accent-fg)",
+                "positive": "var(--color-positive)",
+                "positive-soft": "var(--color-positive-soft)",
                 "muted-teal": "#14b8a6",
                 "revolut-gray": "#8E8E93"
             },
@@ -38,7 +44,7 @@ module.exports = {
                 "themed": "var(--color-shadow)",
             },
             fontFamily: {
-                "sans": ["Inter", "-apple-system", "BlinkMacSystemFont", "Helvetica Neue", "sans-serif"],
+                "sans": ["Pretendard Variable", "Pretendard", "Inter", "-apple-system", "BlinkMacSystemFont", "Helvetica Neue", "sans-serif"],
             },
         },
     },
