@@ -9,6 +9,7 @@ const menuItems = [
     { id: 'attendance', img: '/menu/attendance.png', label: '출석체크', route: '/attendance' },
     { id: 'invite', img: '/menu/invite.png', label: '친구초대', route: '/invite' },
     { id: 'daily_ads', img: '/menu/daily_ads.png', label: '오늘의 광고보기', route: '/daily_ads' },
+    { id: 'championship', img: '/menu/championship.png', label: '챔피언십 안내', route: '/championship_guide' },
     { id: 'shop', img: '/menu/shop.png', label: '포인트 교환', route: '/point_shop' },
     { id: 'sub', img: '/menu/sub.png', label: '구독 관리', route: '/my_subscription' },
     { id: 'coupon', img: '/menu/coupon.png', label: '쿠폰함', route: '/coupon_wallet' },
@@ -29,6 +30,7 @@ export default function MyTab() {
     const { theme, switchTheme, THEMES } = useTheme();
 
     const isGuest = tier === 'GUEST';
+    const scanPct = maxScansPerMonth > 0 ? Math.round((scansThisMonth / maxScansPerMonth) * 100) : 0;
     const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
     const [showThemePicker, setShowThemePicker] = useState(false);
     const [profile, setProfile] = useState({ nickname: 'Nickname', image: '' });
@@ -67,8 +69,6 @@ export default function MyTab() {
             </div>
         );
     }
-
-    const earnedPoints = scansThisMonth * (tier === 'FREE' ? 50 : tier === 'STANDARD' ? 75 : 100);
 
     return (
         <div className="flex flex-col w-full min-h-screen bg-background text-t-primary pb-32">
@@ -110,37 +110,43 @@ export default function MyTab() {
                 <span className="material-symbols-outlined text-[22px] text-t-dim">chevron_right</span>
             </button>
 
-            {/* Points Card */}
-            <button
-                onClick={() => router.push('/point_history')}
-                className="pressable mx-6 mb-3 bg-card-gray rounded-[24px] p-5 text-left block"
-            >
-                <div className="flex items-center justify-between mb-2">
-                    <span className="text-[14px] text-t-muted font-semibold">내 포인트</span>
-                    <span className="inline-flex items-center text-[13px] text-t-muted font-semibold whitespace-nowrap">
-                        포인트 내역
-                        <span className="material-symbols-outlined text-[15px] ml-0.5">chevron_right</span>
-                    </span>
+            {/* Points Card — 홈에서 이동 (스캔 진행바 + 포인트 안내/내역) */}
+            <div id="tut-points" className="mx-6 mb-3 bg-card-gray rounded-[24px] p-5">
+                <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-[16px] text-t-muted font-semibold">마이 포인트</span>
+                    <button
+                        onClick={() => router.push('/point_guide')}
+                        aria-label="포인트 안내"
+                        className="pressable inline-flex items-center gap-1 pl-2.5 pr-3 py-1.5 rounded-full bg-btn-secondary text-t-secondary"
+                    >
+                        <span className="material-symbols-outlined text-[16px]">help</span>
+                        <span className="text-[13px] font-bold">포인트 안내</span>
+                    </button>
                 </div>
-                <div className="text-[38px] leading-none font-bold tracking-tight text-t-primary">{points.toLocaleString()}<span className="text-[24px] font-bold ml-0.5">P</span></div>
-                <div className="text-t-muted text-[12px] font-medium mt-2.5">2027-01-15 만료 예정</div>
-            </button>
+                <div className="text-[44px] leading-tight font-bold tracking-tight mb-1">{points.toLocaleString()}<span className="text-[30px] font-bold ml-0.5">P</span></div>
+                <div className="text-t-muted text-[12px] font-medium">2027-01-15 만료 예정</div>
 
-            {/* Scan Stats — 한 블럭 */}
-            <div className="mx-6 mb-4 bg-card-gray rounded-[20px] p-5">
-                <div className="text-[15px] font-bold text-t-primary mb-4">이번 주 활동 통계</div>
-                <div className="grid grid-cols-3">
-                    {[
-                        { label: '스캔 횟수', value: `${scansThisMonth}회`, accent: false },
-                        { label: '획득 포인트', value: `${earnedPoints.toLocaleString()}P`, accent: true },
-                        { label: '남은 스캔', value: `${maxScansPerMonth - scansThisMonth}회`, accent: false },
-                    ].map((s, i) => (
-                        <div key={s.label} className={`flex flex-col items-center ${i < 2 ? 'border-r border-themed' : ''}`}>
-                            <span className={`text-[22px] font-bold tracking-tight ${s.accent ? 'text-accent' : 'text-t-primary'}`}>{s.value}</span>
-                            <span className="text-[12px] font-medium text-t-muted mt-1">{s.label}</span>
-                        </div>
-                    ))}
+                <div className="h-px my-4" style={{ backgroundColor: 'var(--color-border)' }} />
+
+                <div className="space-y-2.5">
+                    <div className="flex justify-between items-center text-[14px]">
+                        <span className="text-t-secondary font-medium">이번 주 스캔 {scansThisMonth}/{maxScansPerMonth}회</span>
+                        <span className="text-t-muted font-medium">{maxScansPerMonth - scansThisMonth}회 남음</span>
+                    </div>
+                    <div className="h-2 w-full bg-btn-secondary rounded-full overflow-hidden">
+                        <div
+                            className="h-full bg-accent rounded-full"
+                            style={{ width: `${scanPct}%`, transition: 'width 400ms var(--ease-out-strong)' }}
+                        />
+                    </div>
                 </div>
+                <button
+                    onClick={() => router.push('/point_history')}
+                    className="pressable mt-4 w-full py-3 rounded-2xl bg-btn-secondary text-t-secondary font-bold text-[14px] inline-flex items-center justify-center"
+                >
+                    포인트 내역
+                    <span className="material-symbols-outlined text-[16px] ml-0.5">chevron_right</span>
+                </button>
             </div>
 
             {/* Subscription / Upgrade 배너 */}

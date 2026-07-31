@@ -36,7 +36,7 @@ const STEPS = [
     /* 3 ─ 포인트 */
     {
         id: 'points',
-        tab: 'home', elementId: 'tut-points', panel: 'bottom',
+        tab: 'my', elementId: 'tut-points', panel: 'bottom',
         bubble: '등록할 때마다 포인트가 여기에 쌓여요! 💰\n포인트로 이 앱에서 다양한 방식으로\n새로운 번호를 얻을 수 있어요!',
         cta: '확인!',
     },

@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import TabHeader, { HeaderIconButton } from './components/TabHeader';
 import PicksTab from './PicksTab';
 import ChampionshipTab from './ChampionshipTab';
+import ChampionshipIntroPopup from '../components/ChampionshipIntroPopup';
 
 const LOTTO_BALL_COLOR = (num) => {
     if (num <= 10) return 'bg-[#FBC400] text-black';
@@ -85,6 +86,13 @@ export default function GenerateTab({ onSubviewChange }) {
                                 나만의 전략으로 번호를 생성해요. 가중치를 조절해
                                 <span className="text-t-primary font-bold"> 나만의 10세트</span>를 더 만들 수 있어요.
                             </p>
+                            <button
+                                onClick={() => router.push('/championship_guide')}
+                                className="mt-2 inline-flex items-center text-[13px] font-semibold text-accent"
+                            >
+                                자세한 내용은 마이 &gt; 챔피언십 안내에서 볼 수 있어요
+                                <span className="material-symbols-outlined text-[15px] ml-0.5">chevron_right</span>
+                            </button>
                         </div>
 
                         {/* 내가 만든 번호 누적 */}
@@ -151,6 +159,9 @@ export default function GenerateTab({ onSubviewChange }) {
             <div className="mt-6">
                 <PicksTab embedded onAddGenerate={openGenerator} />
             </div>
+
+            {/* 탭 첫 진입 시 1회 노출되는 챔피언십 안내 팝업 */}
+            <ChampionshipIntroPopup />
         </div>
     );
 }

@@ -100,6 +100,7 @@ export default function DevTierSwitcher() {
                             { label: '프로모션 팝업', route: '/promo_preview', icon: 'redeem' },
                             { label: '출석 팝업', route: '/?popup=attendance', icon: 'event_available' },
                             { label: '리뷰 유도 팝업', route: '/scan_complete?review=1', icon: 'reviews' },
+                            { label: '챔피언십 안내 팝업', route: '/?tab=picks&popup=championship', icon: 'emoji_events' },
                             { label: '푸시 랜딩 (번호 도착)', route: '/number_push', icon: 'notifications_active' },
                         ].map(({ label, route, icon }) => (
                             <button

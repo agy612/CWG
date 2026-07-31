@@ -208,10 +208,9 @@ function FlagBadge({ code }) {
 
 export default function HomeTab({ setActiveTab }) {
     const router = useRouter();
-    const { tier, points, scansThisMonth, maxScansPerMonth, picksUnlocked, badgeLabel, badgeColor } = useUser();
+    const { tier, picksUnlocked, badgeLabel, badgeColor } = useUser();
 
     const isGuest = tier === 'GUEST';
-    const scanPct = maxScansPerMonth > 0 ? Math.round((scansThisMonth / maxScansPerMonth) * 100) : 0;
 
     // 이번주 Fulif픽 / Fulif 랭킹 캐러셀 (배너형 + 점 인디케이터)
     const ranking = useCarousel(FULIF_RANKING.length);
@@ -247,7 +246,7 @@ export default function HomeTab({ setActiveTab }) {
             </header>
 
             {/* ── Guest CTA ──────────────────────────────────── */}
-            {isGuest ? (
+            {isGuest && (
                 <section className="mx-6 mb-2 bg-card-gray rounded-[24px] p-6">
                     <h1 className="text-[26px] leading-snug font-bold tracking-tight">낙첨 티켓을 스캔하고<br/>포인트를 적립하세요</h1>
                     <p className="text-t-muted text-[14px] font-medium mt-2">FULIF 픽과 럭키이벤트로 나만의 번호를 만들어보세요</p>
@@ -258,42 +257,6 @@ export default function HomeTab({ setActiveTab }) {
                         무료로 시작하기 (+100P 보너스)
                     </button>
                 </section>
-            ) : (
-                /* ── Points Card ────────────────────────────── */
-                <div id="tut-points" className="relative mx-6 mb-3">
-                    <button
-                        onClick={() => router.push('/point_history')}
-                        className="w-full text-left bg-card-gray rounded-[24px] p-5 active:opacity-70 transition-opacity"
-                    >
-                        <div className="flex items-center gap-1 mb-1.5">
-                            <span className="text-[16px] text-t-muted font-semibold">마이 포인트</span>
-                            <span className="material-symbols-outlined text-[18px] text-t-dim">chevron_right</span>
-                        </div>
-                        <h1 className="text-[44px] leading-tight font-bold tracking-tight mb-4">{points.toLocaleString()}<span className="text-[30px] font-bold ml-0.5">P</span></h1>
-                        <div className="space-y-2.5">
-                            <div className="flex justify-between items-center text-[14px]">
-                                <span className="text-t-secondary font-medium">이번 주 스캔 {scansThisMonth}/{maxScansPerMonth}회</span>
-                                <span className="text-t-muted font-medium">{maxScansPerMonth - scansThisMonth}회 남음</span>
-                            </div>
-                            <div className="h-2 w-full bg-btn-secondary rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-accent rounded-full"
-                                    style={{ width: `${scanPct}%`, transition: 'width 400ms var(--ease-out-strong)' }}
-                                />
-                            </div>
-                        </div>
-                    </button>
-
-                    {/* 포인트 적립/사용 안내 */}
-                    <button
-                        onClick={() => router.push('/point_guide')}
-                        aria-label="포인트 안내"
-                        className="pressable absolute top-5 right-5 inline-flex items-center gap-1 pl-2.5 pr-3 py-2 rounded-full bg-btn-secondary text-t-secondary"
-                    >
-                        <span className="material-symbols-outlined text-[16px]">help</span>
-                        <span className="text-[13px] font-bold">포인트 안내</span>
-                    </button>
-                </div>
             )}
 
             {/* ── 빠른 이동: 낙첨복권 스캔 / 경품추첨 ────────────── */}
@@ -343,6 +306,26 @@ export default function HomeTab({ setActiveTab }) {
                             </button>
                         ))}
                     </div>
+                </section>
+            )}
+
+            {/* ── 포인트 안내 미니 배너 ─────────────────────── */}
+            {!isGuest && (
+                <section className="mt-3 px-6">
+                    <button
+                        onClick={() => router.push('/point_guide')}
+                        className="pressable block w-full text-left"
+                    >
+                        <div className="relative overflow-hidden rounded-[20px]" style={{ height: 92 }}>
+                            <img src="/point_guide_banner.png" alt="" className="absolute inset-0 w-full h-full object-cover object-right pointer-events-none" />
+                            {/* 좌측 흰색 그라데이션 오버레이 (글자 가독성) */}
+                            <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.82) 36%, rgba(255,255,255,0) 66%)' }} />
+                            <div className="relative z-10 h-full px-5 flex flex-col justify-center">
+                                <div className="text-[16px] font-bold whitespace-nowrap" style={{ color: '#14304C' }}>포인트 안내</div>
+                                <div className="text-[13px] font-medium mt-1 whitespace-nowrap" style={{ color: '#5A7794' }}>쌓는 법부터 쓰는 법까지</div>
+                            </div>
+                        </div>
+                    </button>
                 </section>
             )}
 
