@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>FULIF 온라인 마케팅 실행안</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --ink:#0B0F14; --ink2:#3A4552; --ink3:#7A8798; --line:#E6EAF0;
+    --bg:#FFFFFF; --bg2:#F5F7FA; --bg3:#EDF1F6;
+    --teal:#00BFA0; --teal-d:#00806C; --teal-s:#E4F8F4;
+    --red:#F04452; --red-s:#FFEEF0;
+    --amber:#FF9500; --amber-s:#FFF4E3;
+    --blue:#3182F6; --blue-s:#E8F1FE;
+  }
+  html{background:#0B0F14;overflow-x:hidden}
+  body{font-family:Pretendard,-apple-system,'Malgun Gothic',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;position:relative}
+  #stage{width:1920px;transform-origin:0 0;position:absolute;top:0;left:0}
+  .slide{width:1920px;height:1080px;background:var(--bg);padding:60px 100px 66px;position:relative;overflow:hidden;border-bottom:1px solid var(--line);display:flex;flex-direction:column}
+  .slide.alt{background:var(--bg2)}
+  .slide.dark{background:#0B0F14;color:#fff;border-bottom-color:#1C242E}
+  .num{position:absolute;right:56px;bottom:38px;font-size:18px;color:var(--ink3);font-variant-numeric:tabular-nums;letter-spacing:.04em}
+  .dark .num{color:#4A5563}
+  .eyebrow{font-size:20px;font-weight:700;color:var(--teal-d);letter-spacing:.1em;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+  .dark .eyebrow{color:var(--teal)}
+  .part{background:var(--teal);color:#fff;font-size:16px;padding:4px 12px;border-radius:6px;letter-spacing:.02em}
+  .dark .part{background:var(--teal-d)}
+  h1{font-size:88px;font-weight:800;letter-spacing:-.035em;line-height:1.12}
+  h2{font-size:54px;font-weight:800;letter-spacing:-.03em;line-height:1.18;margin-bottom:10px}
+  h3{font-size:29px;font-weight:700;letter-spacing:-.02em}
+  .sub{font-size:25px;color:var(--ink2);line-height:1.5;font-weight:500}
+  .dark .sub{color:#9AA7B6}
+  .hr{height:1px;background:var(--line);margin:24px 0}
+  .dark .hr{background:#1C242E}
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0}
+  .row{display:flex;gap:22px}
+  .col{flex:1;min-width:0}
+  .card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 30px}
+  .dark .card{background:#131A22;border-color:#1F2833}
+  .card.fill{background:var(--bg2);border-color:transparent}
+  .card.teal{background:var(--teal-s);border-color:transparent}
+  .card.red{background:var(--red-s);border-color:transparent}
+  .card.amber{background:var(--amber-s);border-color:transparent}
+  .card.blue{background:var(--blue-s);border-color:transparent}
+  .tag{display:inline-block;font-size:16px;font-weight:800;padding:6px 13px;border-radius:8px;letter-spacing:-.01em}
+  .t-teal{background:var(--teal);color:#fff}.t-red{background:var(--red);color:#fff}
+  .t-amber{background:var(--amber);color:#fff}.t-blue{background:var(--blue);color:#fff}
+  .t-gray{background:var(--bg3);color:var(--ink2)}
+  .t-line{background:transparent;border:2px solid var(--line);color:var(--ink3)}
+  table{width:100%;border-collapse:collapse;font-size:21px}
+  th{text-align:left;font-size:17px;font-weight:700;color:var(--ink3);padding:0 15px 12px;letter-spacing:.02em;border-bottom:2px solid var(--line)}
+  td{padding:13px 15px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.48;color:var(--ink2)}
+  td b,td strong{color:var(--ink);font-weight:700}
+  .tight td{padding:10px 15px}
+  .tighter td{padding:7px 14px}
+  .dark th{color:#6B7887;border-bottom-color:#1F2833}
+  .dark td{color:#B8C3D0;border-bottom-color:#1A222B}
+  .dark td b{color:#fff}
+  .big{font-size:60px;font-weight:800;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+  .lbl{font-size:18px;color:var(--ink3);font-weight:600;margin-top:9px;line-height:1.42}
+  .dark .lbl{color:#7A8797}
+  ul{list-style:none}
+  li{font-size:22px;line-height:1.5;color:var(--ink2);padding-left:23px;position:relative;margin-bottom:7px}
+  li:before{content:'';position:absolute;left:4px;top:12px;width:6px;height:6px;border-radius:50%;background:var(--teal)}
+  .dark li{color:#AFBAC7}
+  .quote{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.32}
+  .src{font-size:15px;color:var(--ink3);line-height:1.55;margin-top:auto;padding-top:16px}
+  .dark .src{color:#5A6675}
+  .shotbox{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#fff}
+  .dark .shotbox{border-color:#1F2833}
+  .shotbox .cap{font-size:17px;color:var(--ink3);padding:12px 16px;line-height:1.4;background:#fff;border-top:1px solid var(--line)}
+  .dark .shotbox .cap{background:#131A22;color:#7A8797;border-top-color:#1F2833}
+  .crop{overflow:hidden;position:relative}
+  .crop img{width:100%;display:block;position:relative}
+  .flow{display:flex;align-items:center;gap:11px}
+  .flow .step{flex:1;background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px 14px;text-align:center;font-size:19px;font-weight:700;color:var(--ink)}
+  .flow .arw{font-size:22px;color:var(--ink3);flex:0 0 auto}
+  .kv{display:flex;gap:11px;align-items:baseline;margin-bottom:6px;font-size:21px;color:var(--ink2);line-height:1.42}
+  .kv .k{flex:0 0 104px;font-weight:700;color:var(--ink3);font-size:18px}
+  .dark .kv{color:#AFBAC7}.dark .kv .k{color:#6B7887}
+  .pill{display:inline-block;background:var(--bg3);border-radius:100px;padding:8px 16px;font-size:18px;font-weight:600;color:var(--ink2);margin:0 6px 8px 0}
+  .dark .pill{background:#1A222B;color:#AFBAC7}
+  .rank{width:44px;height:44px;border-radius:12px;background:var(--teal);color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  .rank.g{background:var(--bg3);color:var(--ink3)}
+  .note{font-size:19px;color:var(--ink3);line-height:1.5}
+  .dark .note{color:#6B7887}
+  .url{font-size:16px;color:var(--blue)}
+  .dark .url{color:#5B9BF8}
+  .step-n{color:var(--teal-d);font-weight:800;font-size:22px;flex:0 0 34px}
+  .dark .step-n{color:var(--teal)}
+  .mkrow{display:flex;gap:14px;margin-bottom:13px;align-items:flex-start}
+  .mkrow p{font-size:21px;line-height:1.5;color:var(--ink2)}
+  .dark .mkrow p{color:#AFBAC7}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- COVER -->
+<section class="slide dark" style="justify-content:center">
+  <div style="max-width:1340px">
+    <div class="eyebrow">FULIF · ONLINE MARKETING PLAN</div>
+    <h1>버려지던 낙첨복권을<br>포인트로 바꾸는 앱,<br><span style="color:var(--teal)">어떻게 알릴 것인가</span></h1>
+    <div class="hr" style="margin:44px 0 32px;width:340px"></div>
+    <p class="sub" style="font-size:28px">유사 서비스와 동일 타겟 서비스가 <b style="color:#fff">실제로 하고 있는 마케팅</b>을 한 곳에 모으고,<br>거기서 차용할 것을 정해 온라인 채널별 집행 방식을 확정한다.</p>
+    <div style="margin-top:48px;display:flex;gap:12px">
+      <span class="tag t-teal">온라인 집행 한정</span>
+      <span class="tag t-line">2026.08.03</span>
+      <span class="tag t-line">앱 기능 변경 없음 전제</span>
+      <span class="tag t-line">내부 공유용</span>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- 결론 -->
+<section class="slide">
+  <div class="eyebrow">결론 먼저</div>
+  <h2>4050이 이미 모여 있는 플랫폼에 <span style="color:var(--teal-d)">광고를 먼저 태운다.</span></h2>
+  <p class="sub">자체 SNS 채널은 런칭 전에 세팅해두고 <b>같이 굴리되, 초기 금액 비중은 낮게</b> 가져간다.</p>
+  <div class="body">
+    <div class="row" style="margin-bottom:20px">
+      <div class="col card teal">
+        <div class="tag t-teal">메시지</div>
+        <div style="font-size:33px;font-weight:800;letter-spacing:-.03em;line-height:1.3;margin-top:14px">"낙첨복권,<br>버리기 전에 스캔하세요."</div>
+        <p class="note" style="margin-top:12px">모든 채널에 이 한 문장만.<br>챔피언십·번호생성은 설치 이후에 노출.</p>
+      </div>
+      <div class="col card" style="border-color:var(--teal)">
+        <div class="tag t-teal">광고 집행 — 비중 크게</div>
+        <p class="note" style="margin:12px 0 12px">이미 4050이 모여 있는 곳</p>
+        <div class="kv"><span class="k" style="flex:0 0 68px;color:var(--teal-d)">1순위</span><span><b>캐시워크 · 버즈빌</b> 리워드 광고</span></div>
+        <div class="kv"><span class="k" style="flex:0 0 68px;color:var(--teal-d)">2순위</span><span><b>토스애즈</b> 숏폼</span></div>
+        <div class="kv"><span class="k" style="flex:0 0 68px;color:var(--teal-d)">3순위</span><span><b>유튜브 크리에이터</b> 협찬</span></div>
+        <div class="kv"><span class="k" style="flex:0 0 68px;color:var(--teal-d)">4순위</span><span><b>네이버 밴드·GFA</b> <span class="note">(승인 후)</span></span></div>
+      </div>
+      <div class="col card">
+        <div class="tag t-gray">자체 SNS — 비중 작게, 상시</div>
+        <p class="note" style="margin:12px 0 12px">런칭 전 계정 세팅 완료 후 병행</p>
+        <div class="kv"><span class="k" style="flex:0 0 68px">인스타</span><span>릴스 · 결과 카드</span></div>
+        <div class="kv"><span class="k" style="flex:0 0 68px">유튜브</span><span>쇼츠 <span class="note">(협찬 영상 재활용)</span></span></div>
+        <div class="kv"><span class="k" style="flex:0 0 68px">네이버</span><span>블로그 · 검색 콘텐츠</span></div>
+        <div class="kv"><span class="k" style="flex:0 0 68px">공유</span><span>친구초대 링크</span></div>
+        <p class="note" style="margin-top:10px">성과가 확인되면 <b style="color:var(--ink)">비중을 옮긴다</b></p>
+      </div>
+      <div class="col card">
+        <div class="tag t-red">성과 기준</div>
+        <div class="big" style="margin-top:16px;color:var(--red)">CPFS</div>
+        <div class="lbl" style="font-size:20px;color:var(--ink)">첫 스캔 완료 1명당 비용<br><span style="color:var(--ink3);font-size:17px">Cost Per First Scan</span></div>
+        <p class="note" style="margin-top:10px">설치 수는 보지 않는다.<br>스캔하지 않은 설치는 0원짜리다.</p>
+      </div>
+    </div>
+    <div class="card fill">
+      <div class="row" style="align-items:center;gap:28px">
+        <div style="flex:0 0 auto"><span class="tag t-amber">가장 큰 변수</span></div>
+        <div style="font-size:24px;font-weight:600;color:var(--ink2);line-height:1.45">
+          네이버 검색광고는 <b>복권을 정부 위탁·허가 사업자만</b> 광고할 수 있다. 구글·메타도 인증 대상이다.<br>
+          그래서 이 계획은 <b style="color:var(--teal-d)">심사가 필요 없는 채널을 1순위로</b> 놓고, 승인 결과에 따라 <b style="color:var(--teal-d)">비중을 다시 배분한다.</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- 타겟 -->
+<section class="slide alt">
+  <div class="eyebrow">우리 유저는 누구인가</div>
+  <h2>리워드 앱 시장은 사실상 4050 시장이다.</h2>
+  <p class="sub">나이가 많을수록 짠테크 호감도가 높아진다. 그리고 그들은 이미 대형 플랫폼 안에 모여 있다.</p>
+  <div class="body">
+    <div class="row" style="margin-bottom:22px">
+      <div class="col card">
+        <div class="big" style="color:var(--teal-d)">66<span style="font-size:32px">%</span></div>
+        <div class="lbl"><b style="color:var(--ink)">캐시워크 이용자 중 4050</b><br>40대 31.7% + 50대 34.3% (30대 21%)</div>
+      </div>
+      <div class="col card">
+        <div class="big" style="color:var(--teal-d)">60<span style="font-size:32px">%</span></div>
+        <div class="lbl"><b style="color:var(--ink)">케이뱅크 앱테크 가입자 중 4050</b><br>40대 31.6% · 50대 27.8%</div>
+      </div>
+      <div class="col card">
+        <div class="big" style="color:var(--teal-d)">57.6<span style="font-size:32px">%</span></div>
+        <div class="lbl"><b style="color:var(--ink)">50대 짠테크 호감도</b><br>20대 49.2 → 30대 52.8 → 40대 56.4 → <b>50대 57.6</b></div>
+      </div>
+      <div class="col card teal">
+        <div class="big" style="color:var(--teal-d)">59.1<span style="font-size:32px">%</span></div>
+        <div class="lbl"><b style="color:var(--ink)">50대 인구 중 토스 가입 비율</b><br>Unique CTR 70.2% 이상<br><span style="color:var(--teal-d);font-weight:700">→ 토스애즈가 핵심 채널이 되는 근거</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="row" style="gap:32px;align-items:center">
+        <div style="flex:0 0 270px"><span class="tag t-red">주의</span><div style="font-size:24px;font-weight:800;margin-top:11px;line-height:1.35">4050을 하나로<br>묶지 말 것</div></div>
+        <div style="flex:1">
+          <div class="kv"><span class="k">40대</span><span>인스타그램 이용률 <b>47.5%</b> · 밴드 36.8% → 인스타·유튜브·네이버를 함께 테스트</span></div>
+          <div class="kv"><span class="k">50대</span><span>밴드 <b>40.6%</b>로 주요 플랫폼 → 유튜브·네이버·토스 비중 확대</span></div>
+          <div class="kv"><span class="k">호칭</span><span>광고에 <b>"4050", "시니어", "중장년"을 쓰지 않는다.</b> 50~70대 10명 중 9명이 자신을 평균 9세 젊게 인식한다</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 파이낸셜뉴스(캐시워크 연령), 스트레이트뉴스(케이뱅크), 1코노미뉴스(짠테크 호감도), 토스애즈 오디언스 리포트, 한국언론진흥재단, TBWA 시니어랩</div>
+  <div class="num"></div>
+</section>
+
+<!-- ============ PART 1 : 직접 경쟁 ============ -->
+
+<!-- 핀또 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part">PART 1 · 직접 경쟁</span> 낙첨복권을 이미 다루는 서비스</div>
+  <h2>핀또 <span style="font-size:32px;color:var(--ink3);font-weight:600">핀크 · 하나금융</span></h2>
+  <p class="sub">낙첨 로또를 QR로 등록하면 다음 회차에 한 번 더 기회를 준다. <b>FULIF와 가장 가까운 서비스.</b></p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:470px"><img src="marketing_assets/fintto.jpg" alt="핀또 공식 랜딩페이지"></div>
+          <div class="cap">핀또 공식 랜딩 — "동행복권 사셨어요? 당첨 기회 한 번 더 받으세요!" / "로또 사진만 찍어 올리면 등록 끝"<br><span class="url">finnq.com/service/fintto</span></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card">
+          <span class="tag t-gray">무엇을 하나</span>
+          <ul style="margin-top:12px">
+            <li>N회차 낙첨 로또를 <b>QR/사진으로 등록</b></li>
+            <li>N+1회차 <b>1등 번호와 일치</b>하면 당첨</li>
+            <li>주간 1등 <b>100만원</b>, 당첨자 없으면 <b>이월 누적</b></li>
+            <li>목표: <b>매주 로또 사는 600만 명</b>을 핀크 고객으로</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:18px;border-color:var(--teal)">
+          <span class="tag t-teal">실제로 하고 있는 마케팅</span>
+          <div style="margin-top:14px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>핀크 앱 내부 노출.</b> 신규 앱을 알리지 않고 기존 회원 기반에 심었다</p></div>
+            <div class="mkrow"><span class="step-n">02</span><p><b>금융·핀테크 언론 PR.</b> 서비스 설명 자체가 뉴스가 되게 만들었다</p></div>
+            <div class="mkrow"><span class="step-n">03</span><p><b>친구추천 이벤트.</b> 친구가 <b>첫 로또를 등록</b>하면 양쪽에 핀크머니. <b>추천 횟수 무제한</b> — 로또를 함께 사는 가족·동료 사이에서 퍼지도록 설계</p></div>
+          </div>
+        </div>
+        <div class="card teal" style="margin-top:18px">
+          <span class="tag t-teal">FULIF가 차용할 것</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">
+            ① 초대 보상 조건을 <b>"가입"이 아니라 "친구의 첫 스캔 완료"</b>로 건다<br>
+            ② 카피 구조를 그대로: <b>질문형("사셨어요?") → 즉시 혜택("한 번 더") → 마찰 제거("사진만 찍으면 끝")</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 전자신문 "핀크, 킬러콘텐츠 '핀또' 출사표", 핀크 공식 서비스 페이지</div>
+  <div class="num"></div>
+</section>
+
+<!-- 럭키즈 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part">PART 1 · 직접 경쟁</span> 복권형 리워드</div>
+  <h2>럭키즈 <span style="font-size:32px;color:var(--ink3);font-weight:600">자비스앤빌런즈 · 삼쩜삼에서 분사</span></h2>
+  <p class="sub">기능이 아니라 <b>숫자를 판다.</b> 가입자·누적 상금·당첨자 수를 계속 언론에 내보낸다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:400px"><img src="marketing_assets/luckies.jpg" alt="럭키즈 성과 기사" style="margin-top:-250px"></div>
+          <div class="cap">"럭키즈, 출시 1년 만에 가입자 75만 명·누적 상금 20억 원 돌파" — 성과 자체가 보도자료가 된다<br><span class="url">platum.kr</span></div>
+        </div>
+        <div class="row" style="margin-top:18px;gap:18px">
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">170만</div><div class="lbl">삼쩜삼 앱 내 행운복권<br>이용자로 <b>수요 검증</b> 후 분사</div></div>
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">75만</div><div class="lbl">출시 1년 가입자</div></div>
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">20억</div><div class="lbl">누적 지급 상금<br>당첨자 25만 명</div></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card">
+          <span class="tag t-gray">무엇을 하나</span>
+          <ul style="margin-top:12px">
+            <li>걷기·미션·친구초대 → <b>무료 복권 응모권</b></li>
+            <li>추첨으로 현금·경품 지급</li>
+            <li>차별점은 <b>확률형 보상제</b> — 소액을 균등 적립하는 대신 <b>고액 당첨 가능성</b>을 판다</li>
+            <li>유로밀리언스 3억 회차에서 4명이 7,500만원씩 수령</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:18px;border-color:var(--teal)">
+          <span class="tag t-teal">실제로 하고 있는 마케팅</span>
+          <div style="margin-top:14px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>모회사 앱 안에서 먼저 검증했다.</b> 삼쩜삼 이용자 170만 명 확인 후 별도 법인으로 분사</p></div>
+            <div class="mkrow"><span class="step-n">02</span><p><b>실적을 반복 PR한다.</b> 가입자 수·누적 상금·실제 당첨자를 주기적으로 언론에 배포</p></div>
+            <div class="mkrow"><span class="step-n">03</span><p><b>자사 앱 광고 지면을 외부에 판다.</b> 진입 팝업·상단 배너·이용 과정 배너 — <b>우리에게는 매체 후보</b></p></div>
+          </div>
+        </div>
+        <div class="card teal" style="margin-top:18px">
+          <span class="tag t-teal">FULIF가 차용할 것</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">
+            ① <b>실제 지급 실적을 PR 자산으로.</b> 누적 스캔 장수 · 누적 지급 포인트 · 쿠폰 교환 건수 · 경품 당첨자<br>
+            ② 확정 포인트 위에 <b>확률형 기대감</b>을 얹는다 (랜덤 보너스 · 챔피언십 점수)
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 플래텀·벤처스퀘어·전자신문 (럭키즈 출시 1년 성과), 유니콘팩토리</div>
+  <div class="num"></div>
+</section>
+
+<!-- 캐시로또 + 로재 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part">PART 1 · 직접 경쟁</span> 나머지 두 곳</div>
+  <h2>캐시로또 · 로재</h2>
+  <div class="body">
+    <div class="row" style="gap:26px;align-items:stretch">
+      <div class="col card">
+        <div style="display:flex;align-items:center;gap:14px"><h3 style="font-size:34px">캐시로또</h3><span class="tag t-gray">캐시워크</span></div>
+        <div class="hr" style="margin:18px 0"></div>
+        <span class="tag t-gray">무엇을 하나</span>
+        <ul style="margin-top:12px">
+          <li>출석체크 <b>보물상자</b> → 두 번째부터 캐시로또 응모권 지급</li>
+          <li>별도 응모 페이지에서 번호 확인 후 추첨 참여</li>
+          <li>매주 회차별 진행, <b>최대 3,000만원</b> 현금 당첨 기회</li>
+          <li>하위 등수에도 <b>포인트와 응모권</b> 지급</li>
+        </ul>
+        <div class="hr" style="margin:18px 0"></div>
+        <span class="tag t-teal">마케팅 방식</span>
+        <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">외부 광고를 하지 않는다. <b>이미 가진 자체 트래픽만으로</b> 운영. 걷기 리워드 앱이 <b>로또형 기대감을 흡수</b>하는 흐름</p>
+        <div class="card red" style="margin-top:18px;padding:18px 22px">
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5"><b style="color:var(--red)">경고 신호.</b> 리워드 앱들이 로또형 보상을 자기 앱 안에 넣기 시작했다. 우리의 "기대감" 포지션은 독점이 아니다.</p>
+        </div>
+      </div>
+      <div class="col card">
+        <div style="display:flex;align-items:center;gap:14px"><h3 style="font-size:34px">로재</h3><span class="tag t-gray">메이크굿 · '로또의 재추첨'</span></div>
+        <div class="hr" style="margin:18px 0"></div>
+        <span class="tag t-gray">무엇을 하나</span>
+        <ul style="margin-top:12px">
+          <li>한 번 구매한 로또를 <b>다시 재추첨</b>하는 서비스</li>
+          <li>친구 추천 포인트 · 매일 출석 체크 · 룰렛 이벤트</li>
+          <li>적립 포인트로 리워드 이용</li>
+        </ul>
+        <div class="hr" style="margin:18px 0"></div>
+        <span class="tag t-teal">마케팅 방식</span>
+        <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">앱스토어·커뮤니티 중심. <b>확인되는 대형 광고 집행 없음.</b> 기능은 겹치지만 마케팅 레퍼런스로서의 가치는 낮다</p>
+        <div class="card fill" style="margin-top:18px;padding:18px 22px">
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5">→ 우리가 배울 것보다 <b>모니터링 대상</b>에 가깝다. 스토어 순위·리뷰만 주기적으로 확인</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 네이트뉴스·다음뉴스 (캐시워크 캐시로또 도입), Google Play 로재 앱 소개</div>
+  <div class="num"></div>
+</section>
+
+<!-- 정리 1 -->
+<section class="slide dark">
+  <div class="eyebrow" style="color:var(--amber)"><span class="part" style="background:var(--amber)">정리 ①</span> PART 1 종합</div>
+  <h2 style="color:#fff">그들은 <span style="color:#6B7887">운을 한 번 더</span> 주고,<br>우리는 <span style="color:var(--teal)">결과를 확정해서</span> 준다.</h2>
+  <div class="body">
+    <table>
+      <thead><tr><th style="width:250px">항목</th><th>핀또 · 로재 · 캐시로또</th><th>FULIF</th></tr></thead>
+      <tbody>
+        <tr><td><b>보상 방식</b></td><td>낙첨 → 재추첨 <span style="color:#6B7887">(확률)</span></td><td><b style="color:var(--teal)">낙첨 → 포인트 확정 지급</b></td></tr>
+        <tr><td><b>대부분의 유저는</b></td><td>등록해도 <b style="color:var(--red)">또 아무것도 못 받음</b></td><td><b style="color:var(--teal)">무조건 받음</b> + 근접 점수는 반드시 남음</td></tr>
+        <tr><td><b>기간</b></td><td>매주 리셋</td><td><b style="color:var(--teal)">1년 시즌 누적</b> — 기록이 쌓임</td></tr>
+        <tr><td><b>시상</b></td><td>1등만</td><td>근접 점수 · 구간별 리그 — <b style="color:var(--teal)">1등 아니어도 상</b></td></tr>
+        <tr><td><b>상금 형태</b></td><td>현금 <span style="color:#6B7887">(사행성 노출)</span></td><td>트로피·물품·포인트 <b style="color:var(--teal)">현금 미지급</b> → 광고 심사·신뢰에 유리</td></tr>
+      </tbody>
+    </table>
+    <div class="row" style="margin-top:26px;gap:22px">
+      <div class="col card" style="background:#131A22;border-color:var(--teal-d)">
+        <span class="tag t-teal">우리의 한 문장</span>
+        <p class="quote" style="color:#fff;font-size:30px;margin-top:14px">핀또는 운을 한 번 더 주고,<br>FULIF는 결과를 확정해서 준다.<br>그리고 그게 1년 동안 쌓인다.</p>
+      </div>
+      <div class="col card" style="background:#131A22;border-color:var(--red)">
+        <span class="tag t-red">쓰면 안 되는 카피</span>
+        <p style="font-size:23px;color:#D8E0E9;line-height:1.55;margin-top:14px"><b style="color:#fff">"국내 최초"는 쓸 수 없다.</b> 표시광고법 문제이자 핀또 이용자에게 즉시 반박당한다.<br><span style="color:#7A8797">→ 대신 "확정 지급"과 "1년 누적"으로 싸운다</span></p>
+      </div>
+      <div class="col card" style="background:#131A22;border-color:#1F2833">
+        <span class="tag t-amber">핀또의 약점 = 우리 기회</span>
+        <p style="font-size:23px;color:#D8E0E9;line-height:1.55;margin-top:14px">1등 번호와 <b style="color:#fff">완전 일치라야 당첨</b> → 등록해도 대부분 또 실망한다.<br><b style="color:var(--teal)">두 번째 실망이 쌓이는 구조.</b></p>
+      </div>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- ============ PART 2 : 동일 타겟 ============ -->
+
+<!-- 케이뱅크 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 2 · 동일 타겟</span> 금융권이 먼저 들어왔다</div>
+  <h2>케이뱅크 '용돈받기' <span style="font-size:32px;color:var(--ink3);font-weight:600">인터넷은행</span></h2>
+  <p class="sub">은행 앱 안에 리워드를 심어 <b>출시 2달 만에 가입자 100만</b>을 모았다. 그리고 <b>가입자의 60%가 4050</b>이었다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:440px"><img src="marketing_assets/kbank.jpg" alt="케이뱅크 4050 앱테크족 기사" style="margin-top:-180px"></div>
+          <div class="cap">"케이뱅크, '4050 앱테크족' 잡았다" — 용돈받기 오픈 2달 만에 가입자 100만 돌파<br><span class="url">straightnews.co.kr</span></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card" style="border-color:var(--teal)">
+          <span class="tag t-teal">금융권 전체가 같은 패턴으로 들어왔다</span>
+          <table class="tight" style="margin-top:14px;font-size:20px">
+            <tbody>
+              <tr><td style="width:150px"><b>케이뱅크</b></td><td>용돈받기 — 2달 만에 <b>100만</b>, 가입자 <b>60%가 4050</b></td></tr>
+              <tr><td><b>삼쩜삼</b></td><td>앱 내 행운복권 <b>170만</b> 검증 → 럭키즈 분사</td></tr>
+              <tr><td><b>핀크</b></td><td>핀크 앱에 핀또 탑재 → 로또 구매자 <b>600만</b> 겨냥</td></tr>
+              <tr><td><b>토스</b></td><td>만보기로 부족했던 <b>30~50대</b> 유입</td></tr>
+              <tr><td><b>우리은행</b></td><td>데일리워킹적금 — 40대 30.4%, 50대+ 30%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row" style="margin-top:18px;gap:18px">
+          <div class="col card red">
+            <span class="tag t-red">이게 우리에게 뜻하는 것</span>
+            <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">그들은 전부 <b>이미 유저가 모인 앱 안에서</b> 시작했다.<br><b style="color:var(--red)">FULIF는 그 안이 아니라 밖에서 출발한다.</b></p>
+          </div>
+          <div class="col card teal">
+            <span class="tag t-teal">그래서 우리의 답</span>
+            <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">그 <b>유저가 모여 있는 플랫폼에 광고를 태운다.</b><br>캐시워크·토스·밴드가 곧 우리의 진입로다.</p>
+          </div>
+        </div>
+        <div class="card fill" style="margin-top:18px">
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5"><b>부수 효과:</b> 금융권이 이 시장에 대거 들어왔다는 건 <b>4050 리워드 수요가 검증됐다는 뜻</b>이다. 투자·제휴 설명 자료에 그대로 쓸 수 있다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 스트레이트뉴스(케이뱅크 용돈받기), 플래텀(럭키즈 분사), 전자신문(핀또), toss.tech(만보기), 파이낸셜뉴스(앱테크 연령 구성)</div>
+  <div class="num"></div>
+</section>
+
+<!-- 토스 만보기 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 2 · 동일 타겟</span> 리워드로 연령대를 넓힌 사례</div>
+  <h2>토스 만보기 <span style="font-size:32px;color:var(--ink3);font-weight:600">토스</span></h2>
+  <p class="sub">부족했던 <b>30~50대</b>를 데려오기 위해 만든 기능. 외부 광고가 아니라 <b>제품 안의 바이럴</b>로 키웠다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:440px"><img src="marketing_assets/toss-manbogi.jpg" alt="토스 만보기 사일로 아티클"></div>
+          <div class="cap">토스가 직접 공개한 만보기 사일로 회고 — "토스 참 쪼잔하다"는 유저 피드백에 1억을 태운 이유<br><span class="url">toss.tech/article/undercover-silo-3</span></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card">
+          <span class="tag t-gray">무엇을 했나</span>
+          <ul style="margin-top:12px">
+            <li>토스에 <b>부족했던 30~50대 유입</b>을 목표로 시작</li>
+            <li>해당 연령층이 만보기 앱을 많이 쓴다는 데이터에서 출발</li>
+            <li>초기 성장은 <b>친구추가 바이럴</b></li>
+            <li>만보기가 <b>행운복권·포인트 받기 등 혜택 탭 전체의 입구</b> 역할</li>
+          </ul>
+        </div>
+        <div class="card" style="margin-top:18px;border-color:var(--teal)">
+          <span class="tag t-teal">실제로 하고 있는 마케팅</span>
+          <div style="margin-top:14px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>외부 매체를 쓰지 않았다.</b> 토스 앱 홈·혜택 탭·푸시·연락처 기반 초대가 채널이었다</p></div>
+            <div class="mkrow"><span class="step-n">02</span><p><b>보상 인색함에 즉각 반응.</b> "쪼잔하다"는 유저 말에 보상을 크게 올려 반전을 만들었다</p></div>
+            <div class="mkrow"><span class="step-n">03</span><p><b>기능이 다른 기능의 입구가 되게</b> 동선을 설계했다</p></div>
+          </div>
+        </div>
+        <div class="card teal" style="margin-top:18px">
+          <span class="tag t-teal">FULIF가 차용할 것</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">
+            ① 초대 공유 경로는 <b>불특정 SNS가 아니라 연락처·메신저.</b> 실제로 로또를 사는 가족·지인에게 보내게 한다<br>
+            ② <b>보상이 인색하면 4050은 바로 이탈한다.</b> 첫 스캔 보상은 아깝게 잡지 않는다<br>
+            ③ 스캔 완료 화면 → <b>챔피언십 · 포인트샵으로 넘기는 동선</b>을 명시적으로 만든다
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · toss.tech 언더커버 사일로 2화(만보기 사일로)</div>
+  <div class="num"></div>
+</section>
+
+<!-- 포스티 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 2 · 동일 타겟</span> 4050 앱 최대 성공 사례</div>
+  <h2>포스티 <span style="font-size:32px;color:var(--ink3);font-weight:600">카카오스타일</span></h2>
+  <p class="sub"><b>"4050은 홈쇼핑에 익숙하다"</b>는 전제로 라이브 방송을 늘리고, 그 하이라이트를 숏폼으로 자른다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:300px"><img src="marketing_assets/posty.jpg" alt="포스티 성장 기사" style="margin-top:-370px"></div>
+          <div class="cap">"포스티, 2025년 누적 회원 수 40% 증가 및 거래액 20% 성장"<br><span class="url">betanews.net</span></div>
+        </div>
+        <div class="card" style="margin-top:18px">
+          <span class="tag t-gray">성장 기록</span>
+          <div style="margin-top:12px">
+            <div class="kv"><span class="k" style="flex:0 0 92px">출시</span><span>2021년 8월 · 론칭 4년 만에 거래액 <b>20배 이상</b></span></div>
+            <div class="kv"><span class="k" style="flex:0 0 92px">2024년</span><span>연간 거래액 첫 <b>1,000억 돌파</b> · 회원 100만</span></div>
+            <div class="kv"><span class="k" style="flex:0 0 92px">2025년</span><span>회원 <b>220만</b>(+40%) · 다운로드 <b>1,000만</b></span></div>
+            <div class="kv"><span class="k" style="flex:0 0 92px">확장</span><span>남성 10%초반→<b>18%</b> · 60대 +36% · 70대+ +60%</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card" style="border-color:var(--teal)">
+          <span class="tag t-teal">실제로 하고 있는 마케팅</span>
+          <div style="margin-top:14px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>라이브 방송을 늘렸다.</b> "4050세대는 홈쇼핑에 익숙한 만큼 라방을 강화" — 월 10회 → <b>16회</b></p></div>
+            <div class="mkrow"><span class="step-n">02</span><p><b>라방 하이라이트를 숏폼으로 편집.</b> 방송을 놓친 사람도 진행자의 설명을 그대로 듣게 한다</p></div>
+            <div class="mkrow"><span class="step-n">03</span><p><b>상품 상세에 '영상으로 보는 상품 정보' 영역 신설.</b> 사진으로는 알기 어려운 <b>원단 재질·핏·마감</b>을 영상으로 확인시킨다</p></div>
+          </div>
+        </div>
+        <div class="card red" style="margin-top:18px">
+          <span class="tag t-red">여기서 뒤집어야 할 우리 가정</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.55;margin-top:12px">
+            <span style="color:var(--red)">✕</span> 2030용 <b>15초 빠른 컷 편집</b>만 만들어 돌린다<br>
+            <span style="color:var(--teal-d)">✓</span> <b>길게 설명하는 원본 영상</b>을 먼저 만들고, 거기서 숏폼을 잘라낸다
+          </p>
+        </div>
+        <div class="card teal" style="margin-top:18px">
+          <span class="tag t-teal">FULIF가 차용할 것</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.5;margin-top:12px">
+            ① <b>크리에이터 협찬 영상이 곧 그 원본.</b> 구매→확인→스캔→적립→교환을 길게 찍고 15초·숏폼을 잘라낸다<br>
+            ② 스토어·랜딩에 <b>'영상으로 보는 사용법'</b> 영역 배치<br>
+            ③ 이 세대의 진짜 질문은 <b>"스캔이 진짜 되나 · 포인트가 진짜 들어오나"</b> — 긴 실연 영상이 그 의심을 푼다
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 베타뉴스·데일리안(2025 실적), 뉴스1·ZDNet(라방·숏폼 전략), 일간스포츠(거래액 20배), 네이트뉴스(회원 100만)</div>
+  <div class="num"></div>
+</section>
+
+<!-- 애슬러 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 2 · 동일 타겟</span> 4050 남성 최근 급성장</div>
+  <h2>애슬러 <span style="font-size:32px;color:var(--ink3);font-weight:600">바인드 · 2022년 말 출시</span></h2>
+  <p class="sub">로또 구매층과 가장 겹치는 <b>중년 남성</b>을 정면으로 공략해 <b>연간 거래액 60배</b>를 만들었다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:330px"><img src="marketing_assets/athler.jpg" alt="애슬러 투자 유치 기사" style="margin-top:-250px"></div>
+          <div class="cap">"3040 남성 패션 플랫폼 '애슬러', 40억 원 투자 유치" — 카카오벤처스 등 참여<br><span class="url">platum.kr</span></div>
+        </div>
+        <div class="row" style="margin-top:18px;gap:18px">
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">60배</div><div class="lbl">연간 거래액 성장</div></div>
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">97%</div><div class="lbl">남성 유저 비중<br>평균 구매연령 41.9세</div></div>
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">40억</div><div class="lbl">시리즈A 투자</div></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card" style="border-color:var(--teal)">
+          <span class="tag t-teal">실제로 하고 있는 마케팅</span>
+          <div style="margin-top:14px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>추상적 메시지를 쓰지 않는다.</b> "중년 남성도 패션에 관심 많다" 같은 말 대신 구체적 행동을 공략</p></div>
+            <div class="mkrow"><span class="step-n">02</span><p>공략한 행동: <b>고르는 데 시간 쓰기 싫다 · 실패하기 싫다 · 나에게 맞는 것만 보고 싶다 · 마음에 들면 반복 구매한다</b></p></div>
+            <div class="mkrow"><span class="step-n">03</span><p>슬로건도 정체성 중심: <b>"제2의 삶을 살아가는 4050 액티브 시니어 남성 버티컬 커머스"</b></p></div>
+          </div>
+        </div>
+        <div class="card teal" style="margin-top:18px">
+          <span class="tag t-teal">FULIF가 차용할 것 — 메시지 톤</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.55;margin-top:12px">
+            <span style="color:var(--red)">✕</span> "게임처럼 재미있는 로또 앱"<br>
+            <span style="color:var(--teal-d)">✓</span> <b>"결과 확인하고 낙첨까지 한 번에 정리하세요"</b><br>
+            <span style="color:var(--teal-d)">✓</span> <b>"매주 버리던 복권, 이제 스캔하고 혜택 받으세요"</b>
+          </p>
+          <p class="note" style="margin-top:12px">4050 남성에게는 <b style="color:var(--ink)">재미보다 손해 방지 · 편리함 · 누적</b>이 먼저다. 챔피언십도 "재미"가 아니라 <b style="color:var(--ink)">기록·명예·꾸준함</b>의 언어로 설명한다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 플래텀·이데일리·머니투데이·ZDNet(시리즈A 40억, 거래액 60배), 아시아경제·카카오벤처스 블로그</div>
+  <div class="num"></div>
+</section>
+
+<!-- 퀸잇 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 2 · 동일 타겟</span> 지금은 자체 콘텐츠 채널로 갔다</div>
+  <h2>퀸잇 <span style="font-size:32px;color:var(--ink3);font-weight:600">라포랩스</span></h2>
+  <p class="sub">2021년 밴드·카카오스토리 사례는 <b>더 이상 유효하지 않다.</b> 현재는 <b>유튜브 자체 채널</b>을 운영한다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:380px"><img src="marketing_assets/queenit-magazineq.jpg" alt="퀸잇 매거진Q TV 오리지널 콘텐츠 기사" style="margin-top:-300px"></div>
+          <div class="cap">퀸잇 유튜브 채널 '매거진Q TV' 오리지널 콘텐츠 '취향진담' — 이현이·봉태규 고정 호스트<br><span class="url">etnews.com</span></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card" style="padding:20px 26px">
+          <span class="tag t-gray">규모</span>
+          <div style="margin-top:10px">
+            <div class="kv"><span class="k" style="flex:0 0 92px">매출</span><span>2024년 <b>711억</b> (전년비 약 +49%)</span></div>
+            <div class="kv"><span class="k" style="flex:0 0 92px">이용자</span><span>95%가 <b>40~60대 여성</b> · 누적 거래액 1조 5,000억</span></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px;border-color:var(--teal);padding:22px 26px">
+          <span class="tag t-teal">현재 하고 있는 마케팅</span>
+          <div style="margin-top:12px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>유튜브 오리지널 콘텐츠.</b> 채널 '매거진Q TV'에서 4050 라이프스타일 토크 '취향진담' 발행</p></div>
+            <div class="mkrow"><span class="step-n">02</span><p><b>연령을 말하지 않는다.</b> "시니어를 위한"이 아니라 <b>취향·기준</b>의 언어로 접근</p></div>
+            <div class="mkrow"><span class="step-n">03</span><p><b>연령·성별로 광고를 쪼개고</b> 소재를 다르게 만든다 (글씨 크게, 전개 느리게)</p></div>
+          </div>
+        </div>
+        <div class="card red" style="margin-top:16px;padding:22px 26px">
+          <span class="tag t-red">여기서 가져오지 않을 것</span>
+          <p style="font-size:21px;color:var(--ink2);line-height:1.45;margin-top:10px"><b>2021년 밴드·카카오스토리 초기 사례.</b> 카카오스토리는 지금 유효한 채널이 아니고, 퀸잇도 이후 일반 퍼포먼스 채널로 확장했다.</p>
+        </div>
+        <div class="card teal" style="margin-top:16px;padding:22px 26px">
+          <span class="tag t-teal">FULIF가 차용할 것</span>
+          <p style="font-size:21px;color:var(--ink2);line-height:1.45;margin-top:10px">① <b>40대·50대 광고그룹 분리</b>는 그대로 차용<br>② 소재는 <b>글씨 크게, 전개 느리게</b><br>③ 자체 채널은 세팅해두고 <b>협찬 영상 재활용으로 저비용 운영</b>, 오리지널 제작은 3개월 후 검토</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 전자신문·패션비즈·스타트업데일리(매거진Q TV '취향진담'), 라포랩스 실적 보도</div>
+  <div class="num"></div>
+</section>
+
+<!-- 시놀 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 2 · 동일 타겟</span> 비커머스 · 커뮤니티형</div>
+  <h2>시놀 <span style="font-size:32px;color:var(--ink3);font-weight:600">50+ 전용 소셜 플랫폼</span></h2>
+  <p class="sub">광고가 아니라 <b>실제 참여자에게 생긴 결과</b>가 입소문을 만들었다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:330px"><img src="marketing_assets/sinor.jpg" alt="시놀 대표 인터뷰 기사" style="margin-top:-160px"></div>
+          <div class="cap">"'50대 이상만 입장!' 데이트부터 결혼까지 어른들의 진짜 놀이터" — 시놀 대표 인터뷰<br><span class="url">unicornfactory.co.kr</span></div>
+        </div>
+        <div class="row" style="margin-top:18px;gap:18px">
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">10만</div><div class="lbl">회원 (설립 2년)</div></div>
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">3만</div><div class="lbl">MAU · 모임 1,350개</div></div>
+          <div class="col card fill"><div class="big" style="font-size:42px;color:var(--teal-d)">90%</div><div class="lbl">50~60대 비중<br>남성 70%</div></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card" style="border-color:var(--teal)">
+          <span class="tag t-teal">실제로 하고 있는 마케팅</span>
+          <div style="margin-top:14px">
+            <div class="mkrow"><span class="step-n">01</span><p><b>설치 광고에 의존하지 않았다.</b> 실제 모임에서 <b>관계가 만들어진 사례</b>가 알려지며 회원이 늘었다</p></div>
+            <div class="mkrow"><span class="step-n">02</span><p><b>대표 인터뷰·언론 PR</b>로 서비스의 존재 이유를 계속 설명한다</p></div>
+            <div class="mkrow"><span class="step-n">03</span><p><b>AI로 접근성을 낮췄다.</b> 스마트폰에 익숙하지 않은 이용자를 배려한 UX를 마케팅 포인트로 쓴다</p></div>
+          </div>
+        </div>
+        <div class="card teal" style="margin-top:18px">
+          <span class="tag t-teal">FULIF가 차용할 것</span>
+          <p style="font-size:22px;color:var(--ink2);line-height:1.55;margin-top:12px">
+            ① <b>"실제로 받은 사람"이 최고의 광고 소재.</b> 경품 당첨자 · 쿠폰 교환자 · 챔피언십 우승자를 계속 콘텐츠로 만든다<br>
+            ② 온라인에서도 <b>결과를 보여주는 콘텐츠</b>가 배너보다 강하다<br>
+            ③ 스마트폰에 덜 익숙한 이용자를 위한 <b>쉬운 사용법 콘텐츠</b> 자체가 마케팅 자산
+          </p>
+        </div>
+        <div class="card fill" style="margin-top:18px">
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5"><b>단, 시놀의 오프라인 모임 방식은 이번 계획에서 차용하지 않는다.</b> 이번 라운드는 온라인 집행 한정.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 유니콘팩토리(대표 인터뷰·회원 10만), ZDNet·한국경제(이용자 구성), 시놀 회사소개</div>
+  <div class="num"></div>
+</section>
+
+<!-- 정리 2 : 차용 매핑 -->
+<section class="slide dark">
+  <div class="eyebrow" style="color:var(--amber)"><span class="part" style="background:var(--amber)">정리 ②</span> PART 1·2 종합 — 무엇을 어떻게 가져올 것인가</div>
+  <h2 style="color:#fff">차용 설계</h2>
+  <div class="body">
+    <table class="tighter" style="font-size:19px">
+      <thead><tr><th style="width:185px">레퍼런스</th><th style="width:460px">그들이 하는 것</th><th>FULIF는 이렇게 한다</th></tr></thead>
+      <tbody>
+        <tr><td><b style="font-size:24px">핀또</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">친구초대</span></td>
+          <td>친구가 <b>첫 로또를 등록</b>해야 양쪽 보상. 추천 횟수 무제한</td>
+          <td>초대 보상 조건 = <b>"친구의 첫 스캔 완료"</b>. 공유 경로는 카카오톡 → 문자 → 연락처</td></tr>
+        <tr><td><b style="font-size:24px">럭키즈</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">실적 PR</span></td>
+          <td>가입자·누적 상금·당첨자 수를 반복 노출. 확률형 고액 보상</td>
+          <td>2주차부터 <b>누적 스캔 장수·지급 포인트·교환 건수·당첨자</b>를 콘텐츠화. 확정 포인트 위에 <b>랜덤 보너스</b></td></tr>
+        <tr><td><b style="font-size:24px">캐시워크</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">단일 메시지·매체</span></td>
+          <td>"걸으면 돈이 되는 앱" — 한 문장이 곧 서비스 설명. 자체 광고 상품 운영</td>
+          <td>광고에 기능을 나열하지 않는다. <b>한 문장으로 통일.</b> 동시에 캐시워크를 <b>매체로 산다</b></td></tr>
+        <tr><td><b style="font-size:24px">케이뱅크</b><br><span class="tag t-amber" style="margin-top:6px;font-size:13px">시장 검증</span></td>
+          <td>은행 앱 안에 리워드 → 2달 만에 100만, 60%가 4050</td>
+          <td>우리는 앱 밖에서 출발한다 → <b>그 유저가 모인 플랫폼에 광고를 태운다.</b> 리워드 매체 1순위의 근거</td></tr>
+        <tr><td><b style="font-size:24px">토스</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">바이럴·보상</span></td>
+          <td>연락처 기반 초대로 성장. 보상 인색 피드백에 즉각 크게 반응</td>
+          <td>초대는 <b>메신저·연락처 우선.</b> 첫 스캔 보상을 아깝게 잡지 않는다. 스캔 완료 화면 → 챔피언십 동선</td></tr>
+        <tr><td><b style="font-size:24px">포스티</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">영상 구조</span></td>
+          <td>"4050은 홈쇼핑에 익숙" → 라방 월 10→16회, 하이라이트를 숏폼으로, 상세에 '영상으로 보는 상품 정보'</td>
+          <td><b>긴 실연 영상을 원본으로 먼저</b> 만들고 15초·쇼츠·릴스로 분할. 스토어·랜딩에 <b>'영상으로 보는 사용법'</b></td></tr>
+        <tr><td><b style="font-size:24px">애슬러</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">메시지 톤</span></td>
+          <td>추상론 대신 <b>고르기 귀찮다·실패하기 싫다</b>는 구체적 행동을 공략</td>
+          <td>"재미있는 로또 앱"이 아니라 <b>"결과 확인하고 낙첨까지 한 번에 정리"</b>. 챔피언십은 기록·명예의 언어로</td></tr>
+        <tr><td><b style="font-size:24px">퀸잇</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">타겟 분리</span></td>
+          <td>유튜브 자체 채널 '매거진Q TV' 운영. 연령·성별로 광고와 소재를 분리</td>
+          <td><b>40대·50대 광고그룹 분리.</b> 소재는 글씨 크게·전개 느리게. 자체 채널은 3개월 후 검토</td></tr>
+        <tr><td><b style="font-size:24px">시놀</b><br><span class="tag t-teal" style="margin-top:6px;font-size:13px">증거 콘텐츠</span></td>
+          <td>광고보다 <b>실제 참여자의 결과</b>가 입소문을 만들었다</td>
+          <td><b>실제로 받은 사람</b>을 계속 보여준다. 당첨자·교환자·챔피언 인터뷰를 광고 소재로 전환</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- ============ PART 3 : 매체 ============ -->
+
+<!-- 승인 리스크 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part" style="background:var(--amber)">PART 3 · 매체</span> 집행 전 최대 변수</div>
+  <h2>광고 승인이 채널 순서를 결정한다.</h2>
+  <div class="body">
+    <div class="row" style="gap:32px">
+      <div style="flex:1.15">
+        <table>
+          <thead><tr><th style="width:240px">매체</th><th>확인된 정책</th><th style="width:150px">판정</th></tr></thead>
+          <tbody>
+            <tr><td><b>네이버 검색광고</b></td><td>복권·카지노·경마 등 사행산업은 <b>정부기관 위탁 또는 허가를 받은 사이트만</b> 광고 가능</td><td><span class="tag t-red">위험 높음</span></td></tr>
+            <tr><td><b>Google Ads / 유튜브</b></td><td>온라인 도박·복권은 <b>국가별 인증 요건 충족 시에만</b> 허용. 금지 예시에 "온라인 복권 구매" 명시</td><td><span class="tag t-amber">분류 싸움</span></td></tr>
+            <tr><td><b>Meta (인스타·페북)</b></td><td>온라인 도박·게임 광고에 <b>사전 승인 절차</b> 운영</td><td><span class="tag t-amber">사전 신청</span></td></tr>
+            <tr><td><b>카카오톡 채널</b></td><td>복권 등 <b>사행산업 관련 정보 제공 채널 제한</b></td><td><span class="tag t-red">채널 부적합</span></td></tr>
+            <tr><td><b>캐시워크 돈버는퀴즈</b></td><td>제한 업종은 성인상품·다단계·대부업·<b>"불법" 도박</b> 관련 서비스</td><td><span class="tag t-amber">문의 여지</span></td></tr>
+            <tr><td><b>버즈빌 오퍼월·CPE</b></td><td>포인트·금융·생활 앱 <b>500여 개</b> 네트워크. 명시적 복권 제한 미확인</td><td><span class="tag t-teal">가장 유망</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="flex:.85">
+        <div class="card teal">
+          <span class="tag t-teal">심사 대응 문단 · 그대로 제출</span>
+          <p style="font-size:22px;line-height:1.6;color:var(--ink2);margin-top:14px">
+            FULIF는 복권을 <b>발행·판매·중개하지 않습니다.</b> 이미 구매가 끝난 실물 복권의 결과를 확인하고, 사용이 끝난 낙첨 용지를 등록하면 포인트를 지급하는 <b style="color:var(--teal-d)">리워드 앱</b>입니다. 당첨을 보장하지 않으며, 현금을 지급하지 않고, 복권 구매를 유도하지 않습니다.
+          </p>
+        </div>
+        <div class="card amber" style="margin-top:18px">
+          <span class="tag t-amber">카피 원칙</span>
+          <p style="font-size:21px;line-height:1.65;color:var(--ink2);margin-top:14px">
+            <span style="color:var(--red)">✕</span> "로또 당첨 확인 앱" → 복권 서비스로 분류될 여지<br>
+            <span style="color:var(--teal-d)">✓</span> "낙첨 용지 스캔하고 <b>포인트</b> 받는 앱"<br><br>
+            <b>"복권"보다 "포인트"를 앞세운다.</b> 심사 통과율과 직결된다.<br><br>
+            <b>금지어</b> <span style="color:var(--ink3)">당첨 보장 · 상금 · 적중률 · 돈 버는 앱 · 월 ○○만원 · 100% · 무조건</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 더피알(포털 사행산업 광고 기준), Google Ads 도박·게임 정책, Meta 온라인 도박·게임 광고 정책, 카카오톡 채널 운영정책, 캐시워크·버즈빌 광고 안내</div>
+  <div class="num"></div>
+</section>
+
+<!-- 버즈빌 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part" style="background:var(--amber)">PART 3 · 매체</span> 1순위 · 심사 리스크 가장 낮음</div>
+  <h2>버즈빌 <span style="font-size:32px;color:var(--ink3);font-weight:600">리워드 광고 네트워크</span></h2>
+  <p class="sub">포인트·금융·생활 앱 <b>500여 개</b>에 동시 송출. 우리 타겟이 <b>이미 포인트 받으려고 모여 있는 곳</b>이다.</p>
+  <div class="body">
+    <div class="row" style="gap:36px;align-items:stretch">
+      <div style="flex:1.02">
+        <div class="shotbox">
+          <div class="crop" style="height:400px"><img src="marketing_assets/buzzvil.jpg" alt="버즈빌 앱 유입형 광고 소개 페이지"></div>
+          <div class="cap">버즈빌 앱 유입형 광고 — "앱 설치에서 실행까지"<br><span class="url">buzzvil.com/advertise/app_install</span></div>
+        </div>
+        <div class="card fill" style="margin-top:18px">
+          <span class="tag t-gray">광고 상품 구조</span>
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5;margin-top:12px">노출형 <b>CPM/CPC</b> · 퀴즈형 <b>CPQ</b> · 앱 유입형 <b>CPI/CPE</b> · 액션형 <b>CPA</b><br>지면: 인앱 네이티브 · 홈화면 · 잠금화면 · 오퍼월 · 애드네트워크</p>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="card" style="border-color:var(--teal)">
+          <span class="tag t-teal">우리는 이렇게 집행한다</span>
+          <p style="font-size:22px;color:var(--ink2);margin:14px 0 18px;line-height:1.5">단순 CPI로 걸면 <b>보상만 받고 삭제</b>한다. 반드시 <b>CPE / 멀티미션</b>으로 건다.</p>
+          <div class="flow" style="flex-direction:column;align-items:stretch;gap:9px">
+            <div class="step" style="background:var(--bg2)">① 설치</div>
+            <div class="step" style="background:var(--bg2)">② 회원가입</div>
+            <div class="step" style="background:var(--teal);color:#fff;border-color:var(--teal)">③ 첫 낙첨복권 스캔</div>
+            <div class="step" style="background:var(--teal-s);color:var(--teal-d)">④ 포인트 적립 확인</div>
+          </div>
+          <p class="note" style="margin-top:14px">↑ 여기까지 완료해야 매체에 보상 지급. <b style="color:var(--ink)">이 설계 하나가 유저 품질을 결정한다.</b></p>
+        </div>
+        <div class="row" style="margin-top:18px;gap:18px">
+          <div class="col card">
+            <span class="tag t-gray">광고 문구</span>
+            <p style="font-size:21px;color:var(--ink2);line-height:1.5;margin-top:12px">"낙첨복권 스캔하고<br><b>첫 포인트 받기</b>"</p>
+          </div>
+          <div class="col card red">
+            <span class="tag t-red">주의</span>
+            <p style="font-size:20px;color:var(--ink2);line-height:1.5;margin-top:12px">리워드 유저는 잔존율이 낮다. <b>D7 재방문·2회차 스캔율</b>을 반드시 함께 측정</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 버즈빌 광고주 페이지 및 매체소개서</div>
+  <div class="num"></div>
+</section>
+
+<!-- 캐시워크 매체 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part" style="background:var(--amber)">PART 3 · 매체</span> 1순위 · 경쟁자가 아니라 매체</div>
+  <h2>캐시워크 <span style="font-size:32px;color:var(--ink3);font-weight:600">리워드 광고 플랫폼</span></h2>
+  <p class="sub">이용자의 <b>66%가 4050</b>. 우리가 사야 할 유저가 가장 밀집한 곳이다.</p>
+  <div class="body">
+    <div class="row" style="gap:26px;align-items:stretch">
+      <div style="flex:1">
+        <div class="shotbox">
+          <div class="crop" style="height:290px"><img src="marketing_assets/cashwalk-business.jpg" alt="캐시워크 광고 플랫폼 소개"></div>
+          <div class="cap">캐시워크 for Business — "보는 광고를 넘어, 참여하는 광고로"<br><span class="url">cashwalk.com/business</span></div>
+        </div>
+        <div class="row" style="margin-top:16px;gap:14px">
+          <div class="col card fill" style="padding:20px 22px"><div class="big" style="font-size:38px;color:var(--teal-d)">470만+</div><div class="lbl">일일 활성 사용자</div></div>
+          <div class="col card fill" style="padding:20px 22px"><div class="big" style="font-size:38px;color:var(--teal-d)">88억+</div><div class="lbl">월 실행 건수</div></div>
+          <div class="col card fill" style="padding:20px 22px"><div class="big" style="font-size:38px;color:var(--teal-d)">96%</div><div class="lbl">충성 유저율</div></div>
+        </div>
+      </div>
+      <div style="flex:1">
+        <div class="shotbox">
+          <div class="crop" style="height:290px"><img src="marketing_assets/cashwalk-quiz.jpg" alt="캐시워크 돈버는퀴즈 광고 상품"></div>
+          <div class="cap">돈버는퀴즈 — "최대 70만 유저가 브랜드 페이지를 직접 탐색하는" 참여형 광고<br><span class="url">cashwalk.com/business/ads/quiz</span></div>
+        </div>
+        <div class="card" style="margin-top:16px;border-color:var(--teal)">
+          <span class="tag t-teal">돈버는퀴즈 구조 — 우리에게 왜 좋은가</span>
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5;margin-top:12px"><b>정답 확인을 위해 광고주 페이지 방문이 필수인 구조.</b><br>잠금화면 퀴즈상자 → 앱 접속 → 퀴즈 리스트 → <b>광고주 페이지 랜딩</b> → 정답 입력 → 재랜딩</p>
+          <div class="card teal" style="margin-top:14px;padding:16px 20px">
+            <p style="font-size:21px;color:var(--teal-d);font-weight:700;line-height:1.45">퀴즈 자체를 소재로 쓴다<br>"낙첨복권으로 받을 수 있는 것은?"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card amber" style="margin-top:20px">
+      <p style="font-size:22px;color:var(--ink2);line-height:1.5"><b>집행 전 확인 필요.</b> 제한 업종은 성인상품·다단계·대부업·<b>"불법" 도박</b> 관련 서비스다. FULIF는 합법이며 복권을 판매하지 않으므로 <b>문의 여지가 있다.</b> 심사 대응 문단을 첨부해 사전 문의한다.</p>
+    </div>
+  </div>
+  <div class="src">출처 · 캐시워크 for Business, 돈버는퀴즈 광고 상품 소개, 파이낸셜뉴스(이용자 연령 구성)</div>
+  <div class="num"></div>
+</section>
+
+<!-- 토스애즈 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part" style="background:var(--amber)">PART 3 · 매체</span> 2순위 · 도달 최강</div>
+  <h2>토스애즈 숏폼 <span style="font-size:32px;color:var(--ink3);font-weight:600">팔도감 케이스를 로또 주기에 이식</span></h2>
+  <div class="body">
+    <div class="row" style="gap:26px;margin-bottom:22px">
+      <div class="col card teal">
+        <span class="tag t-teal">왜 여기인가</span>
+        <div style="display:flex;gap:28px;margin-top:18px">
+          <div><div class="big" style="font-size:50px;color:var(--teal-d)">59.1%</div><div class="lbl">50대 인구 중 토스 가입</div></div>
+          <div><div class="big" style="font-size:50px;color:var(--teal-d)">70.2%</div><div class="lbl">Unique CTR 이상</div></div>
+        </div>
+        <p style="font-size:21px;color:var(--ink2);line-height:1.5;margin-top:16px">4050에 도달하는 <b>가장 밀도 높은 지면.</b> 밴드보다 우선 테스트할 근거가 명확하다.</p>
+      </div>
+      <div class="col card">
+        <span class="tag t-blue">팔도감이 한 것 — 4050 식품 앱</span>
+        <ul style="margin-top:14px">
+          <li>토스 <b>라이브쇼핑 보기(숏폼)</b> 지면 활용</li>
+          <li>구매력 높은 <b>40대</b> 타겟</li>
+          <li>첫 3초에 <b>가격·핵심 혜택</b> 노출</li>
+          <li>식료품 <b>구매 주기</b>에 맞춘 타임딜</li>
+        </ul>
+        <div class="card teal" style="margin-top:14px;padding:16px 20px"><b style="font-size:22px;color:var(--teal-d)">첫 구매 전환단가 목표 대비 47% 절감</b></div>
+      </div>
+      <div class="col card" style="border-color:var(--teal)">
+        <span class="tag t-teal">FULIF 이식</span>
+        <ul style="margin-top:14px">
+          <li>첫 3초 = <b>"낙첨복권, 그냥 버리셨나요?"</b></li>
+          <li>혜택을 <b>숫자로</b> 즉시 노출 (첫 스캔 ○○P)</li>
+          <li>식료품 주기 → <b>로또 주기</b>로 치환</li>
+          <li>전환 이벤트를 <b>첫 스캔</b>으로 설정</li>
+        </ul>
+        <p class="note" style="margin-top:12px">※ 복권 관련 소재의 집행 가능 여부는 사전 문의 필요</p>
+      </div>
+    </div>
+    <div class="card fill">
+      <span class="tag t-amber">집행 시간대 — 팔도감의 "구매 주기"에 해당하는 부분</span>
+      <div class="flow" style="margin-top:18px">
+        <div class="step" style="background:#fff"><b>금 저녁</b><br><span style="font-size:16px;font-weight:500;color:var(--ink3)">구매 피크</span></div><div class="arw">›</div>
+        <div class="step" style="background:#fff"><b>토 20:35~</b><br><span style="font-size:16px;font-weight:500;color:var(--ink3)">추첨 직후</span></div><div class="arw">›</div>
+        <div class="step" style="background:var(--teal);color:#fff;border-color:var(--teal)"><b>일요일</b><br><span style="font-size:16px;font-weight:500;opacity:.85">낙첨 확정 — 핵심 골든타임</span></div><div class="arw">›</div>
+        <div class="step" style="background:#fff"><b>월요일</b><br><span style="font-size:16px;font-weight:500;color:var(--ink3)">정리·등록</span></div>
+      </div>
+      <p class="note" style="margin-top:16px">광고 예산의 상당분을 <b style="color:var(--ink)">토요일 밤~일요일</b>에 배치한다. 우리 제품의 존재 이유(낙첨)가 실시간으로 발생하는 유일한 시간이다.</p>
+    </div>
+  </div>
+  <div class="src">출처 · 토스애즈 오디언스 리포트, 토스애즈 광고상품 소개 및 팔도감 캠페인 사례</div>
+  <div class="num"></div>
+</section>
+
+<!-- 유튜브 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part" style="background:var(--amber)">PART 3 · 매체</span> 3순위 · 광고계정 심사 없음</div>
+  <h2>유튜브 크리에이터 협찬</h2>
+  <p class="sub">Google Ads 유료 캠페인이 아니라 <b>크리에이터 직접 협찬.</b> 심사를 피하면서 신뢰도는 오히려 높다.</p>
+  <div class="body">
+    <div class="row" style="gap:22px">
+      <div class="col card">
+        <span class="tag t-gray">섭외 카테고리</span>
+        <div style="margin-top:16px">
+          <span class="pill">로또 구매·당첨확인</span><span class="pill">앱테크·짠테크</span><span class="pill">40~50대 생활정보</span><span class="pill">스마트폰 사용법</span><span class="pill">부업·재테크</span>
+        </div>
+        <div class="hr" style="margin:16px 0"></div>
+        <p style="font-size:21px;color:var(--ink2);line-height:1.5"><b>선정 기준:</b> 구독자 수가 아니라 <b>조회수 대비 참여율</b>과 <b>댓글 연령대.</b> 블링·NoxInfluencer로 사전 검증</p>
+      </div>
+      <div class="col card" style="border-color:var(--teal)">
+        <span class="tag t-teal">콘텐츠 3종</span>
+        <div style="margin-top:14px">
+          <div style="margin-bottom:14px"><b style="font-size:22px">A. 후기형</b><p style="font-size:20px;color:var(--ink2);line-height:1.45;margin-top:4px">"매주 버리던 낙첨복권으로 실제 포인트를 받아봤습니다"<br><span class="note">구매→확인→스캔→적립→교환 전 과정</span></p></div>
+          <div style="margin-bottom:14px"><b style="font-size:22px">B. 정보형</b><p style="font-size:20px;color:var(--ink2);line-height:1.45;margin-top:4px">"낙첨복권 버리기 전에 해야 할 일"<br><span class="note">광고처럼 시작하지 않는다</span></p></div>
+          <div><b style="font-size:22px">C. 자녀형</b><p style="font-size:20px;color:var(--ink2);line-height:1.45;margin-top:4px">"매주 로또 사는 부모님 폰에 깔아드린 앱"<br><span class="note">30대 자녀 → 4050 설치 경로</span></p></div>
+        </div>
+      </div>
+      <div class="col card blue">
+        <span class="tag t-blue">포스티 방식으로 재활용</span>
+        <p style="font-size:21px;color:var(--ink2);line-height:1.5;margin-top:14px"><b>긴 실연 영상 원본 1개</b>를 만든 뒤 여기서 잘라 쓴다</p>
+        <div style="margin-top:14px">
+          <span class="pill" style="background:#fff">15초 광고</span><span class="pill" style="background:#fff">유튜브 쇼츠</span><span class="pill" style="background:#fff">인스타 릴스</span><span class="pill" style="background:#fff">네이버 클립</span><span class="pill" style="background:#fff">스토어 미리보기</span><span class="pill" style="background:#fff">'영상으로 보는 사용법'</span>
+        </div>
+        <p class="note" style="margin-top:12px">제작비를 한 번만 쓰고 전 채널에 배분한다</p>
+      </div>
+      <div class="col card red">
+        <span class="tag t-red">필수 조건</span>
+        <ul style="margin-top:14px">
+          <li>실제 앱 화면·실제 스캔 과정 노출</li>
+          <li><b>"유료광고 포함" 표기 의무</b> — 계약서 조항으로</li>
+          <li>당첨 보장 표현 <b>금지</b></li>
+          <li>번호 적중 가능성이 높아진다는 표현 <b>금지</b></li>
+          <li>게시물 <b>사전 검수 절차</b> 운영</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- 네이버 + 친구초대 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part" style="background:var(--amber)">PART 3 · 매체</span> 4·5순위</div>
+  <h2>네이버에 쌓고, 카톡으로 퍼뜨린다</h2>
+  <div class="body">
+    <div class="row" style="gap:30px">
+      <div style="flex:1.15">
+        <div class="card" style="height:100%">
+          <div style="display:flex;gap:12px;align-items:center"><div class="rank">4</div><h3>네이버 검색 콘텐츠</h3><span class="tag t-teal" style="margin-left:auto">유료광고 아님 · 제한 없음</span></div>
+          <p style="font-size:21px;color:var(--ink2);line-height:1.5;margin:16px 0">검색광고는 막힐 가능성이 높지만 <b>블로그·웹문서·카페 콘텐츠는 제한 대상이 아니다.</b> 4050은 일단 네이버에 검색한다.</p>
+          <div class="row" style="gap:22px">
+            <div class="col">
+              <span class="tag t-gray">공략 키워드</span>
+              <div style="margin-top:12px">
+                <span class="pill">로또 QR 확인</span><span class="pill">로또 당첨 확인 앱</span><span class="pill">로또 용지 스캔</span><span class="pill">지난주 로또 확인</span><span class="pill">낙첨복권 활용</span><span class="pill">낙첨복권 버리기</span><span class="pill">로또 포인트</span><span class="pill">로또 앱 추천</span>
+              </div>
+            </div>
+            <div class="col">
+              <span class="tag t-gray">발행할 글</span>
+              <ul style="margin-top:12px">
+                <li>로또 QR로 당첨 확인하는 방법</li>
+                <li><b>낙첨복권, 바로 버려도 될까?</b> — 지급기한 1년 안내</li>
+                <li>낙첨복권으로 포인트 받는 방법</li>
+                <li>로또 당첨 후 절차·세금 <span class="note">(트래픽 킬러)</span></li>
+                <li><b>이번 주 결과 + 등록 안내</b> — 매주 반복 발행</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="flex:.85">
+        <div class="card" style="height:100%">
+          <div style="display:flex;gap:12px;align-items:center"><div class="rank">5</div><h3>친구초대 · 카카오톡</h3></div>
+          <div class="card red" style="margin:16px 0;padding:18px 22px">
+            <p style="font-size:20px;color:var(--ink2);line-height:1.5"><b style="color:var(--red)">구분이 중요하다.</b> 카카오톡 <b>채널 운영</b>은 복권 정보 제공 제한으로 부적합하지만, <b>유저가 직접 보내는 링크 공유는 무관</b>하다.</p>
+          </div>
+          <div class="flow" style="flex-direction:column;align-items:stretch;gap:8px">
+            <div class="step" style="background:var(--bg2)">초대 링크 전송</div>
+            <div class="step" style="background:var(--bg2)">친구 가입</div>
+            <div class="step" style="background:var(--teal);color:#fff;border-color:var(--teal)">친구의 첫 복권 스캔 완료</div>
+            <div class="step" style="background:var(--teal-s);color:var(--teal-d)">양쪽 포인트 지급</div>
+          </div>
+          <p class="note" style="margin-top:14px">공유 경로 <b style="color:var(--ink)">카카오톡 › 문자 › 연락처 › 링크복사</b><br>불특정 SNS가 아니라 <b style="color:var(--ink)">실제로 로또를 사는 가족·지인</b>에게 보내게 만든다 — 핀또·토스가 검증한 구조</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- 정리 3 : 채널 우선순위 -->
+<section class="slide dark">
+  <div class="eyebrow" style="color:var(--amber)"><span class="part" style="background:var(--amber)">정리 ③</span> PART 3 종합</div>
+  <h2 style="color:#fff">심사가 필요 없는 채널부터 켠다.</h2>
+  <div class="body">
+    <div class="row" style="gap:18px;align-items:stretch">
+      <div class="col card" style="border-color:var(--teal-d);display:flex;flex-direction:column">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank">1</div><h3 style="font-size:25px;color:#fff">리워드 광고<br>네트워크</h3></div>
+        <p class="note" style="margin:14px 0 10px;color:var(--teal);font-weight:700">심사 낮음 · 즉시</p>
+        <p style="font-size:20px;line-height:1.5;color:#AFBAC7">버즈빌 · 캐시워크 · 럭키즈<br><b style="color:#fff">CPE 멀티미션</b>으로 첫 스캔까지</p>
+      </div>
+      <div class="col card" style="border-color:var(--teal-d);display:flex;flex-direction:column">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank">2</div><h3 style="font-size:25px;color:#fff">토스애즈<br>숏폼</h3></div>
+        <p class="note" style="margin:14px 0 10px;color:var(--teal);font-weight:700">심사 확인 · 도달 최강</p>
+        <p style="font-size:20px;line-height:1.5;color:#AFBAC7"><b style="color:#fff">50대의 59.1%</b>가 가입<br>토·일 골든타임 집중</p>
+      </div>
+      <div class="col card" style="border-color:var(--teal-d);display:flex;flex-direction:column">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank">3</div><h3 style="font-size:25px;color:#fff">유튜브<br>크리에이터</h3></div>
+        <p class="note" style="margin:14px 0 10px;color:var(--teal);font-weight:700">광고계정 심사 없음</p>
+        <p style="font-size:20px;line-height:1.5;color:#AFBAC7">직접 협찬<br><b style="color:#fff">긴 원본 영상 확보</b></p>
+      </div>
+      <div class="col card" style="border-color:var(--teal-d);display:flex;flex-direction:column">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank">4</div><h3 style="font-size:25px;color:#fff">네이버<br>검색 콘텐츠</h3></div>
+        <p class="note" style="margin:14px 0 10px;color:var(--teal);font-weight:700">광고 아님 = 제한 없음</p>
+        <p style="font-size:20px;line-height:1.5;color:#AFBAC7">블로그·웹문서<br><b style="color:#fff">장기 자산</b></p>
+      </div>
+      <div class="col card" style="display:flex;flex-direction:column">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank">5</div><h3 style="font-size:25px;color:#fff">친구초대</h3></div>
+        <p class="note" style="margin:14px 0 10px;font-weight:700">앱 내부 · 비용 없음</p>
+        <p style="font-size:20px;line-height:1.5;color:#AFBAC7">핀또 구조<br><b style="color:#fff">첫 스캔이 조건</b></p>
+      </div>
+    </div>
+    <div class="hr"></div>
+    <div class="row" style="gap:18px">
+      <div class="col card" style="border-color:var(--blue)">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank g" style="background:var(--blue);color:#fff">SNS</div><h3 style="color:#fff;font-size:24px">자체 채널 — 병행, 비중 작게</h3></div>
+        <p style="font-size:19px;line-height:1.5;color:#B8C3D0;margin-top:10px">런칭 전 <b style="color:#fff">인스타·유튜브·네이버 블로그 계정을 세팅</b>해두고 광고와 <b style="color:#fff">동시에</b> 굴린다. 소재는 협찬 영상 재활용이라 <b style="color:#fff">추가 제작비 거의 없음</b> → 성과가 나오면 비중을 옮긴다</p>
+      </div>
+      <div class="col card">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank g">⏸</div><h3 style="color:#9AA7B6;font-size:24px">승인 후 — 밴드·GFA / 인스타</h3></div>
+        <p style="font-size:19px;line-height:1.5;color:#7A8797;margin-top:10px">네이버 모바일·<b style="color:#B8C3D0">밴드 지면</b>, 광고그룹을 40대/50대/30대로 분리.<br><b style="color:#B8C3D0">인스타는 40대 한정</b>(이용률 47.5%), 페북은 배치만 확장</p>
+      </div>
+      <div class="col card">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank g">✕</div><h3 style="color:#9AA7B6;font-size:24px">하지 않는 것</h3></div>
+        <p style="font-size:19px;line-height:1.5;color:#7A8797;margin-top:10px">카카오톡 채널 운영 · 카카오스토리 · X · 틱톡 대규모 · TV·연예인 모델 · <b style="color:#B8C3D0">설치만 보상하는 저가 CPI</b></p>
+      </div>
+      <div class="col card" style="border-color:var(--amber)">
+        <div style="display:flex;gap:12px;align-items:center"><div class="rank g" style="background:var(--amber);color:#fff">!</div><h3 style="color:#fff;font-size:24px">반려 시 대체 경로</h3></div>
+        <p style="font-size:19px;line-height:1.5;color:#B8C3D0;margin-top:10px">GFA 반려 → 리워드 CPE+네이버 콘텐츠<br>Meta 반려 → 유튜브 크리에이터<br>Google 반려 → 크리에이터·토스애즈</p>
+      </div>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- ============ PART 4 : 실행 ============ -->
+
+<!-- 로드맵 -->
+<section class="slide alt">
+  <div class="eyebrow"><span class="part">PART 4 · 실행</span> 집행 순서</div>
+  <h2>8주 로드맵</h2>
+  <div class="body">
+    <div class="row" style="gap:18px;align-items:stretch">
+      <div class="col card">
+        <span class="tag t-gray">D-4주 ~ D-1주</span>
+        <h3 style="margin:14px 0 12px;font-size:26px">준비</h3>
+        <ul>
+          <li>버즈빌·캐시워크·럭키즈·<b>토스애즈</b>에 집행 가능 여부 문의</li>
+          <li>네이버·Meta·Google <b>사전 심사 신청</b></li>
+          <li><b>MMP 연동 — "첫 스캔"을 전환 이벤트로</b></li>
+          <li>스토어 페이지·ASO 완성</li>
+          <li><b>긴 실연 영상 원본</b> 촬영 → 숏폼 분할</li>
+          <li><b>자체 SNS 계정 세팅</b> — 인스타·유튜브·네이버 블로그 (프로필·고지문구 포함)</li>
+          <li>포인트 소액 즉시교환 상품 확보</li>
+        </ul>
+      </div>
+      <div class="col card">
+        <span class="tag t-teal">1~2주차</span>
+        <h3 style="margin:14px 0 12px;font-size:26px">검증</h3>
+        <ul>
+          <li>버즈빌 CPE 소규모</li>
+          <li>유튜브 크리에이터 3~5곳</li>
+          <li>네이버 콘텐츠 10건 발행</li>
+          <li>토스애즈 승인 시 소액 테스트</li>
+        </ul>
+        <div class="card teal" style="margin-top:14px;padding:16px 20px">
+          <p style="font-size:20px;color:var(--teal-d);font-weight:700;line-height:1.45">목표는 볼륨이 아니다.<br>가장 싸게 <b>첫 스캔</b>을 만드는 조합 찾기.</p>
+        </div>
+      </div>
+      <div class="col card">
+        <span class="tag t-teal">3~4주차</span>
+        <h3 style="margin:14px 0 12px;font-size:26px">확대</h3>
+        <ul>
+          <li>성과 확인된 매체·문구에 집중</li>
+          <li>GFA·Meta 승인 시 소액 시작</li>
+          <li><b>친구초대 오픈</b></li>
+          <li>소재를 <b>실제 지급 사례</b>로 교체<br><span class="note">1~2주차에 확보한 실물 증빙</span></li>
+        </ul>
+      </div>
+      <div class="col card">
+        <span class="tag t-blue">5~8주차</span>
+        <h3 style="margin:14px 0 12px;font-size:26px">신뢰 · 확산</h3>
+        <ul>
+          <li>누적 스캔 수 · 누적 지급 포인트 공개</li>
+          <li>첫 경품 당첨자 · 챔피언십 첫 순위</li>
+          <li>언론 PR <span class="note">"출시 ○주 만에 낙첨복권 ○만 장 등록"</span> — 럭키즈 방식</li>
+          <li>리타게팅 시작 · 초대 보상 한시 증액</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card fill" style="margin-top:20px">
+      <div class="row" style="align-items:center;gap:28px">
+        <div style="flex:0 0 auto"><span class="tag t-red">순서 원칙</span></div>
+        <div style="font-size:23px;font-weight:600;color:var(--ink2);line-height:1.45">
+          모든 채널을 한꺼번에 켜지 않는다. <b>1~2주차는 오직 "어디가 가장 싸게 첫 스캔을 만드나"만 본다.</b><br>
+          매체 문의 답변이 오기 전에는 <b style="color:var(--red)">소재를 대량 제작하지 않는다.</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="num"></div>
+</section>
+
+<!-- KPI + 액션 -->
+<section class="slide">
+  <div class="eyebrow"><span class="part">PART 4 · 실행</span> 측정과 착수</div>
+  <h2>설치 수는 보고용 숫자다.</h2>
+  <div class="body">
+    <div class="row" style="gap:30px">
+      <div style="flex:1.1">
+        <div class="card teal">
+          <span class="tag t-teal">북극성 지표</span>
+          <div style="font-size:44px;font-weight:800;letter-spacing:-.035em;line-height:1.25;margin:14px 0 8px">첫 낙첨복권 스캔을 완료한<br>신규 사용자 1명당 광고비</div>
+          <p style="font-size:22px;color:var(--teal-d);font-weight:700">CPFS · Cost Per First Scan</p>
+        </div>
+        <table style="margin-top:20px">
+          <thead><tr><th style="width:130px">구분</th><th>지표</th></tr></thead>
+          <tbody>
+            <tr><td><b>유입</b></td><td>노출 · CTR · CPI · 채널별 가입률</td></tr>
+            <tr><td><b style="color:var(--teal-d)">핵심</b></td><td><b>설치→첫 스캔 완료율 · 첫 스캔당 비용 · 첫 스캔까지 걸린 시간</b></td></tr>
+            <tr><td><b>잔존</b></td><td><b>2회차(다음 주) 스캔율</b> — 리워드 유저 품질 판별</td></tr>
+            <tr><td><b>확산</b></td><td>초대 발송률 · 초대→가입률 · <b>초대→첫 스캔률</b></td></tr>
+            <tr><td><b>신뢰</b></td><td>포인트 교환 경험률 · 경품 참여율 · 리뷰 작성률</td></tr>
+          </tbody>
+        </table>
+        <p class="note" style="margin-top:14px">채널별로 반드시 분리 측정한다. <b style="color:var(--ink)">리워드 매체는 CPI가 싸지만 2회차 스캔율이 낮을 수 있다.</b></p>
+      </div>
+      <div style="flex:.9">
+        <div class="card" style="height:100%;display:flex;flex-direction:column">
+          <span class="tag t-red">지금 바로 할 일</span>
+          <div style="margin-top:20px">
+            <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:18px"><div class="rank" style="width:40px;height:40px;font-size:20px">1</div><div><b style="font-size:23px">버즈빌·캐시워크·럭키즈·토스애즈 문의</b><p class="note" style="margin-top:4px">"복권 관련 앱 집행 가능한가" — 심사 대응 문단 첨부 · <b style="color:var(--red)">오늘</b></p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:18px"><div class="rank" style="width:40px;height:40px;font-size:20px">2</div><div><b style="font-size:23px">네이버·Meta·Google 사전 심사 신청</b><p class="note" style="margin-top:4px">이번 주 · 답이 와야 채널 배분이 확정된다</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:18px"><div class="rank" style="width:40px;height:40px;font-size:20px">3</div><div><b style="font-size:23px">MMP 연동 · 전환 이벤트 = 첫 스캔</b><p class="note" style="margin-top:4px">런칭 전 필수. 없으면 CPFS를 측정할 수 없다</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start;margin-bottom:18px"><div class="rank" style="width:40px;height:40px;font-size:20px">4</div><div><b style="font-size:23px">긴 실연 영상 원본 1개 촬영</b><p class="note" style="margin-top:4px">구매→확인→스캔→적립→교환. 여기서 전 채널 소재를 잘라낸다</p></div></div>
+            <div style="display:flex;gap:16px;align-items:flex-start"><div class="rank" style="width:40px;height:40px;font-size:20px">5</div><div><b style="font-size:23px">스토어 페이지 · ASO 완성</b><p class="note" style="margin-top:4px">모든 광고의 착지점. 여기서 새면 광고비가 다 샌다</p></div></div>
+          </div>
+          <div class="card red" style="margin-top:auto;padding:18px 22px">
+            <p style="font-size:21px;color:var(--ink2);line-height:1.5"><b style="color:var(--red)">1·2번 답을 받기 전에 소재를 대량 제작하지 않는다.</b></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="src">출처 · 전자신문·핀크(핀또) · 플래텀(럭키즈·애슬러) · 베타뉴스·뉴스1·ZDNet(포스티) · 유니콘팩토리(시놀) · 전자신문(퀸잇 매거진Q TV) · 스트레이트뉴스(케이뱅크) · 파이낸셜뉴스(캐시워크) · toss.tech(토스 만보기) · 토스애즈 오디언스 리포트 및 팔도감 사례 · 버즈빌 · 캐시워크 for Business · 더피알(포털 사행산업 광고 기준) · Google Ads / Meta 도박·게임 광고 정책 · 카카오톡 채널 운영정책</div>
+  <div class="num"></div>
+</section>
+
+</div>
+<script>
+(function(){
+  var stage=document.getElementById('stage');
+  document.querySelectorAll('.slide .num').forEach(function(el,i){el.textContent=('0'+(i+1)).slice(-2);});
+  function fit(){
+    var s=window.innerWidth/1920;
+    stage.style.transform='scale('+s+')';
+    document.body.style.height=(stage.offsetHeight*s)+'px';
+  }
+  fit();
+  window.addEventListener('resize',fit);
+  window.addEventListener('load',fit);
+})();
+</script>
+</body>
+</html>
